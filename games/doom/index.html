@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOOM (1993) — WebAssembly</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'><polygon points='5 3 19 12 5 21 5 3'/></svg>">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #canvas-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    canvas#DoomGame {
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      outline: none;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    }
+
+    /* Controls Overlay */
+    .controls-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 18, 20, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.78rem;
+      color: #a1a1aa;
+      pointer-events: none;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .controls-hint span b {
+      color: #fff;
+    }
+
+    /* Top Floating Bar */
+    .top-bar {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+    }
+
+    .top-btn {
+      background: rgba(20, 20, 24, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.15s ease;
+    }
+
+    .top-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <button class="top-btn" onclick="toggleFullscreen()">⛶ Plein écran</button>
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="DoomGame" tabindex="0"></canvas>
+  </div>
+
+  <div class="controls-hint">
+    <span><b>Z/Q/S/D</b> ou <b>WASD</b> : Déplacements</span>
+    <span><b>Flèches</b> : Tourner</span>
+    <span><b>Espace</b> : Ouvrir / Utiliser</span>
+    <span><b>Ctrl / Clic</b> : Tirer</span>
+    <span><b>Maj</b> : Courir</span>
+    <span><b>Echap</b> : Menu</span>
+  </div>
+
+  <script>
+    function loadDoomGame(canvas) {
+      let moduleInstanceMemory = null;
+      let ctx = canvas.getContext('2d');
+      let scratchSpaceImageData = null;
+
+      function onGameInit(width, height) {
+        canvas.width = width;
+        canvas.height = height;
+        scratchSpaceImageData = ctx.createImageData(width, height);
+      }
+
+      function drawFrame(indexOfFrameBuffer) {
+        let doomFrameBuffer = new Uint8Array(moduleInstanceMemory.buffer, indexOfFrameBuffer, canvas.width * canvas.height * 4);
+        for (let i = 0; i < (scratchSpaceImageData.data.length / 4); i++) {
+          scratchSpaceImageData.data[4*i+0] = doomFrameBuffer[4*i+2]; // Red
+          scratchSpaceImageData.data[4*i+1] = doomFrameBuffer[4*i+1]; // Green
+          scratchSpaceImageData.data[4*i+2] = doomFrameBuffer[4*i+0]; // Blue
+          scratchSpaceImageData.data[4*i+3] = 255; // Alpha
+        }
+        ctx.putImageData(scratchSpaceImageData, 0, 0);
+      }
+
+      function timeInMilliseconds() {
+        return BigInt(Math.trunc(performance.now()));
+      }
+
+      function onInfoMessage(messagePtr, length) {
+        const message = readModuleMemoryAsUtf8String(moduleInstanceMemory, messagePtr, length);
+        console.log(`[Doom] ${message}`);
+      }
+
+      function onErrorMessage(messagePtr, length) {
+        const message = readModuleMemoryAsUtf8String(moduleInstanceMemory, messagePtr, length);
+        console.error(`[Doom] ${message}`);
+      }
+
+      // Local storage save game support
+      let imports = {
+        "loading": {
+          "onGameInit": onGameInit,
+          "wadSizes": () => {},
+          "readWads": () => {},
+        },
+        "ui": {
+          "drawFrame": drawFrame,
+        },
+        "runtimeControl": {
+          "timeInMilliseconds": timeInMilliseconds
+        },
+        "console": {
+          "onInfoMessage": onInfoMessage,
+          "onErrorMessage": onErrorMessage,
+        },
+        "gameSaving": {
+          "sizeOfSaveGame": (slot) => {
+            const save = localStorage.getItem(`doom_save_slot_${slot}`);
+            return save ? Math.floor(save.length * 0.75) : 0;
+          },
+          "readSaveGame": (slot, ptr) => 0,
+          "writeSaveGame": (slot, ptr, size) => 0,
+        },
+      };
+
+      WebAssembly.instantiateStreaming(fetch("assets/doom.wasm"), imports).then(({instance}) => {
+        let exports = instance.exports;
+        moduleInstanceMemory = exports.memory;
+
+        const doomKeyFromJavascriptKey = new Map([
+          ["ArrowLeft", exports.KEY_LEFTARROW],
+          ["ArrowRight", exports.KEY_RIGHTARROW],
+          ["ArrowUp", exports.KEY_UPARROW],
+          ["ArrowDown", exports.KEY_DOWNARROW],
+          // WASD / ZQSD Support
+          ["w", exports.KEY_UPARROW],
+          ["W", exports.KEY_UPARROW],
+          ["z", exports.KEY_UPARROW],
+          ["Z", exports.KEY_UPARROW],
+          ["s", exports.KEY_DOWNARROW],
+          ["S", exports.KEY_DOWNARROW],
+          ["a", exports.KEY_STRAFE_L],
+          ["A", exports.KEY_STRAFE_L],
+          ["q", exports.KEY_STRAFE_L],
+          ["Q", exports.KEY_STRAFE_L],
+          ["d", exports.KEY_STRAFE_R],
+          ["D", exports.KEY_STRAFE_R],
+          ["e", exports.KEY_USE],
+          ["E", exports.KEY_USE],
+          [",", exports.KEY_STRAFE_L],
+          [".", exports.KEY_STRAFE_R],
+          ["Control", exports.KEY_FIRE],
+          [" ", exports.KEY_USE],
+          ["Shift", exports.KEY_SHIFT],
+          ["Tab", exports.KEY_TAB],
+          ["Escape", exports.KEY_ESCAPE],
+          ["Enter", exports.KEY_ENTER],
+          ["Backspace", exports.KEY_BACKSPACE],
+          ["Alt", exports.KEY_ALT],
+        ]);
+
+        function convertKeyEventToDoomKey(event) {
+          let correspondingDoomKey = null;
+          if (doomKeyFromJavascriptKey.has(event.key)) {
+            correspondingDoomKey = doomKeyFromJavascriptKey.get(event.key);
+          } else if (event.key.length === 1) {
+            correspondingDoomKey = event.key.toLowerCase().charCodeAt(0);
+          }
+
+          if (correspondingDoomKey !== null) {
+            event.stopPropagation();
+            event.preventDefault();
+          }
+          return correspondingDoomKey;
+        }
+
+        window.addEventListener('keydown', function(event) {
+          const doomKey = convertKeyEventToDoomKey(event);
+          if (doomKey !== null) {
+            exports.reportKeyDown(doomKey);
+          }
+        });
+
+        window.addEventListener('keyup', function(event) {
+          const doomKey = convertKeyEventToDoomKey(event);
+          if (doomKey !== null) {
+            exports.reportKeyUp(doomKey);
+          }
+        });
+
+        // Mouse click to shoot
+        canvas.addEventListener('mousedown', function(e) {
+          if (e.button === 0) {
+            exports.reportKeyDown(exports.KEY_FIRE);
+          }
+        });
+        canvas.addEventListener('mouseup', function(e) {
+          if (e.button === 0) {
+            exports.reportKeyUp(exports.KEY_FIRE);
+          }
+        });
+
+        exports.initGame();
+        setInterval(exports.tickGame, 1000 / 35);
+        canvas.focus();
+      });
+    }
+
+    function readModuleMemoryAsUtf8String(moduleMemory, offsetIntoMemory, stringByteLength) {
+      const buffer8 = new Uint8Array(moduleMemory.buffer);
+      const dec = new TextDecoder("utf-8", { fatal: false });
+      const data = buffer8.slice(offsetIntoMemory, offsetIntoMemory + stringByteLength);
+      return dec.decode(data);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      let canvas = document.getElementById("DoomGame");
+      loadDoomGame(canvas);
+    });
+  </script>
+</body>
+</html>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M3 12h3m12 0h3M12 3v3m0 12v3'/></svg>">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
       --bg: #09090b;
@@ -18,6 +19,9 @@
       --text-secondary: #a1a1aa;
       --accent: #ededed;
       --accent-inverse: #09090b;
+      --green: #10b981;
+      --red: #ef4444;
+      --gold: #eab308;
       --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     }
 
@@ -47,6 +51,13 @@
       z-index: 50;
       background: rgba(9, 9, 11, 0.85);
       backdrop-filter: blur(16px);
+      gap: 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .brand {
@@ -61,8 +72,8 @@
     }
 
     .brand-mark {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -79,7 +90,7 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
 
     .search-box {
@@ -92,11 +103,11 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 7px 34px 7px 32px;
+      padding: 6px 30px 6px 30px;
       color: var(--text);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       outline: none;
-      width: 220px;
+      width: 190px;
       transition: all 0.15s ease;
       font-family: inherit;
     }
@@ -104,14 +115,14 @@
     .search-box input:focus {
       background: rgba(255, 255, 255, 0.07);
       border-color: var(--border-hover);
-      width: 260px;
+      width: 230px;
     }
 
     .search-icon {
       position: absolute;
-      left: 10px;
-      width: 14px;
-      height: 14px;
+      left: 9px;
+      width: 13px;
+      height: 13px;
       color: var(--text-muted);
       pointer-events: none;
     }
@@ -119,17 +130,55 @@
     .search-kbd {
       position: absolute;
       right: 8px;
-      padding: 2px 5px;
+      padding: 1px 4px;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border);
       border-radius: 4px;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       pointer-events: none;
       font-family: monospace;
     }
 
-    /* Subheader / Tabs */
+    .nav-action-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .nav-action-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .nav-profile-active {
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--text);
+    }
+
+    .profile-avatar-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+    }
+
+    /* Subheader & Category Tabs */
     .nav-bar {
       padding: 20px 32px 0;
       max-width: 1240px;
@@ -143,7 +192,7 @@
     }
 
     .page-title {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 600;
       letter-spacing: -0.025em;
       color: var(--text);
@@ -166,9 +215,9 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 500;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -176,10 +225,7 @@
       white-space: nowrap;
     }
 
-    .tab-btn:hover {
-      color: var(--text);
-    }
-
+    .tab-btn:hover { color: var(--text); }
     .tab-btn.active {
       background: var(--surface-hover);
       color: var(--text);
@@ -197,11 +243,11 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 18px;
     }
 
-    /* App Card - Clean Matte Minimalist */
+    /* App Card */
     .app-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -220,16 +266,16 @@
     }
 
     .card-top {
-      padding: 20px 22px 14px;
+      padding: 18px 20px 12px;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
     }
 
     .card-icon-wrap {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 10px;
       background: var(--surface-elevated);
       border: 1px solid var(--border);
@@ -241,20 +287,14 @@
       transition: background 0.15s ease;
     }
 
-    .app-card:hover .card-icon-wrap {
-      background: var(--surface-hover);
-    }
-
-    .card-icon-wrap svg {
-      width: 22px;
-      height: 22px;
-    }
+    .app-card:hover .card-icon-wrap { background: var(--surface-hover); }
+    .card-icon-wrap svg { width: 20px; height: 20px; }
 
     .card-status-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 500;
       color: var(--text-secondary);
       background: rgba(255, 255, 255, 0.04);
@@ -267,11 +307,11 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #10b981;
+      background: var(--green);
     }
 
     .status-dot.live {
-      background: #ef4444;
+      background: var(--red);
       animation: pulse 1.8s infinite;
     }
 
@@ -282,7 +322,7 @@
     }
 
     .card-body {
-      padding: 0 22px 18px;
+      padding: 0 20px 18px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -292,7 +332,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .card-name {
@@ -303,10 +343,10 @@
     }
 
     .card-desc {
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       line-height: 1.5;
       color: var(--text-secondary);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       flex: 1;
     }
 
@@ -314,7 +354,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .tag {
@@ -324,10 +364,8 @@
       padding: 2px 7px;
       border-radius: 4px;
       border: 1px solid rgba(255, 255, 255, 0.04);
-      font-family: inherit;
     }
 
-    /* Minimalist Buttons */
     .card-actions {
       display: flex;
       gap: 8px;
@@ -338,13 +376,13 @@
       flex: 1;
       padding: 8px 14px;
       border-radius: 8px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 6px;
       text-decoration: none;
       transition: all 0.15s ease;
       font-family: inherit;
@@ -374,7 +412,191 @@
       border-color: var(--border-hover);
     }
 
-    /* In-Hub Clean Viewer Window */
+    /* Modal Windows (Viewer, Profile, Leaderboard) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .modal-close:hover { background: rgba(255, 255, 255, 0.08); color: var(--text); }
+
+    .modal-content {
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    /* Forms */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .form-group input, .form-group select {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-size: 0.88rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--border-hover);
+    }
+
+    /* Profile Card */
+    .profile-info-box {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .profile-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-avatar-lg {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Leaderboard Tables */
+    .leaderboard-tabs {
+      display: flex;
+      gap: 6px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .lb-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .lb-tab.active { background: var(--surface-hover); color: var(--text); }
+
+    .lb-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    .lb-table th {
+      text-align: left;
+      padding: 8px;
+      color: var(--text-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.78rem;
+    }
+
+    .lb-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+
+    .lb-table tr:hover td { background: rgba(255, 255, 255, 0.02); color: var(--text); }
+
+    /* Cloud Sync Box */
+    .cloud-sync-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--border-hover);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cloud-sync-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* In-Hub Viewer Modal */
     #viewer-modal {
       position: fixed;
       inset: 0;
@@ -414,9 +636,9 @@
       cursor: pointer;
     }
 
-    .dot-close { background: #ef4444; }
-    .dot-minimize { background: #f59e0b; }
-    .dot-maximize { background: #10b981; }
+    .dot-close { background: var(--red); }
+    .dot-minimize { background: var(--gold); }
+    .dot-maximize { background: var(--green); }
 
     .viewer-title {
       font-size: 0.88rem;
@@ -445,19 +667,9 @@
       font-family: inherit;
     }
 
-    .viewer-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text);
-    }
-
-    .viewer-close-btn {
-      color: #ef4444;
-    }
-
-    .viewer-close-btn:hover {
-      background: rgba(239, 68, 68, 0.12);
-      color: #f87171;
-    }
+    .viewer-btn:hover { background: rgba(255, 255, 255, 0.08); color: var(--text); }
+    .viewer-close-btn { color: var(--red); }
+    .viewer-close-btn:hover { background: rgba(239, 68, 68, 0.12); }
 
     .viewer-frame-wrapper {
       flex: 1;
@@ -486,25 +698,15 @@
       width: 100%;
     }
 
-    .footer-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .indicator-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10b981;
-    }
+    .footer-left { display: flex; align-items: center; gap: 8px; }
+    .indicator-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
     @media (max-width: 768px) {
       header { padding: 0 16px; }
       .nav-bar { padding: 16px 16px 0; }
       main { padding: 16px; }
-      .search-box input { width: 140px; }
-      .search-box input:focus { width: 170px; }
+      .search-box input { width: 130px; }
+      .search-box input:focus { width: 160px; }
       .cards-grid { grid-template-columns: 1fr; }
       footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
     }
@@ -514,12 +716,14 @@
 
   <!-- Top Navigation Bar -->
   <header>
-    <a class="brand" href="./">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M3 12h3m12 0h3M12 3v3m0 12v3"/></svg>
-      </div>
-      <span>Hub</span>
-    </a>
+    <div class="header-left">
+      <a class="brand" href="./">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M3 12h3m12 0h3M12 3v3m0 12v3"/></svg>
+        </div>
+        <span>Hub</span>
+      </a>
+    </div>
 
     <div class="header-actions">
       <div class="search-box">
@@ -527,6 +731,16 @@
         <input type="text" id="filter-input" placeholder="Rechercher..." oninput="onFilterInput(this.value)">
         <span class="search-kbd">/</span>
       </div>
+
+      <button class="nav-action-btn" onclick="openLeaderboardModal()" title="Classement et scores des jeux">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        <span>Classement</span>
+      </button>
+
+      <button class="nav-action-btn" id="profile-nav-btn" onclick="openProfileModal()">
+        <span class="profile-avatar-badge" id="nav-avatar-icon">👤</span>
+        <span id="nav-profile-name">Profil</span>
+      </button>
     </div>
   </header>
 
@@ -535,7 +749,7 @@
     <h1 class="page-title">Applications & Médias</h1>
     <div class="categories-tabs">
       <button class="tab-btn active" onclick="setCategory('all', this)">Tous</button>
-      <button class="tab-btn" onclick="setCategory('games', this)">Jeux</button>
+      <button class="tab-btn" onclick="setCategory('games', this)">Jeux (Local)</button>
       <button class="tab-btn" onclick="setCategory('video', this)">YouTube</button>
       <button class="tab-btn" onclick="setCategory('live', this)">Live TV</button>
       <button class="tab-btn" onclick="setCategory('streaming', this)">Streaming</button>
@@ -546,8 +760,40 @@
   <main>
     <div class="cards-grid" id="cards-container">
 
-      <!-- CARD 1: BO1 Zombies -->
-      <div class="app-card" data-category="games" data-keywords="bo1 zombies call of duty kino der toten fps shooter jeu">
+      <!-- CARD 1: CS:S Surf -->
+      <div class="app-card" data-category="games" data-keywords="surf css counter strike surfd rampes solo fps source">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 17l10-10 4 4 6-6"/>
+              <path d="M17 5h5v5"/>
+              <path d="M4 21c3-3 7-3 10 0"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            Solo 60 FPS
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">CS:S Surf</h2>
+          </div>
+          <p class="card-desc">Surf Counter-Strike Source optimisé plein écran. 20 maps classiques, physique Source fluide et démarrage local instantané.</p>
+          <div class="card-tags">
+            <span class="tag">Source Physics</span>
+            <span class="tag">20 Maps</span>
+            <span class="tag">Local</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('https://mohamedguell.github.io/surfd/', 'CS:S Surf')">Lancer</button>
+            <a class="btn btn-subtle" href="https://mohamedguell.github.io/surfd/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: DOOM (1993) -->
+      <div class="app-card" data-category="games" data-keywords="doom fps id software shooter retro classique wasm 1993">
         <div class="card-top">
           <div class="card-icon-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -561,59 +807,91 @@
           </div>
           <span class="card-status-badge">
             <span class="status-dot"></span>
-            60 FPS Solo
+            WASM • 0 Lag
           </span>
         </div>
         <div class="card-body">
           <div class="card-name-row">
-            <h2 class="card-name">BO1 Zombies</h2>
+            <h2 class="card-name">DOOM (1993)</h2>
           </div>
-          <p class="card-desc">Call of Duty: Black Ops Zombies porté pour le navigateur. Mode solo sur Kino der Toten avec rendu 3D et shaders intégrés.</p>
+          <p class="card-desc">Le classique absolu du FPS porté en WebAssembly. Épisode 1 Knee-Deep in the Dead, contrôles WASD + souris et zéro conso CPU.</p>
           <div class="card-tags">
-            <span class="tag">FPS 3D</span>
             <span class="tag">WebAssembly</span>
-            <span class="tag">Kino der Toten</span>
+            <span class="tag">FPS Culte</span>
+            <span class="tag">Local</span>
           </div>
           <div class="card-actions">
-            <button class="btn btn-solid" onclick="openInHub('https://mohamedguell.github.io/bo1z/', 'BO1 Zombies')">Lancer</button>
-            <a class="btn btn-subtle" href="https://mohamedguell.github.io/bo1z/" target="_blank" rel="noopener">Onglet ↗</a>
+            <button class="btn btn-solid" onclick="openInHub('./games/doom/', 'DOOM (1993)')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/doom/" target="_blank" rel="noopener">Onglet ↗</a>
           </div>
         </div>
       </div>
 
-      <!-- CARD 2: CS:S Surf -->
-      <div class="app-card" data-category="games" data-keywords="surf css counter strike surfd rampes solo fps source">
+      <!-- CARD 3: Tetris Classic -->
+      <div class="app-card" data-category="games" data-keywords="tetris puzzle briques retro nes arcade classique score">
         <div class="card-top">
           <div class="card-icon-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M2 17l10-10 4 4 6-6"/>
-              <path d="M17 5h5v5"/>
-              <path d="M4 21c3-3 7-3 10 0"/>
+              <rect x="2" y="2" width="8" height="8" rx="1"/>
+              <rect x="14" y="2" width="8" height="8" rx="1"/>
+              <rect x="2" y="14" width="8" height="8" rx="1"/>
+              <rect x="14" y="14" width="8" height="8" rx="1"/>
             </svg>
           </div>
           <span class="card-status-badge">
             <span class="status-dot"></span>
-            Solo Auto
+            Ultra léger
           </span>
         </div>
         <div class="card-body">
           <div class="card-name-row">
-            <h2 class="card-name">CS:S Surf</h2>
+            <h2 class="card-name">Tetris Classic</h2>
           </div>
-          <p class="card-desc">Surf Counter-Strike Source optimisé plein écran. 20 maps classiques, physique Source fluide et démarrage local instantané.</p>
+          <p class="card-desc">Version fidèle du jeu de briques culte. File d'attente 7-bag, pièce fantôme, réserve (hold) et enregistrement automatique des scores.</p>
           <div class="card-tags">
-            <span class="tag">Source Physics</span>
-            <span class="tag">20 Maps</span>
-            <span class="tag">Fluide</span>
+            <span class="tag">Puzzle</span>
+            <span class="tag">&lt; 20 Ko</span>
+            <span class="tag">Local</span>
           </div>
           <div class="card-actions">
-            <button class="btn btn-solid" onclick="openInHub('https://mohamedguell.github.io/surfd/', 'CS:S Surf')">Lancer</button>
-            <a class="btn btn-subtle" href="https://mohamedguell.github.io/surfd/" target="_blank" rel="noopener">Onglet ↗</a>
+            <button class="btn btn-solid" onclick="openInHub('./games/tetris/', 'Tetris Classic')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/tetris/" target="_blank" rel="noopener">Onglet ↗</a>
           </div>
         </div>
       </div>
 
-      <!-- CARD 3: YouTube Ad-Free -->
+      <!-- CARD 4: 2048 -->
+      <div class="app-card" data-category="games" data-keywords="2048 puzzle maths tuiles chiffres retro local">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="18" height="18" rx="4"/>
+              <path d="M7 8h4v4H7zM13 12h4v4h-4z"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            100% Local
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">2048</h2>
+          </div>
+          <p class="card-desc">Le puzzle mathématique d'association de tuiles. Glissez pour fusionner et atteindre 2048 sans consommation de batterie ni CPU.</p>
+          <div class="card-tags">
+            <span class="tag">Puzzle</span>
+            <span class="tag">Instantané</span>
+            <span class="tag">Local</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('./games/2048/', '2048')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/2048/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: YouTube Ad-Free -->
       <div class="app-card" data-category="video" data-keywords="youtube ytb sans pub musique videos tendances chaines recherche">
         <div class="card-top">
           <div class="card-icon-wrap">
@@ -644,7 +922,7 @@
         </div>
       </div>
 
-      <!-- CARD 4: Z-Live -->
+      <!-- CARD 6: Z-Live -->
       <div class="app-card" data-category="live" data-keywords="zlive z-live live streaming direct sport foot football ligue 1 champions league ufc nba f1 chaines tv">
         <div class="card-top">
           <div class="card-icon-wrap">
@@ -677,7 +955,7 @@
         </div>
       </div>
 
-      <!-- CARD 5: Movy / Z-Stream -->
+      <!-- CARD 7: Movy / Z-Stream -->
       <div class="app-card" data-category="streaming" data-keywords="movy zstream z-stream films series cinema netflix streaming hd vf vostfr">
         <div class="card-top">
           <div class="card-icon-wrap">
@@ -715,6 +993,137 @@
     </div>
   </main>
 
+  <!-- Profile & Account Modal -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="profile-modal-title">Mon Profil Joueur</h2>
+        <button class="modal-close" onclick="closeProfileModal()">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <!-- Logged Out View: Login or Register -->
+        <div id="auth-view">
+          <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+            <button class="btn btn-solid" id="tab-login-btn" onclick="toggleAuthTab('login')">Se connecter</button>
+            <button class="btn btn-subtle" id="tab-register-btn" onclick="toggleAuthTab('register')">Créer un profil</button>
+          </div>
+
+          <!-- Login Form -->
+          <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label>Nom du profil</label>
+              <select id="login-profile-select"></select>
+            </div>
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label>Mot de passe</label>
+              <input type="password" id="login-password" placeholder="Votre mot de passe..." required>
+            </div>
+            <button type="submit" class="btn btn-solid" style="width: 100%;">Déverrouiller le profil</button>
+          </form>
+
+          <!-- Register Form -->
+          <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label>Nom du profil (pseudo)</label>
+              <input type="text" id="reg-username" placeholder="ex: Mohamed" required autocomplete="off">
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label>Avatar</label>
+              <select id="reg-avatar">
+                <option value="🥷">🥷 Ninja</option>
+                <option value="👾">👾 Gamer Rétro</option>
+                <option value="🏄">🏄 Surfer</option>
+                <option value="🚀">🚀 Pilote</option>
+                <option value="👑">👑 Pro</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label>Mot de passe de protection</label>
+              <input type="password" id="reg-password" placeholder="Définir un mot de passe..." required>
+            </div>
+            <button type="submit" class="btn btn-solid" style="width: 100%;">Créer et activer le profil</button>
+          </form>
+        </div>
+
+        <!-- Logged In View -->
+        <div id="profile-view" style="display: none; flex-direction: column; gap: 16px;">
+          <div class="profile-info-box">
+            <div class="profile-meta">
+              <div class="profile-avatar-lg" id="profile-avatar-display">🥷</div>
+              <div>
+                <div style="font-weight: 700; font-size: 1.05rem;" id="profile-name-display">Joueur</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);" id="profile-status-display">Profil local actif</div>
+              </div>
+            </div>
+            <button class="btn btn-subtle" style="flex: 0; padding: 6px 12px;" onclick="handleLogout()">Déconnexion</button>
+          </div>
+
+          <!-- Personal Bests Overview -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Tetris Record</div>
+              <div style="font-size: 1.15rem; font-weight: 700;" id="stat-tetris">0</div>
+            </div>
+            <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">2048 Record</div>
+              <div style="font-size: 1.15rem; font-weight: 700;" id="stat-2048">0</div>
+            </div>
+            <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Surf Maps</div>
+              <div style="font-size: 1.15rem; font-weight: 700;" id="stat-surf">0</div>
+            </div>
+          </div>
+
+          <!-- Google Drive Cloud Backup & Sync Section -->
+          <div class="cloud-sync-box">
+            <div class="cloud-sync-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+              <span>Synchronisation Cloud & Google Drive</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Sauvegardez vos records, progression et profils directement dans votre Google Drive pour les retrouver au travail sur n'importe quel ordinateur.
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-solid" onclick="exportToGoogleDrive()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Sauvegarder vers Drive
+              </button>
+              <label class="btn btn-subtle" style="margin: 0; cursor: pointer;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Restaurer fichier
+                <input type="file" id="import-file-input" accept=".json" style="display: none;" onchange="importSaveFile(event)">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard Modal -->
+  <div class="modal-overlay" id="leaderboard-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Classement Local & Records</h2>
+        <button class="modal-close" onclick="closeLeaderboardModal()">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <div class="leaderboard-tabs">
+          <button class="lb-tab active" onclick="switchLbTab('tetris', this)">Tetris</button>
+          <button class="lb-tab" onclick="switchLbTab('2048', this)">2048</button>
+          <button class="lb-tab" onclick="switchLbTab('surf', this)">CS:S Surf</button>
+          <button class="lb-tab" onclick="switchLbTab('doom', this)">DOOM</button>
+        </div>
+
+        <div id="lb-table-container">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- In-Hub Minimalist Viewer Window -->
   <div id="viewer-modal">
     <div class="viewer-bar">
@@ -743,7 +1152,7 @@
   <footer>
     <div class="footer-left">
       <span class="indicator-dot"></span>
-      <span>Tous les services opérationnels</span>
+      <span id="footer-sync-status">Profil local prêt</span>
     </div>
     <div>
       <span>GitHub Pages</span>
@@ -753,6 +1162,373 @@
   <script>
     let currentViewerUrl = '';
 
+    // ==========================================
+    // 1. DATA STORAGE & PROFILES ARCHITECTURE
+    // ==========================================
+    const STORAGE_KEY_PROFILES = 'hub_users_v1';
+    const STORAGE_KEY_ACTIVE = 'hub_active_user_v1';
+    const STORAGE_KEY_SCORES = 'hub_leaderboard_v1';
+
+    let activeUser = null;
+
+    // SHA-256 password hasher
+    async function hashPassword(str) {
+      const msgBuffer = new TextEncoder().encode(str);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function getUsers() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_PROFILES) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(users));
+    }
+
+    function getLeaderboard() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_SCORES) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveLeaderboard(lb) {
+      localStorage.setItem(STORAGE_KEY_SCORES, JSON.stringify(lb));
+    }
+
+    // Initialize Active User
+    function initUser() {
+      const savedUsername = localStorage.getItem(STORAGE_KEY_ACTIVE);
+      const users = getUsers();
+      if (savedUsername) {
+        const found = users.find(u => u.username === savedUsername);
+        if (found) {
+          activeUser = found;
+          updateNavProfileUI();
+          return;
+        }
+      }
+      activeUser = null;
+      updateNavProfileUI();
+    }
+
+    function updateNavProfileUI() {
+      const btn = document.getElementById('profile-nav-btn');
+      const nameEl = document.getElementById('nav-profile-name');
+      const avatarEl = document.getElementById('nav-avatar-icon');
+
+      if (activeUser) {
+        btn.classList.add('nav-profile-active');
+        nameEl.textContent = activeUser.username;
+        avatarEl.textContent = activeUser.avatar || '👤';
+      } else {
+        btn.classList.remove('nav-profile-active');
+        nameEl.textContent = 'Connexion';
+        avatarEl.textContent = '👤';
+      }
+    }
+
+    // Register Profile
+    async function handleRegister(e) {
+      e.preventDefault();
+      const username = document.getElementById('reg-username').value.trim();
+      const avatar = document.getElementById('reg-avatar').value;
+      const pass = document.getElementById('reg-password').value;
+
+      if (!username || !pass) return;
+
+      const users = getUsers();
+      if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+        alert('Ce nom de profil existe déjà.');
+        return;
+      }
+
+      const passHash = await hashPassword(pass);
+      const newUser = {
+        username,
+        avatar,
+        passwordHash: passHash,
+        createdAt: new Date().toISOString(),
+        stats: {
+          tetris: 0,
+          2048: 0,
+          surfMaps: 0
+        }
+      };
+
+      users.push(newUser);
+      saveUsers(users);
+
+      activeUser = newUser;
+      localStorage.setItem(STORAGE_KEY_ACTIVE, username);
+      updateNavProfileUI();
+      renderProfileView();
+    }
+
+    // Login Profile
+    async function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-profile-select').value;
+      const pass = document.getElementById('login-password').value;
+
+      const users = getUsers();
+      const user = users.find(u => u.username === username);
+      if (!user) return;
+
+      const inputHash = await hashPassword(pass);
+      if (inputHash !== user.passwordHash) {
+        alert('Mot de passe incorrect.');
+        return;
+      }
+
+      activeUser = user;
+      localStorage.setItem(STORAGE_KEY_ACTIVE, username);
+      updateNavProfileUI();
+      renderProfileView();
+    }
+
+    function handleLogout() {
+      activeUser = null;
+      localStorage.removeItem(STORAGE_KEY_ACTIVE);
+      updateNavProfileUI();
+      renderAuthView();
+    }
+
+    // Modal Profile Navigation
+    function openProfileModal() {
+      if (activeUser) {
+        renderProfileView();
+      } else {
+        renderAuthView();
+      }
+      document.getElementById('profile-modal').style.display = 'flex';
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profile-modal').style.display = 'none';
+    }
+
+    function renderAuthView() {
+      document.getElementById('auth-view').style.display = 'block';
+      document.getElementById('profile-view').style.display = 'none';
+      document.getElementById('profile-modal-title').textContent = 'Connexion au Profil';
+
+      const users = getUsers();
+      const select = document.getElementById('login-profile-select');
+      select.innerHTML = '';
+      if (users.length === 0) {
+        toggleAuthTab('register');
+      } else {
+        users.forEach(u => {
+          const opt = document.createElement('option');
+          opt.value = u.username;
+          opt.textContent = `${u.avatar || '👤'} ${u.username}`;
+          select.appendChild(opt);
+        });
+        toggleAuthTab('login');
+      }
+    }
+
+    function toggleAuthTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+      const loginBtn = document.getElementById('tab-login-btn');
+      const regBtn = document.getElementById('tab-register-btn');
+
+      if (tab === 'login') {
+        loginForm.style.display = 'block';
+        regForm.style.display = 'none';
+        loginBtn.className = 'btn btn-solid';
+        regBtn.className = 'btn btn-subtle';
+      } else {
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+        loginBtn.className = 'btn btn-subtle';
+        regBtn.className = 'btn btn-solid';
+      }
+    }
+
+    function renderProfileView() {
+      document.getElementById('auth-view').style.display = 'none';
+      const profView = document.getElementById('profile-view');
+      profView.style.display = 'flex';
+      document.getElementById('profile-modal-title').textContent = 'Mon Profil Joueur';
+
+      document.getElementById('profile-name-display').textContent = activeUser.username;
+      document.getElementById('profile-avatar-display').textContent = activeUser.avatar || '👤';
+
+      const stats = activeUser.stats || {};
+      document.getElementById('stat-tetris').textContent = stats.tetris || 0;
+      document.getElementById('stat-2048').textContent = stats.2048 || 0;
+      document.getElementById('stat-surf').textContent = stats.surfMaps || 0;
+    }
+
+    // ==========================================
+    // 2. RECORD GAME SCORE / LEADERBOARD
+    // ==========================================
+    window.recordGameScore = function(game, score, meta = {}) {
+      const playerName = activeUser ? activeUser.username : 'Invité';
+      const lb = getLeaderboard();
+      if (!lb[game]) lb[game] = [];
+
+      lb[game].push({
+        player: playerName,
+        avatar: activeUser?.avatar || '👤',
+        score: score,
+        date: new Date().toLocaleDateString('fr-FR'),
+        meta: meta
+      });
+
+      // Sort descending
+      lb[game].sort((a, b) => b.score - a.score);
+      lb[game] = lb[game].slice(0, 50); // Keep top 50
+      saveLeaderboard(lb);
+
+      // Update active user personal best
+      if (activeUser) {
+        if (!activeUser.stats) activeUser.stats = {};
+        if (!activeUser.stats[game] || score > activeUser.stats[game]) {
+          activeUser.stats[game] = score;
+          const users = getUsers();
+          const idx = users.findIndex(u => u.username === activeUser.username);
+          if (idx !== -1) {
+            users[idx] = activeUser;
+            saveUsers(users);
+          }
+        }
+      }
+    };
+
+    // Leaderboard Modal
+    let activeLbGame = 'tetris';
+
+    function openLeaderboardModal() {
+      switchLbTab(activeLbGame);
+      document.getElementById('leaderboard-modal').style.display = 'flex';
+    }
+
+    function closeLeaderboardModal() {
+      document.getElementById('leaderboard-modal').style.display = 'none';
+    }
+
+    function switchLbTab(game, btn) {
+      activeLbGame = game;
+      document.querySelectorAll('.lb-tab').forEach(b => {
+        b.classList.toggle('active', b.textContent.toLowerCase().includes(game));
+      });
+      renderLeaderboardTable(game);
+    }
+
+    function renderLeaderboardTable(game) {
+      const container = document.getElementById('lb-table-container');
+      const lb = getLeaderboard();
+      const records = lb[game] || [];
+
+      if (records.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding: 30px; color: var(--text-muted); font-size: 0.85rem;">Aucun score enregistré pour ${game.toUpperCase()}. Lancez une partie pour inaugurer le classement !</div>`;
+        return;
+      }
+
+      let html = `
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th style="width: 40px;">Rang</th>
+              <th>Joueur</th>
+              <th>Score / Record</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      records.forEach((r, idx) => {
+        let badge = `#${idx + 1}`;
+        if (idx === 0) badge = '🥇';
+        else if (idx === 1) badge = '🥈';
+        else if (idx === 2) badge = '🥉';
+
+        html += `
+          <tr>
+            <td style="font-weight: 700; color: ${idx < 3 ? 'var(--text)' : 'var(--text-muted)'};">${badge}</td>
+            <td><span style="margin-right: 6px;">${r.avatar || '👤'}</span> <b>${escapeHtml(r.player)}</b></td>
+            <td style="font-weight: 600; color: #fff;">${r.score.toLocaleString()}</td>
+            <td style="color: var(--text-muted); font-size: 0.78rem;">${r.date}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    // ==========================================
+    // 3. GOOGLE DRIVE BACKUP & RESTORE
+    // ==========================================
+    function exportToGoogleDrive() {
+      const fullBackup = {
+        app: 'Hub-MohamedGuell',
+        version: '1.0',
+        exportedAt: new Date().toISOString(),
+        users: getUsers(),
+        leaderboard: getLeaderboard()
+      };
+
+      const jsonStr = JSON.stringify(fullBackup, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const filename = `hub_save_backup_${new Date().toISOString().substring(0, 10)}.json`;
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      // Also provide a direct link to open Google Drive for upload
+      setTimeout(() => {
+        const toDrive = confirm("Fichier de sauvegarde exporté avec succès !\n\nSouhaitez-vous ouvrir Google Drive dans un nouvel onglet pour y déposer ce fichier et le conserver en sécurité ?");
+        if (toDrive) {
+          window.open('https://drive.google.com/drive/my-drive', '_blank');
+        }
+      }, 500);
+    }
+
+    function importSaveFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const data = JSON.parse(evt.target.result);
+          if (data.users && Array.isArray(data.users)) {
+            saveUsers(data.users);
+          }
+          if (data.leaderboard && typeof data.leaderboard === 'object') {
+            saveLeaderboard(data.leaderboard);
+          }
+          alert("Sauvegarde restaurée avec succès ! Tous vos profils, scores et records sont à jour.");
+          initUser();
+          if (document.getElementById('profile-modal').style.display === 'flex') {
+            renderProfileView();
+          }
+        } catch (err) {
+          alert("Erreur lors de la lecture du fichier de sauvegarde : format JSON invalide.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // ==========================================
+    // 4. VIEWER & CATEGORIES
+    // ==========================================
     function setCategory(cat, element) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       element.classList.add('active');
@@ -824,13 +1600,20 @@
       }
     }
 
-    // Keyboard shortcuts
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        const modal = document.getElementById('viewer-modal');
-        if (modal.style.display === 'flex') {
-          closeViewer();
-        }
+        const viewer = document.getElementById('viewer-modal');
+        if (viewer.style.display === 'flex') closeViewer();
+        const profile = document.getElementById('profile-modal');
+        if (profile.style.display === 'flex') closeProfileModal();
+        const lb = document.getElementById('leaderboard-modal');
+        if (lb.style.display === 'flex') closeLeaderboardModal();
       } else if (e.key === '/' && document.activeElement !== document.getElementById('filter-input')) {
         e.preventDefault();
         const input = document.getElementById('filter-input');
@@ -838,6 +1621,9 @@
         input.select();
       }
     });
+
+    // Start
+    initUser();
   </script>
 </body>
 </html>
