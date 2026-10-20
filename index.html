@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Hub — Jeux, YouTube & Streaming</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'><polygon points='5 3 19 12 5 21 5 3'/></svg>">
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card-bg: rgba(23, 29, 45, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --green: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(ellipse at 50% 0%, #161f36 0%, var(--bg) 75%);
+      color: var(--text);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      background: rgba(11, 15, 23, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    .brand span {
+      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 8px 16px 8px 36px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      width: 220px;
+      transition: all 0.2s ease;
+    }
+
+    .search-box input:focus {
+      width: 280px;
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      width: 16px;
+      height: 16px;
+      fill: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* Hero / Status Bar */
+    .hero {
+      padding: 40px 32px 20px;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 8px;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      line-height: 1.5;
+    }
+
+    /* Filter Categories */
+    .categories {
+      display: flex;
+      gap: 10px;
+      padding: 24px 32px 10px;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .cat-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .cat-pill.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    /* Main Grid */
+    main {
+      flex: 1;
+      padding: 20px 32px 60px;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+
+    /* Cards */
+    .app-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .card-banner {
+      height: 180px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(23, 29, 45, 1) 0%, rgba(23, 29, 45, 0.2) 60%, transparent 100%);
+    }
+
+    .card-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .app-card:hover .card-banner img {
+      transform: scale(1.05);
+    }
+
+    .card-banner-gradient {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .card-banner-icon {
+      font-size: 3.5rem;
+      z-index: 2;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+      transition: transform 0.3s ease;
+    }
+
+    .app-card:hover .card-banner-icon {
+      transform: scale(1.12);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 3;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-live {
+      background: rgba(239, 68, 68, 0.25);
+      border: 1px solid rgba(239, 68, 68, 0.6);
+      color: #fca5a5;
+    }
+
+    .badge-live::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .badge-fast {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.6);
+      color: #6ee7b7;
+    }
+
+    .badge-cinema {
+      background: rgba(168, 85, 247, 0.25);
+      border: 1px solid rgba(168, 85, 247, 0.6);
+      color: #d8b4fe;
+    }
+
+    .card-content {
+      padding: 18px 24px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    /* Embedded In-Hub Viewer Modal */
+    #viewer-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: #000;
+      display: none;
+      flex-direction: column;
+    }
+
+    .viewer-bar {
+      height: 52px;
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: #fff;
+    }
+
+    .viewer-title {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .viewer-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .viewer-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .viewer-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .viewer-close-btn {
+      background: #ef4444;
+      border-color: #dc2626;
+      font-weight: 600;
+    }
+
+    .viewer-close-btn:hover {
+      background: #dc2626;
+    }
+
+    .viewer-frame-wrapper {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 52px);
+      background: #000;
+      position: relative;
+    }
+
+    .viewer-frame-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 1000;
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 24px 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 16px; }
+      .search-box input { width: 140px; }
+      .search-box input:focus { width: 180px; }
+      .hero { padding: 24px 16px 10px; }
+      .hero-title { font-size: 1.7rem; }
+      .categories { padding: 16px; }
+      main { padding: 10px 16px 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a class="brand" href="./">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <span>Portal Hub</span>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="filter-input" placeholder="Filtrer les applications..." oninput="onFilterInput(this.value)">
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1 class="hero-title">Portail Central d'Accès</h1>
+    <p class="hero-subtitle">Retrouvez tous vos jeux, votre lecteur YouTube sans publicité et vos plateformes de streaming sportif & cinéma directement réunis au même endroit.</p>
+  </div>
+
+  <!-- Categories Filter -->
+  <div class="categories">
+    <button class="cat-pill active" onclick="setCategory('all', this)">⚡ Tout afficher</button>
+    <button class="cat-pill" onclick="setCategory('games', this)">🎮 Jeux vidéo</button>
+    <button class="cat-pill" onclick="setCategory('video', this)">📺 YouTube (0 pub)</button>
+    <button class="cat-pill" onclick="setCategory('live', this)">🔴 Live TV & Sport</button>
+    <button class="cat-pill" onclick="setCategory('streaming', this)">🎬 Films & Séries</button>
+  </div>
+
+  <!-- Main Grid -->
+  <main>
+    <div class="cards-grid" id="cards-container">
+
+      <!-- CARD 1: BO1 Zombies -->
+      <div class="app-card" data-category="games" data-keywords="bo1 zombies call of duty kino der toten fps shooter jeu">
+        <div class="card-banner" style="background: radial-gradient(circle, #7f1d1d 0%, #1f1111 100%);">
+          <div class="card-badge badge-fast">60 FPS • Solo</div>
+          <div class="card-banner-icon">🧟‍♂️</div>
+        </div>
+        <div class="card-content">
+          <div class="card-title">
+            <span>BO1 Zombies</span>
+          </div>
+          <p class="card-desc">Call of Duty: Black Ops Zombies porté directement pour le navigateur. Survis aux vagues de zombies sur Kino der Toten avec des graphismes 3D authentiques.</p>
+          <div class="card-tags">
+            <span class="tag">FPS 3D</span>
+            <span class="tag">WebAssembly</span>
+            <span class="tag">Solo</span>
+            <span class="tag">Port GitHub</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openInHub('https://mohamedguell.github.io/bo1z/', 'BO1 Zombies')">🎮 Lancer dans le Hub</button>
+            <a class="btn btn-secondary" href="https://mohamedguell.github.io/bo1z/" target="_blank" rel="noopener">Nouvel onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: CS:S Surf -->
+      <div class="app-card" data-category="games" data-keywords="surf css counter strike surfd rampes solo fps source">
+        <div class="card-banner" style="background: radial-gradient(circle, #065f46 0%, #06241b 100%);">
+          <div class="card-badge badge-fast">Solo Optimisé</div>
+          <div class="card-banner-icon">🏄</div>
+        </div>
+        <div class="card-content">
+          <div class="card-title">
+            <span>CS:S Surf (Surfd)</span>
+          </div>
+          <p class="card-desc">Surf Counter-Strike Source ultra fluide dans votre navigateur. 20 maps classiques, physique Source précise, optimisé plein écran et mode solo sans aucun lag.</p>
+          <div class="card-tags">
+            <span class="tag">Source Physics</span>
+            <span class="tag">20 Maps</span>
+            <span class="tag">Plein écran 60 FPS</span>
+            <span class="tag">Solo</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openInHub('https://mohamedguell.github.io/surfd/', 'CS:S Surf')">🏄 Lancer dans le Hub</button>
+            <a class="btn btn-secondary" href="https://mohamedguell.github.io/surfd/" target="_blank" rel="noopener">Nouvel onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: YouTube Ad-Free -->
+      <div class="app-card" data-category="video" data-keywords="youtube ytb sans pub musique videos tendances chaines recherche">
+        <div class="card-banner" style="background: radial-gradient(circle, #991b1b 0%, #200909 100%);">
+          <div class="card-badge badge-fast">0 Publicité</div>
+          <div class="card-banner-icon">▶️</div>
+        </div>
+        <div class="card-content">
+          <div class="card-title">
+            <span>YouTube Sans Pub</span>
+          </div>
+          <p class="card-desc">Client YouTube complet débarrassé des publicités. Tendances en temps réel, recherche rapide, profils de chaînes et recommandations directes in-app.</p>
+          <div class="card-tags">
+            <span class="tag">Sans Pub</span>
+            <span class="tag">Piped Proxy</span>
+            <span class="tag">Recommandations In-App</span>
+            <span class="tag">Tendances FR</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openInHub('https://mohamedguell.github.io/yt/', 'YouTube Sans Pub')">📺 Ouvrir dans le Hub</button>
+            <a class="btn btn-secondary" href="https://mohamedguell.github.io/yt/" target="_blank" rel="noopener">Nouvel onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Z-Live -->
+      <div class="app-card" data-category="live" data-keywords="zlive z-live live streaming direct sport foot football ligue 1 champions league ufc nba f1 chaines tv">
+        <div class="card-banner" style="background: radial-gradient(circle, #1e40af 0%, #0c183a 100%);">
+          <div class="card-badge badge-live">Live Direct</div>
+          <div class="card-banner-icon">⚽</div>
+        </div>
+        <div class="card-content">
+          <div class="card-title">
+            <span>Z-Live (Sport & TV)</span>
+          </div>
+          <p class="card-desc">Tous les matchs de football, UFC, NBA, Formule 1 et chaînes de télévision diffusés en direct et en haute définition. Fonctionne directement dans le Hub.</p>
+          <div class="card-tags">
+            <span class="tag">Football / Ligue 1</span>
+            <span class="tag">UFC & NBA</span>
+            <span class="tag">Chaînes Sportives</span>
+            <span class="tag">Intégrable</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openInHub('https://zlive.st/', 'Z-Live (Direct Sport)')">🔴 Regarder dans le Hub</button>
+            <a class="btn btn-secondary" href="https://zlive.st/" target="_blank" rel="noopener">Nouvel onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Movy / Z-Stream -->
+      <div class="app-card" data-category="streaming" data-keywords="movy zstream z-stream films series cinema netflix streaming hd vf vostfr">
+        <div class="card-banner" style="background: radial-gradient(circle, #581c87 0%, #1c082e 100%);">
+          <div class="card-badge badge-cinema">Cinéma & Séries</div>
+          <div class="card-banner-icon">🍿</div>
+        </div>
+        <div class="card-content">
+          <div class="card-title">
+            <span>Movy (Z-Stream)</span>
+          </div>
+          <p class="card-desc">Immense catalogue de films et séries en streaming gratuit, en qualité Full HD et 4K avec options multilingues (VF et VOSTFR) sans interruption.</p>
+          <div class="card-tags">
+            <span class="tag">Films Récents</span>
+            <span class="tag">Séries Complètes</span>
+            <span class="tag">VF & VOSTFR</span>
+            <span class="tag">Lecteurs Rapides</span>
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://www.movy.sx/" target="_blank" rel="noopener" onclick="showToast('Ouverture de Movy / Z-Stream...')">🎬 Lancer le Streaming ↗</a>
+            <button class="btn btn-secondary" onclick="openDirectPopup('https://www.movy.sx/')">Mode Fenêtre ⤢</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- In-Hub Viewer Modal -->
+  <div id="viewer-modal">
+    <div class="viewer-bar">
+      <div class="viewer-title" id="viewer-header-title">
+        <span>Application</span>
+      </div>
+      <div class="viewer-controls">
+        <button class="viewer-btn" onclick="toggleViewerFullscreen()" title="Activer / Quitter le plein écran">⛶ Plein écran</button>
+        <button class="viewer-btn" onclick="reloadViewerFrame()" title="Recharger la page">↻ Recharger</button>
+        <button class="viewer-btn" onclick="openViewerExternal()" title="Ouvrir dans un nouvel onglet">↗ Nouvel onglet</button>
+        <button class="viewer-btn viewer-close-btn" onclick="closeViewer()" title="Fermer le lecteur (Echap)">✕ Fermer</button>
+      </div>
+    </div>
+    <div class="viewer-frame-wrapper">
+      <iframe id="viewer-frame" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; cross-origin-isolated"></iframe>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">Message</div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Portal Hub • Développé pour un accès direct et simplifié • GitHub Pages</p>
+  </footer>
+
+  <script>
+    let currentViewerUrl = '';
+
+    function setCategory(cat, element) {
+      document.querySelectorAll('.cat-pill').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+
+      const cards = document.querySelectorAll('.app-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function onFilterInput(val) {
+      val = val.toLowerCase().trim();
+      const cards = document.querySelectorAll('.app-card');
+      cards.forEach(card => {
+        const text = (card.getAttribute('data-keywords') || '') + ' ' + card.innerText.toLowerCase();
+        if (!val || text.includes(val)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function openInHub(url, title) {
+      currentViewerUrl = url;
+      document.getElementById('viewer-header-title').innerHTML = `<span>${title}</span> <small style="color:#94a3b8; font-weight:normal;">(${url})</small>`;
+      const frame = document.getElementById('viewer-frame');
+      frame.src = url;
+      const modal = document.getElementById('viewer-modal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeViewer() {
+      const modal = document.getElementById('viewer-modal');
+      modal.style.display = 'none';
+      const frame = document.getElementById('viewer-frame');
+      frame.src = 'about:blank';
+      document.body.style.overflow = '';
+      currentViewerUrl = '';
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function toggleViewerFullscreen() {
+      const modal = document.getElementById('viewer-modal');
+      if (!document.fullscreenElement) {
+        modal.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function reloadViewerFrame() {
+      const frame = document.getElementById('viewer-frame');
+      if (frame && currentViewerUrl) {
+        frame.src = currentViewerUrl;
+      }
+    }
+
+    function openViewerExternal() {
+      if (currentViewerUrl) {
+        window.open(currentViewerUrl, '_blank');
+      }
+    }
+
+    function openDirectPopup(url) {
+      const w = 1200;
+      const h = 800;
+      const left = (screen.width - w) / 2;
+      const top = (screen.height - h) / 2;
+      window.open(url, 'MovyViewer', `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes,status=no`);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+
+    // Keyboard shortcuts: Esc to close viewer, / to focus filter
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('viewer-modal');
+        if (modal.style.display === 'flex') {
+          closeViewer();
+        }
+      } else if (e.key === '/' && document.activeElement !== document.getElementById('filter-input')) {
+        e.preventDefault();
+        const input = document.getElementById('filter-input');
+        input.focus();
+        input.select();
+      }
+    });
+  </script>
+</body>
+</html>
