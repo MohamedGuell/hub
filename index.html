@@ -596,6 +596,113 @@
       gap: 8px;
     }
 
+    /* Continue Watching Shelf Styles */
+    .continue-shelf-container {
+      max-width: 1240px;
+      margin: 0 auto 24px;
+      width: 100%;
+      padding: 0 32px;
+    }
+    .continue-shelf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .continue-shelf-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .continue-shelf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .continue-item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .continue-item-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .continue-thumb-wrap {
+      width: 76px;
+      height: 50px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #18181b;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .continue-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .continue-item-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+      min-width: 0;
+    }
+    .continue-item-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .continue-item-subtitle {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .continue-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+    .badge-movy { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .badge-yt { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .badge-zlive { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .continue-play-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .continue-item-card:hover .continue-play-icon {
+      background: var(--text);
+      color: var(--bg);
+    }
+
     /* In-Hub Viewer Modal */
     #viewer-modal {
       position: fixed;
@@ -754,6 +861,18 @@
       <button class="tab-btn" onclick="setCategory('live', this)">Live TV</button>
       <button class="tab-btn" onclick="setCategory('streaming', this)">Streaming</button>
     </div>
+  </div>
+
+  <!-- Continue Watching Shelf (Auto-applied upon login) -->
+  <div class="continue-shelf-container" id="continue-shelf" style="display: none;">
+    <div class="continue-shelf-header">
+      <div class="continue-shelf-title">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Reprendre le visionnage</span>
+      </div>
+      <button onclick="clearWatchHistory()" style="background: none; border: none; color: var(--text-muted); font-size: 0.75rem; cursor: pointer;">Effacer l'historique</button>
+    </div>
+    <div class="continue-shelf-grid" id="continue-grid"></div>
   </div>
 
   <!-- Cards Grid -->
@@ -1107,8 +1226,8 @@
             <span class="tag">Intégré</span>
           </div>
           <div class="card-actions">
-            <button class="btn btn-solid" onclick="openInHub('https://zlive.st/', 'Z-Live (Direct Sport)')">Regarder</button>
-            <a class="btn btn-subtle" href="https://zlive.st/" target="_blank" rel="noopener">Onglet ↗</a>
+            <button class="btn btn-solid" onclick="launchZLive(false)">Regarder</button>
+            <a class="btn btn-subtle" href="https://zlive.st/" onclick="launchZLive(true)" target="_blank" rel="noopener">Onglet ↗</a>
           </div>
         </div>
       </div>
@@ -1237,27 +1356,37 @@
             </div>
           </div>
 
-          <!-- Google Drive Cloud Backup & Sync Section -->
-          <div class="cloud-sync-box">
-            <div class="cloud-sync-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
-              <span>Synchronisation Cloud & Google Drive</span>
+          <!-- Auto-Sync Status -->
+          <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 10px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0;"></div>
+            <div style="font-size: 0.8rem; color: #d1fae5;">
+              <b>Progression & Visionnage synchronisés automatiquement</b><br>
+              <span style="font-size: 0.72rem; color: #a7f3d0;">Vos historiques YouTube, Movy et Z-Live sont appliqués directement dès la connexion.</span>
             </div>
-            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
-              Sauvegardez vos records, progression et profils directement dans votre Google Drive pour les retrouver au travail sur n'importe quel ordinateur.
-            </p>
-            <div style="display: flex; gap: 8px;">
-              <button class="btn btn-solid" onclick="exportToGoogleDrive()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Sauvegarder vers Drive
-              </button>
-              <label class="btn btn-subtle" style="margin: 0; cursor: pointer;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                Restaurer fichier
+          </div>
+
+          <!-- Watch History List in Profile Modal -->
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.82rem; font-weight: 600; color: var(--text);">Derniers visionnages</span>
+              <button onclick="clearWatchHistory()" style="background:none; border:none; color:var(--text-muted); font-size:0.72rem; cursor:pointer;">Effacer</button>
+            </div>
+            <div id="modal-watch-history-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Optional Advanced Tools (Folded) -->
+          <details style="font-size: 0.75rem; color: var(--text-muted); cursor: pointer; padding-top: 6px;">
+            <summary>Options avancées de sauvegarde manuelle</summary>
+            <div style="margin-top: 8px; display: flex; gap: 8px;">
+              <button class="btn btn-subtle" style="font-size: 0.72rem; padding: 4px 8px;" onclick="exportToGoogleDrive()">Exporter JSON</button>
+              <label class="btn btn-subtle" style="font-size: 0.72rem; padding: 4px 8px; cursor: pointer; margin: 0;">
+                Importer JSON
                 <input type="file" id="import-file-input" accept=".json" style="display: none;" onchange="importSaveFile(event)">
               </label>
             </div>
-          </div>
+          </details>
         </div>
       </div>
     </div>
@@ -1366,7 +1495,7 @@
       localStorage.setItem(STORAGE_KEY_SCORES, JSON.stringify(lb));
     }
 
-    // Initialize Active User
+    // Initialize Active User & Auto-apply data
     function initUser() {
       const savedUsername = localStorage.getItem(STORAGE_KEY_ACTIVE);
       const users = getUsers();
@@ -1375,11 +1504,13 @@
         if (found) {
           activeUser = found;
           updateNavProfileUI();
+          renderContinueWatchingShelf();
           return;
         }
       }
       activeUser = null;
       updateNavProfileUI();
+      renderContinueWatchingShelf();
     }
 
     function updateNavProfileUI() {
@@ -1422,7 +1553,13 @@
         stats: {
           tetris: 0,
           2048: 0,
-          surfMaps: 0
+          surfMaps: 0,
+          bhop: 0
+        },
+        history: {
+          movy: [],
+          yt: [],
+          zlive: []
         }
       };
 
@@ -1433,9 +1570,11 @@
       localStorage.setItem(STORAGE_KEY_ACTIVE, username);
       updateNavProfileUI();
       renderProfileView();
+      renderContinueWatchingShelf();
+      closeProfileModal();
     }
 
-    // Login Profile
+    // Login Profile (Automatically applies all user data & progression)
     async function handleLogin(e) {
       e.preventDefault();
       const username = document.getElementById('login-profile-select').value;
@@ -1451,10 +1590,13 @@
         return;
       }
 
+      // Automatically apply profile and progression
       activeUser = user;
       localStorage.setItem(STORAGE_KEY_ACTIVE, username);
       updateNavProfileUI();
       renderProfileView();
+      renderContinueWatchingShelf();
+      closeProfileModal();
     }
 
     function handleLogout() {
@@ -1462,6 +1604,7 @@
       localStorage.removeItem(STORAGE_KEY_ACTIVE);
       updateNavProfileUI();
       renderAuthView();
+      renderContinueWatchingShelf();
     }
 
     // Modal Profile Navigation
@@ -1522,7 +1665,7 @@
       document.getElementById('auth-view').style.display = 'none';
       const profView = document.getElementById('profile-view');
       profView.style.display = 'flex';
-      document.getElementById('profile-modal-title').textContent = 'Mon Profil Joueur';
+      document.getElementById('profile-modal-title').textContent = 'Mon Profil Joueur & Média';
 
       document.getElementById('profile-name-display').textContent = activeUser.username;
       document.getElementById('profile-avatar-display').textContent = activeUser.avatar || '👤';
@@ -1532,10 +1675,239 @@
       document.getElementById('stat-2048').textContent = stats['2048'] || 0;
       document.getElementById('stat-surf').textContent = stats.surfMaps || 0;
       document.getElementById('stat-bhop').textContent = stats.bhop || 0;
+
+      // Populate Recent Watch History in Modal
+      const historyListEl = document.getElementById('modal-watch-history-list');
+      if (historyListEl) {
+        const hist = getCombinedWatchHistory();
+        if (hist.length === 0) {
+          historyListEl.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); padding:8px 0;">Aucun média visionné pour le moment.</div>';
+        } else {
+          historyListEl.innerHTML = '';
+          hist.slice(0, 5).forEach(item => {
+            const row = document.createElement('div');
+            row.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:6px 8px; background:var(--surface-elevated); border-radius:6px; border:1px solid var(--border);';
+            row.innerHTML = `
+              <div style="display:flex; align-items:center; gap:8px; overflow:hidden;">
+                <span class="continue-badge ${item.media === 'movy' ? 'badge-movy' : (item.media === 'yt' ? 'badge-yt' : 'badge-zlive')}">${item.badge}</span>
+                <span style="font-size:0.78rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;">${escapeHtml(item.title)}</span>
+              </div>
+              <button class="btn btn-subtle" style="font-size:0.7rem; padding:3px 8px;" onclick="resumeMediaItem('${item.media}', ${JSON.stringify(item).replace(/"/g, '&quot;')})">Reprendre ↗</button>
+            `;
+            historyListEl.appendChild(row);
+          });
+        }
+      }
     }
 
     // ==========================================
-    // 2. RECORD GAME SCORE / LEADERBOARD
+    // 2. WATCH PROGRESS & HISTORY (Movy, YT, Z-Live)
+    // ==========================================
+    function recordWatchProgress(media, item) {
+      if (!item) return;
+
+      if (activeUser) {
+        if (!activeUser.history) activeUser.history = {};
+        if (!activeUser.history[media]) activeUser.history[media] = [];
+
+        if (media === 'movy') {
+          activeUser.history.movy = activeUser.history.movy.filter(x => !(x.id === item.id && x.season === item.season && x.episode === item.episode));
+          activeUser.history.movy.unshift(item);
+          activeUser.history.movy = activeUser.history.movy.slice(0, 30);
+        } else if (media === 'yt') {
+          activeUser.history.yt = activeUser.history.yt.filter(x => x.id !== item.id);
+          activeUser.history.yt.unshift(item);
+          activeUser.history.yt = activeUser.history.yt.slice(0, 30);
+        } else if (media === 'zlive') {
+          activeUser.history.zlive = (activeUser.history.zlive || []).filter(x => x.title !== item.title);
+          activeUser.history.zlive.unshift(item);
+          activeUser.history.zlive = activeUser.history.zlive.slice(0, 20);
+        }
+
+        const users = getUsers();
+        const idx = users.findIndex(u => u.username === activeUser.username);
+        if (idx !== -1) {
+          users[idx] = activeUser;
+          saveUsers(users);
+        }
+      }
+
+      // Also persist to global fallback
+      try {
+        let globalHist = JSON.parse(localStorage.getItem('hub_global_watch_v1') || '{}');
+        if (!globalHist[media]) globalHist[media] = [];
+        if (media === 'movy') {
+          globalHist.movy = globalHist.movy.filter(x => !(x.id === item.id && x.season === item.season && x.episode === item.episode));
+          globalHist.movy.unshift(item);
+          globalHist.movy = globalHist.movy.slice(0, 30);
+        } else if (media === 'yt') {
+          globalHist.yt = globalHist.yt.filter(x => x.id !== item.id);
+          globalHist.yt.unshift(item);
+          globalHist.yt = globalHist.yt.slice(0, 30);
+        } else if (media === 'zlive') {
+          globalHist.zlive = globalHist.zlive.filter(x => x.title !== item.title);
+          globalHist.zlive.unshift(item);
+          globalHist.zlive = globalHist.zlive.slice(0, 20);
+        }
+        localStorage.setItem('hub_global_watch_v1', JSON.stringify(globalHist));
+      } catch (e) {}
+
+      renderContinueWatchingShelf();
+      if (document.getElementById('profile-modal').style.display === 'flex' && activeUser) {
+        renderProfileView();
+      }
+    }
+
+    function getCombinedWatchHistory() {
+      let movyList = [];
+      let ytList = [];
+      let zliveList = [];
+
+      if (activeUser && activeUser.history) {
+        movyList = activeUser.history.movy || [];
+        ytList = activeUser.history.yt || [];
+        zliveList = activeUser.history.zlive || [];
+      } else {
+        try {
+          const g = JSON.parse(localStorage.getItem('hub_global_watch_v1') || '{}');
+          movyList = g.movy || [];
+          ytList = g.yt || [];
+          zliveList = g.zlive || [];
+        } catch (e) {}
+      }
+
+      const combined = [
+        ...movyList.map(x => ({ ...x, media: 'movy', badge: x.type === 'tv' ? `S${x.season}:E${x.episode}` : 'Film' })),
+        ...ytList.map(x => ({ ...x, media: 'yt', badge: 'YouTube' })),
+        ...zliveList.map(x => ({ ...x, media: 'zlive', badge: 'Direct TV' }))
+      ];
+
+      combined.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      return combined;
+    }
+
+    function renderContinueWatchingShelf() {
+      const shelf = document.getElementById('continue-shelf');
+      const grid = document.getElementById('continue-grid');
+      if (!shelf || !grid) return;
+
+      const history = getCombinedWatchHistory();
+      if (history.length === 0) {
+        shelf.style.display = 'none';
+        return;
+      }
+
+      shelf.style.display = 'block';
+      grid.innerHTML = '';
+
+      history.slice(0, 8).forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'continue-item-card';
+
+        let thumbHtml = '';
+        if (item.media === 'movy') {
+          thumbHtml = `<img src="${item.poster || 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23333\'><rect width=\'24\' height=\'24\'/></svg>'}" alt="">`;
+        } else if (item.media === 'yt') {
+          thumbHtml = `<img src="${item.thumb || 'https://i.ytimg.com/vi/' + item.id + '/hqdefault.jpg'}" alt="">`;
+        } else {
+          thumbHtml = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#10b981;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.93 4.93a10 10 0 0 1 14.14 0"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 14v8"/></svg></div>`;
+        }
+
+        let subtitle = '';
+        if (item.media === 'movy') {
+          subtitle = item.type === 'tv' ? `Movy • Saison ${item.season} Épisode ${item.episode}` : 'Movy • Film HD';
+        } else if (item.media === 'yt') {
+          subtitle = `YouTube • ${item.uploader || 'Vidéo'}`;
+        } else {
+          subtitle = 'Z-Live • Événement en direct';
+        }
+
+        card.innerHTML = `
+          <div class="continue-thumb-wrap">
+            ${thumbHtml}
+          </div>
+          <div class="continue-item-meta">
+            <div class="continue-item-title">${escapeHtml(item.title)}</div>
+            <div class="continue-item-subtitle">
+              <span class="continue-badge ${item.media === 'movy' ? 'badge-movy' : (item.media === 'yt' ? 'badge-yt' : 'badge-zlive')}">${item.badge}</span>
+              <span>${item.date || ''}</span>
+            </div>
+          </div>
+          <div class="continue-play-icon" title="Reprendre la lecture">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        `;
+
+        card.onclick = () => resumeMediaItem(item.media, item);
+        grid.appendChild(card);
+      });
+    }
+
+    function resumeMediaItem(media, item) {
+      if (media === 'movy') {
+        const url = `https://mohamedguell.github.io/movy/?id=${item.id}&type=${item.type || 'movie'}&season=${item.season || 1}&episode=${item.episode || 1}`;
+        openInHub(url, item.title || 'Movy Streaming');
+      } else if (media === 'yt') {
+        const url = `https://mohamedguell.github.io/yt/?v=${item.id}`;
+        openInHub(url, item.title || 'YouTube Sans Pub');
+      } else if (media === 'zlive') {
+        launchZLive(false);
+      }
+    }
+
+    function clearWatchHistory(notifyChildren = true) {
+      if (notifyChildren && !confirm('Voulez-vous réinitialiser votre progression et historique de visionnage ?')) return;
+
+      if (activeUser) {
+        activeUser.history = { movy: [], yt: [], zlive: [] };
+        const users = getUsers();
+        const idx = users.findIndex(u => u.username === activeUser.username);
+        if (idx !== -1) {
+          users[idx] = activeUser;
+          saveUsers(users);
+        }
+      }
+
+      localStorage.removeItem('hub_global_watch_v1');
+      localStorage.removeItem('movy_history_v1');
+      localStorage.removeItem('yt_history_v1');
+
+      renderContinueWatchingShelf();
+      if (document.getElementById('profile-modal').style.display === 'flex' && activeUser) {
+        renderProfileView();
+      }
+    }
+
+    function launchZLive(external = false) {
+      recordWatchProgress('zlive', {
+        title: 'Z-Live (Direct Sport & TV)',
+        category: 'Sport / TV',
+        url: 'https://zlive.st/',
+        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
+        timestamp: Date.now()
+      });
+      if (external) {
+        window.open('https://zlive.st/', '_blank');
+      } else {
+        openInHub('https://zlive.st/', 'Z-Live (Direct Sport)');
+      }
+    }
+
+    // Window message listener for iframes (Movy & YouTube)
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'HUB_RECORD_WATCH') {
+        recordWatchProgress(event.data.media, event.data.item);
+      }
+      if (event.data && event.data.type === 'HUB_RECORD_SCORE') {
+        recordGameScore(event.data.game, event.data.score, event.data.meta);
+      }
+      if (event.data && event.data.type === 'HUB_HISTORY_CLEARED') {
+        clearWatchHistory(false);
+      }
+    });
+
+    // ==========================================
+    // 3. RECORD GAME SCORE / LEADERBOARD
     // ==========================================
     window.recordGameScore = function(game, score, meta = {}) {
       const playerName = activeUser ? activeUser.username : 'Invité';
