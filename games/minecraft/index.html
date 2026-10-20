@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft</title>
+  <script type="text/javascript" src="classes.js"></script>
+  <script type="text/javascript" src="eagswebrtc.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+    #game_frame {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <script type="text/javascript">
+    if (document.location.href.startsWith("file:")) {
+      alert("Ce jeu doit être ouvert via HTTP/HTTPS (GitHub Pages) pour charger le moteur de blocs.");
+    } else {
+      window.addEventListener("load", function() {
+        window.eaglercraftOpts = {
+          container: "game_frame",
+          assetsURI: "assets.epk",
+          serverWorkerURI: "worker_bootstrap.js",
+          worldsFolder: "MAIN",
+          servers: [],
+          relays: [],
+          mainMenu: {
+            splashes: ["Minecraft Local Solo", "100% Hors-Ligne", "60 FPS"],
+            eaglerLogo: false
+          }
+        };
+        main();
+      });
+    }
+  </script>
+</head>
+<body id="game_frame">
+</body>
+</html>

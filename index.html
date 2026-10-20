@@ -792,8 +792,102 @@
         </div>
       </div>
 
-      <!-- CARD 2: DOOM (1993) -->
-      <div class="app-card" data-category="games" data-keywords="doom fps id software shooter retro classique wasm 1993">
+      <!-- CARD 2: Minecraft (Local Singleplayer) -->
+      <div class="app-card" data-category="games" data-keywords="minecraft eaglercraft crafting survie solo blocs sandbox local voxels">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            100% Solo Local
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">Minecraft</h2>
+          </div>
+          <p class="card-desc">Véritable Minecraft en navigateur. Mode Solo complet hors-ligne, génération de monde infinie, sauvegarde locale et 60 FPS constants.</p>
+          <div class="card-tags">
+            <span class="tag">Sandbox 3D</span>
+            <span class="tag">Solo Hors-Ligne</span>
+            <span class="tag">Sauvegarde Locale</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('./games/minecraft/', 'Minecraft')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/minecraft/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Bunny Hop CS -->
+      <div class="app-card" data-category="games" data-keywords="bhop bunny hop counter strike cs source quake strafe saut vitesse">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            Physique CS • 60 FPS
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">Bunny Hop CS</h2>
+          </div>
+          <p class="card-desc">Simulateur de Bunnyhop avec physique authentique Quake / Source. Air-strafes, accélération de vitesse, compteur de FPS et entraînement solo.</p>
+          <div class="card-tags">
+            <span class="tag">CS Physics</span>
+            <span class="tag">Compteur Vitesse</span>
+            <span class="tag">Local</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('./games/bhop/', 'Bunny Hop CS')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/bhop/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: CoD: World at War Zombies -->
+      <div class="app-card" data-category="games" data-keywords="zombie zombies waw world at war cod call of duty nacht der untoten raygun mystery box shooter fps">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9 10h.01M15 10h.01M9 16c1.5-1 4.5-1 6 0"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            Nacht • Manches
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">World at War Zombie</h2>
+          </div>
+          <p class="card-desc">Le mode Zombie culte de World at War (NZ:P). Nacht der Untoten, boîtes mystères, Pack-a-Punch et Ray Gun sur moteur WebGL ultra-léger.</p>
+          <div class="card-tags">
+            <span class="tag">FPS Survie</span>
+            <span class="tag">Nacht der Untoten</span>
+            <span class="tag">WebGL</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('./games/zombies/', 'World at War Zombie')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/zombies/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Counter-Strike 1.6 -->
+      <div class="app-card" data-category="games" data-keywords="cs 1.6 counter strike dust2 assault inferno aztec bots multijoueur fps classique">
         <div class="card-top">
           <div class="card-icon-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -807,22 +901,86 @@
           </div>
           <span class="card-status-badge">
             <span class="status-dot"></span>
-            WASM • 0 Lag
+            Dust II • Classic
           </span>
         </div>
         <div class="card-body">
           <div class="card-name-row">
-            <h2 class="card-name">DOOM (1993)</h2>
+            <h2 class="card-name">Counter-Strike 1.6</h2>
           </div>
-          <p class="card-desc">Le classique absolu du FPS porté en WebAssembly. Épisode 1 Knee-Deep in the Dead, contrôles WASD + souris et zéro conso CPU.</p>
+          <p class="card-desc">Le légendaire CS 1.6 jouable en WebAssembly. Cartes mythiques (Dust 2, Assault, Aztec), armes d'origine, parties en ligne et bots.</p>
           <div class="card-tags">
-            <span class="tag">WebAssembly</span>
-            <span class="tag">FPS Culte</span>
-            <span class="tag">Local</span>
+            <span class="tag">FPS Mythique</span>
+            <span class="tag">Dust 2 / Aztec</span>
+            <span class="tag">WASM</span>
           </div>
           <div class="card-actions">
-            <button class="btn btn-solid" onclick="openInHub('./games/doom/', 'DOOM (1993)')">Lancer</button>
-            <a class="btn btn-subtle" href="./games/doom/" target="_blank" rel="noopener">Onglet ↗</a>
+            <button class="btn btn-solid" onclick="openInHub('./games/cs16/', 'Counter-Strike 1.6')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/cs16/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6: Gran Turismo (PS1) -->
+      <div class="app-card" data-category="games" data-keywords="gran turismo gt ps1 playstation course voitures simulateur retro arcade">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            PS1 Classic
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">Gran Turismo</h2>
+          </div>
+          <p class="card-desc">Le simulateur de pilotage automobile par excellence. Voitures d'époque, permis, championnats et physique réaliste sur émulateur PS1 Web.</p>
+          <div class="card-tags">
+            <span class="tag">Course Auto</span>
+            <span class="tag">Émulateur PS1</span>
+            <span class="tag">Sauvegarde</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('./games/granturismo/', 'Gran Turismo (PS1)')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/granturismo/" target="_blank" rel="noopener">Onglet ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 7: SSX Tricky -->
+      <div class="app-card" data-category="games" data-keywords="ssx ssx tricky snowboard glisse tricks arcade course hiver">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 14l6-6 4 4 6-6"/>
+              <path d="M14 6l6 0 0 6"/>
+              <path d="M3 20h18"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot"></span>
+            Snowboard 3D
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">SSX Tricky</h2>
+          </div>
+          <p class="card-desc">Courses de snowboard arcade légendaires. Figures acrobatiques spectaculaires (Über tricks), turbos et pistes de glisse givrées à haute vitesse.</p>
+          <div class="card-tags">
+            <span class="tag">Snowboard</span>
+            <span class="tag">Tricks & Boost</span>
+            <span class="tag">Arcade</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-solid" onclick="openInHub('./games/ssx/', 'SSX Tricky')">Lancer</button>
+            <a class="btn btn-subtle" href="./games/ssx/" target="_blank" rel="noopener">Onglet ↗</a>
           </div>
         </div>
       </div>
@@ -1060,18 +1218,22 @@
           </div>
 
           <!-- Personal Bests Overview -->
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
             <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
-              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Tetris Record</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Tetris</div>
               <div style="font-size: 1.15rem; font-weight: 700;" id="stat-tetris">0</div>
             </div>
             <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
-              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">2048 Record</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">2048</div>
               <div style="font-size: 1.15rem; font-weight: 700;" id="stat-2048">0</div>
             </div>
             <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
               <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Surf Maps</div>
               <div style="font-size: 1.15rem; font-weight: 700;" id="stat-surf">0</div>
+            </div>
+            <div style="background: var(--surface-elevated); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Bhop Speed</div>
+              <div style="font-size: 1.15rem; font-weight: 700;" id="stat-bhop">0</div>
             </div>
           </div>
 
@@ -1114,7 +1276,8 @@
           <button class="lb-tab active" onclick="switchLbTab('tetris', this)">Tetris</button>
           <button class="lb-tab" onclick="switchLbTab('2048', this)">2048</button>
           <button class="lb-tab" onclick="switchLbTab('surf', this)">CS:S Surf</button>
-          <button class="lb-tab" onclick="switchLbTab('doom', this)">DOOM</button>
+          <button class="lb-tab" onclick="switchLbTab('bhop', this)">Bunny Hop</button>
+          <button class="lb-tab" onclick="switchLbTab('zombies', this)">WaW Zombies</button>
         </div>
 
         <div id="lb-table-container">
@@ -1366,8 +1529,9 @@
 
       const stats = activeUser.stats || {};
       document.getElementById('stat-tetris').textContent = stats.tetris || 0;
-      document.getElementById('stat-2048').textContent = stats.2048 || 0;
+      document.getElementById('stat-2048').textContent = stats['2048'] || 0;
       document.getElementById('stat-surf').textContent = stats.surfMaps || 0;
+      document.getElementById('stat-bhop').textContent = stats.bhop || 0;
     }
 
     // ==========================================
