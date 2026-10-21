@@ -475,6 +475,128 @@
       overflow-y: auto;
     }
 
+    /* Z-Live & Sport Modal Styling */
+    .zlive-channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .zlive-channel-card {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .zlive-channel-card:hover {
+      background: var(--surface-active);
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+
+    .zlive-channel-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .zlive-channel-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .zlive-channel-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .zlive-channel-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .zlive-live-pill {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .zlive-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .zlive-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .zlive-link-item:hover {
+      background: var(--surface-active);
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+    .zlive-link-primary {
+      border-color: rgba(52, 211, 153, 0.4);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .zlive-link-primary:hover {
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .zlive-link-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .zlive-link-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #10b981;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .zlive-link-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .zlive-link-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
     /* Forms */
     .form-group {
       display: flex;
@@ -1226,8 +1348,8 @@
             <span class="tag">Intégré</span>
           </div>
           <div class="card-actions">
-            <button class="btn btn-solid" onclick="launchZLive(false)">Regarder</button>
-            <a class="btn btn-subtle" href="https://zlive.st/" onclick="launchZLive(true)" target="_blank" rel="noopener">Onglet ↗</a>
+            <button class="btn btn-solid" onclick="launchZLive(false)">Regarder (Direct)</button>
+            <a class="btn btn-subtle" href="https://zlive.st/" onclick="recordWatchProgress('zlive', { title: 'Z-Live (Site Officiel)', url: 'https://zlive.st/' })" target="_blank" rel="noopener noreferrer">Onglet ↗</a>
           </div>
         </div>
       </div>
@@ -1416,6 +1538,151 @@
     </div>
   </div>
 
+  <!-- Z-Live & Sport Direct Modal -->
+  <div class="modal-overlay" id="zlive-modal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="card-icon-wrap" style="width: 32px; height: 32px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width: 18px; height: 18px;">
+              <path d="M4.93 4.93a10 10 0 0 1 14.14 0"/>
+              <path d="M7.76 7.76a6 6 0 0 1 8.48 0"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <path d="M12 14v8"/>
+            </svg>
+          </div>
+          <h2>Z-Live • Direct Sport & Télévision</h2>
+        </div>
+        <button class="modal-close" onclick="closeZLiveModal()">✕</button>
+      </div>
+
+      <div class="modal-content" style="max-height: 75vh; overflow-y: auto;">
+        <!-- Workplace / Firewall explanation banner -->
+        <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; font-size: 0.84rem; line-height: 1.45; color: #cbd5e1;">
+          💼 <strong>Au travail / Pare-feu d'entreprise :</strong> L'adresse <code>zlive.st</code> (domaine .st) est bloquée par les pare-feux professionnels. Pour regarder sans aucun blocage, utilisez les <strong>Chaînes TV directes intégrées</strong> ci-dessous (100% fonctionnelles via notre lecteur YouTube NoCookie sans pub), ou ouvrez les <strong>Plateformes de streaming sportives</strong> dans un nouvel onglet.
+        </div>
+
+        <!-- Section 1: Chaînes TV en Direct 100% intégrées -->
+        <div style="margin-bottom: 18px;">
+          <div style="font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+            <span>📺 Chaînes TV en direct (Intégrées sans pub)</span>
+            <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 12px; font-weight: 700;">100% AU TRAVAIL</span>
+          </div>
+
+          <div class="zlive-channels-grid">
+            <div class="zlive-channel-card" onclick="playLiveChannel('france24', 'France 24 Direct')">
+              <span class="zlive-channel-icon">🇫🇷</span>
+              <div class="zlive-channel-info">
+                <div class="zlive-channel-title">France 24</div>
+                <div class="zlive-channel-sub">Actualités internationales 24/7</div>
+              </div>
+              <span class="zlive-live-pill">Direct</span>
+            </div>
+
+            <div class="zlive-channel-card" onclick="playLiveChannel('euronews', 'Euronews Français')">
+              <span class="zlive-channel-icon">🇪🇺</span>
+              <div class="zlive-channel-info">
+                <div class="zlive-channel-title">Euronews FR</div>
+                <div class="zlive-channel-sub">Infos directes Europe & Monde</div>
+              </div>
+              <span class="zlive-live-pill">Direct</span>
+            </div>
+
+            <div class="zlive-channel-card" onclick="playLiveChannel('arte', 'Arte TV Direct HD')">
+              <span class="zlive-channel-icon">🎭</span>
+              <div class="zlive-channel-info">
+                <div class="zlive-channel-title">Arte TV HD</div>
+                <div class="zlive-channel-sub">Culture, documentaires, live</div>
+              </div>
+              <span class="zlive-live-pill">Direct</span>
+            </div>
+
+            <div class="zlive-channel-card" onclick="playLiveChannel('lequipe', 'L\'Équipe Sport Direct')">
+              <span class="zlive-channel-icon">⚽</span>
+              <div class="zlive-channel-info">
+                <div class="zlive-channel-title">L'Équipe Sport</div>
+                <div class="zlive-channel-sub">Débats, analyses & direct</div>
+              </div>
+              <span class="zlive-live-pill">Direct</span>
+            </div>
+
+            <div class="zlive-channel-card" onclick="playLiveChannel('bfm', 'BFM TV Direct')">
+              <span class="zlive-channel-icon">🔴</span>
+              <div class="zlive-channel-info">
+                <div class="zlive-channel-title">BFM TV</div>
+                <div class="zlive-channel-sub">Direct permanent & fil d'info</div>
+              </div>
+              <span class="zlive-live-pill">Direct</span>
+            </div>
+
+            <div class="zlive-channel-card" onclick="playLiveChannel('cnews', 'CNews Direct')">
+              <span class="zlive-channel-icon">📰</span>
+              <div class="zlive-channel-info">
+                <div class="zlive-channel-title">CNews</div>
+                <div class="zlive-channel-sub">Information en direct 24/7</div>
+              </div>
+              <span class="zlive-live-pill">Direct</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Plateformes de Sport & Z-Live -->
+        <div>
+          <div style="font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+            <span>⚽ Matchs & Événements Sportifs en Direct</span>
+            <span style="font-size: 0.7rem; background: rgba(255, 255, 255, 0.08); color: var(--text-muted); padding: 2px 8px; border-radius: 12px;">NOUVEL ONGLET SÉCURISÉ</span>
+          </div>
+
+          <div class="zlive-links-list">
+            <a href="https://zlive.st/" target="_blank" rel="noopener noreferrer" class="zlive-link-item zlive-link-primary">
+              <div class="zlive-link-left">
+                <div class="zlive-link-badge">Z</div>
+                <div>
+                  <div class="zlive-link-title">Z-Live (Site Officiel)</div>
+                  <div class="zlive-link-desc">Football, Ligue 1, UFC, NBA, F1, Champions League</div>
+                </div>
+              </div>
+              <span class="btn btn-subtle" style="pointer-events: none;">Ouvrir ↗</span>
+            </a>
+
+            <a href="https://thestreameast.to/" target="_blank" rel="noopener noreferrer" class="zlive-link-item">
+              <div class="zlive-link-left">
+                <div class="zlive-link-badge" style="background:#dc2626;">SE</div>
+                <div>
+                  <div class="zlive-link-title">StreamEast (Football & US Sports)</div>
+                  <div class="zlive-link-desc">Miroir mondial très stable : Soccer, NBA, NFL, F1</div>
+                </div>
+              </div>
+              <span class="btn btn-subtle" style="pointer-events: none;">Ouvrir ↗</span>
+            </a>
+
+            <a href="https://www.viprow.nu/" target="_blank" rel="noopener noreferrer" class="zlive-link-item">
+              <div class="zlive-link-left">
+                <div class="zlive-link-badge" style="background:#2563eb;">VR</div>
+                <div>
+                  <div class="zlive-link-title">VIPRow Sports</div>
+                  <div class="zlive-link-desc">Tous les sports par catégorie avec plusieurs liens par match</div>
+                </div>
+              </div>
+              <span class="btn btn-subtle" style="pointer-events: none;">Ouvrir ↗</span>
+            </a>
+
+            <a href="https://livetv.sx/frx/" target="_blank" rel="noopener noreferrer" class="zlive-link-item">
+              <div class="zlive-link-left">
+                <div class="zlive-link-badge" style="background:#16a34a;">LT</div>
+                <div>
+                  <div class="zlive-link-title">LiveTV SX (En français)</div>
+                  <div class="zlive-link-desc">Calendrier des matchs du jour avec flux vidéo en français</div>
+                </div>
+              </div>
+              <span class="btn btn-subtle" style="pointer-events: none;">Ouvrir ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- In-Hub Minimalist Viewer Window -->
   <div id="viewer-modal">
     <div class="viewer-bar">
@@ -1436,7 +1703,7 @@
       </div>
     </div>
     <div class="viewer-frame-wrapper">
-      <iframe id="viewer-frame" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      <iframe id="viewer-frame" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="origin"></iframe>
     </div>
   </div>
 
@@ -1851,7 +2118,11 @@
         const url = `https://mohamedguell.github.io/yt/?v=${item.id}`;
         openInHub(url, item.title || 'YouTube Sans Pub');
       } else if (media === 'zlive') {
-        launchZLive(false);
+        if (item.url && item.url.includes('/yt/')) {
+          openInHub(item.url, item.title || 'Direct TV');
+        } else {
+          openZLiveModal();
+        }
       }
     }
 
@@ -1878,6 +2149,50 @@
       }
     }
 
+    const LIVE_CHANNELS = {
+      france24: { title: 'France 24 Direct', videoId: 'a47ckXKZjxI' },
+      euronews: { title: 'Euronews Français Direct', videoId: 'NiRIbKwAejk' },
+      bfm: { title: 'BFM TV Direct', videoId: 'C15czQgHSrE' },
+      lequipe: { title: 'L\'Équipe Sport Direct', videoId: 'BUwoXeDg8u4' },
+      arte: { title: 'Arte TV Direct HD', query: 'Arte direct live francais' },
+      cnews: { title: 'CNews Direct', query: 'CNews direct live' }
+    };
+
+    function openZLiveModal() {
+      const modal = document.getElementById('zlive-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeZLiveModal() {
+      const modal = document.getElementById('zlive-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function playLiveChannel(channelKey, title) {
+      closeZLiveModal();
+      const ch = LIVE_CHANNELS[channelKey];
+      let url = 'https://mohamedguell.github.io/yt/';
+      if (ch && ch.videoId) {
+        url = `https://mohamedguell.github.io/yt/?v=${ch.videoId}`;
+      } else if (ch && ch.query) {
+        url = `https://mohamedguell.github.io/yt/?q=${encodeURIComponent(ch.query)}`;
+      }
+      recordWatchProgress('zlive', {
+        title: title || (ch ? ch.title : 'Direct TV'),
+        category: 'Sport / TV',
+        url: url,
+        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
+        timestamp: Date.now()
+      });
+      openInHub(url, title || (ch ? ch.title : 'Direct TV'));
+    }
+
     function launchZLive(external = false) {
       recordWatchProgress('zlive', {
         title: 'Z-Live (Direct Sport & TV)',
@@ -1887,9 +2202,9 @@
         timestamp: Date.now()
       });
       if (external) {
-        window.open('https://zlive.st/', '_blank');
+        window.open('https://zlive.st/', '_blank', 'noopener,noreferrer');
       } else {
-        openInHub('https://zlive.st/', 'Z-Live (Direct Sport)');
+        openZLiveModal();
       }
     }
 
@@ -2132,7 +2447,7 @@
 
     function openViewerExternal() {
       if (currentViewerUrl) {
-        window.open(currentViewerUrl, '_blank');
+        window.open(currentViewerUrl, '_blank', 'noopener,noreferrer');
       }
     }
 
