@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CoD: World at War Zombies</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoD: World at War Zombies (NZ:P)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/></svg>">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body, html {
+    html, body {
       width: 100%;
       height: 100%;
       background: #09090b;
@@ -16,6 +17,7 @@
       display: flex;
       flex-direction: column;
     }
+
     .top-bar {
       height: 44px;
       background: #121215;
@@ -26,13 +28,16 @@
       padding: 0 16px;
       font-size: 0.85rem;
       z-index: 10;
+      flex-shrink: 0;
     }
+
     .title-group {
       display: flex;
       align-items: center;
       gap: 10px;
       font-weight: 600;
     }
+
     .badge {
       background: rgba(239, 68, 68, 0.15);
       color: #ef4444;
@@ -42,11 +47,22 @@
       font-weight: 700;
       letter-spacing: 0.05em;
     }
+
+    .badge-lan {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
     .controls-group {
       display: flex;
       gap: 8px;
       align-items: center;
     }
+
     .btn {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -58,30 +74,109 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
     .btn:hover {
       background: rgba(255, 255, 255, 0.12);
       border-color: rgba(255, 255, 255, 0.2);
     }
+
     .game-wrapper {
       flex: 1;
       width: 100%;
       height: calc(100% - 44px);
       position: relative;
       background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    iframe {
+
+    canvas.emscripten {
+      border: 0px none;
       width: 100%;
       height: 100%;
-      border: none;
+      padding: 0;
+      margin: 0;
+      outline: none;
     }
-    .fallback-banner {
+
+    /* Loading UI */
+    #loading-box {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      max-width: 480px;
+      padding: 30px;
+      text-align: center;
+      background: rgba(18, 18, 21, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      z-index: 5;
+    }
+
+    .loading-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .loading-desc {
+      font-size: 0.82rem;
+      color: #a1a1aa;
+      line-height: 1.45;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 4px 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #dc2626, #ef4444);
+      transition: width 0.2s ease;
+    }
+
+    #status-text {
+      font-size: 0.8rem;
+      color: #e4e4e7;
+    }
+
+    .start-btn {
+      background: #dc2626;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .start-btn:hover {
+      background: #b91c1c;
+      transform: translateY(-1px);
+    }
+
+    .work-banner {
       position: absolute;
       bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(18, 18, 21, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       padding: 8px 16px;
       font-size: 0.75rem;
@@ -89,11 +184,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      z-index: 8;
       pointer-events: auto;
-    }
-    .fallback-banner a {
-      color: #60a5fa;
-      text-decoration: underline;
     }
   </style>
 </head>
@@ -101,24 +193,95 @@
   <div class="top-bar">
     <div class="title-group">
       <span class="badge">WAW ZOMBIES</span>
-      <span>Nazi Zombies: Portable (Nacht der Untoten, Verruckt, Shi No Numa, Der Riese)</span>
+      <span class="badge-lan">SOLO & LAN LOCAL</span>
+      <span>Nazi Zombies: Portable (Nacht, Verrückt, Shi No Numa, Der Riese)</span>
     </div>
     <div class="controls-group">
       <button class="btn" onclick="toggleFullscreen()">Plein écran</button>
-      <a class="btn" href="https://nzp.gay/" target="_blank" rel="noopener">Ouvrir externe ↗</a>
     </div>
   </div>
 
   <div class="game-wrapper" id="game-container">
-    <iframe id="zombies-frame" src="https://nzp.gay/" allow="autoplay; fullscreen; pointer-lock"></iframe>
-    <div class="fallback-banner" id="banner">
-      <span>Si l'écran reste noir au travail, le domaine externe peut être filtré par le proxy :</span>
-      <a href="https://nzp.gay/" target="_blank" rel="noopener">Lancer en direct</a>
-      <button style="background:none;border:none;color:#71717a;cursor:pointer;" onclick="document.getElementById('banner').remove()">✕</button>
+    <div id="loading-box">
+      <div class="loading-title">Nazi Zombies: Portable</div>
+      <p class="loading-desc">
+        Portage WebGL autonome de Call of Duty: WaW Zombies.<br>
+        <strong>100% Hors-ligne / Local</strong> : aucun serveur externe bloqué par le pare-feu.
+      </p>
+      <div class="progress-bar-wrap" id="progress-wrap" style="display: none;">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <div id="status-text">Prêt à démarrer</div>
+      <button class="start-btn" id="start-btn" onclick="launchGame()">Lancer la partie</button>
+    </div>
+
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" hidden></canvas>
+
+    <div class="work-banner" id="work-banner">
+      <span>💡 <strong>Conseil :</strong> Choisissez <em>Solo</em> dans le menu principal pour affronter les vagues en local. Pour jouer à plusieurs sur le même réseau (LAN), utilisez l'option <em>Co-op</em>.</span>
+      <button style="background:none;border:none;color:#71717a;cursor:pointer;" onclick="document.getElementById('work-banner').remove()">✕</button>
     </div>
   </div>
 
   <script>
+    var Module = {
+      files: {
+        "default.fmf": "default.fmf",
+        "nzp/progs.pk3": "nzp/progs.pk3",
+        "nzp/game.pk3": "https://raw.githubusercontent.com/nzp-team/nzp-team.github.io/main/nzp/game.pk3"
+      },
+      print: function(msg) { console.log(msg); },
+      printErr: function(text) { console.warn(text); },
+      canvas: document.getElementById('canvas'),
+      setStatus: function(text) {
+        const statusEl = document.getElementById('status-text');
+        const progressWrap = document.getElementById('progress-wrap');
+        const progressFill = document.getElementById('progress-fill');
+        if (!statusEl) return;
+
+        var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+        if (m) {
+          const loaded = parseFloat(m[2]);
+          const total = parseFloat(m[4]);
+          const pct = Math.min(100, Math.round((loaded / total) * 100));
+          if (progressWrap) progressWrap.style.display = 'block';
+          if (progressFill) progressFill.style.width = pct + '%';
+          statusEl.textContent = 'Chargement des fichiers du jeu... ' + pct + '%';
+        } else {
+          statusEl.textContent = text;
+        }
+      },
+      totalDependencies: 0,
+      monitorRunDependencies: function(left) {
+        this.totalDependencies = Math.max(this.totalDependencies, left);
+        if (left === 0) {
+          document.getElementById('loading-box').style.display = 'none';
+          document.getElementById('canvas').hidden = false;
+        }
+      },
+      postRun: [
+        function() {
+          document.getElementById('loading-box').style.display = 'none';
+          document.getElementById('canvas').hidden = false;
+        }
+      ]
+    };
+
+    function launchGame() {
+      const btn = document.getElementById('start-btn');
+      btn.style.display = 'none';
+      document.getElementById('progress-wrap').style.display = 'block';
+      Module.setStatus('Initialisation du moteur WebGL...');
+
+      const script = document.createElement('script');
+      script.src = 'ftewebgl.js';
+      script.charset = 'utf-8';
+      script.onerror = function() {
+        Module.setStatus('Erreur de téléchargement du moteur WebGL.');
+      };
+      document.head.appendChild(script);
+    }
+
     function toggleFullscreen() {
       const el = document.getElementById('game-container');
       if (!document.fullscreenElement) {

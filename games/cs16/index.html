@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Counter-Strike 1.6</title>
+  <title>Counter-Strike (Solo Bots & LAN)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body, html {
@@ -26,6 +27,7 @@
       padding: 0 16px;
       font-size: 0.85rem;
       z-index: 10;
+      flex-shrink: 0;
     }
     .title-group {
       display: flex;
@@ -42,10 +44,28 @@
       font-weight: 700;
       letter-spacing: 0.05em;
     }
+    .badge-mode {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
     .controls-group {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
+    }
+    .mode-select {
+      background: #1a1a1e;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ededed;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      outline: none;
+      cursor: pointer;
     }
     .btn {
       background: rgba(255, 255, 255, 0.06);
@@ -58,6 +78,9 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
     .btn:hover {
       background: rgba(255, 255, 255, 0.12);
@@ -75,25 +98,74 @@
       height: 100%;
       border: none;
     }
+    .work-banner {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(18, 18, 21, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.75rem;
+      color: #a1a1aa;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 8;
+      pointer-events: auto;
+      max-width: 90%;
+    }
   </style>
 </head>
 <body>
   <div class="top-bar">
     <div class="title-group">
-      <span class="badge">CS 1.6</span>
-      <span>Counter-Strike 1.6 Web (de_dust2, cs_assault, inferno, aztec)</span>
+      <span class="badge">CS TACTICAL</span>
+      <span class="badge-mode">SOLO BOTS & LAN</span>
+      <span>Counter-Strike Web (Bomb Defusal, 5v5, AK47, M4A1, AWP)</span>
     </div>
     <div class="controls-group">
+      <label style="font-size: 0.75rem; color: #a1a1aa;">Moteur :</label>
+      <select class="mode-select" id="engine-select" onchange="switchEngine(this.value)">
+        <option value="tinystrike" selected>Tiny Strike (Solo Bots & LAN - Recommandé au travail)</option>
+        <option value="webxash">WebXash (Moteur Xash3D CS / GitHub Pages)</option>
+        <option value="playcs">Play-CS (En ligne public - Hors travail)</option>
+      </select>
       <button class="btn" onclick="toggleFullscreen()">Plein écran</button>
-      <a class="btn" href="https://play-cs.com/" target="_blank" rel="noopener">Ouvrir externe ↗</a>
+      <button class="btn" onclick="openExternal()">Externe ↗</button>
     </div>
   </div>
 
   <div class="game-wrapper" id="game-container">
-    <iframe id="cs-frame" src="https://play-cs.com/" allow="autoplay; fullscreen; pointer-lock"></iframe>
+    <iframe id="cs-frame" src="https://guyzyskind.com/tinystrike/" allow="autoplay; fullscreen; pointer-lock"></iframe>
+    <div class="work-banner" id="work-banner">
+      <span>💡 <strong>Au travail :</strong> Choisissez <em>Solo + Bots</em> pour jouer immédiatement hors-ligne. Pour jouer avec des collègues sur le même réseau, créez une salle (Room) et partagez le code à 6 lettres !</span>
+      <button style="background:none;border:none;color:#71717a;cursor:pointer;" onclick="document.getElementById('work-banner').remove()">✕</button>
+    </div>
   </div>
 
   <script>
+    const ENGINES = {
+      tinystrike: "https://guyzyskind.com/tinystrike/",
+      webxash: "https://x8bitrain.github.io/webXash/",
+      playcs: "https://play-cs.com/"
+    };
+
+    function switchEngine(val) {
+      const frame = document.getElementById('cs-frame');
+      if (ENGINES[val]) {
+        frame.src = ENGINES[val];
+      }
+    }
+
+    function openExternal() {
+      const frame = document.getElementById('cs-frame');
+      if (frame && frame.src) {
+        window.open(frame.src, '_blank', 'noopener,noreferrer');
+      }
+    }
+
     function toggleFullscreen() {
       const el = document.getElementById('game-container');
       if (!document.fullscreenElement) {
