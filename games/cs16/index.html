@@ -98,24 +98,6 @@
       height: 100%;
       border: none;
     }
-    .work-banner {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(18, 18, 21, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 0.75rem;
-      color: #a1a1aa;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 8;
-      pointer-events: auto;
-      max-width: 90%;
-    }
   </style>
 </head>
 <body>
@@ -128,9 +110,9 @@
     <div class="controls-group">
       <label style="font-size: 0.75rem; color: #a1a1aa;">Moteur :</label>
       <select class="mode-select" id="engine-select" onchange="switchEngine(this.value)">
-        <option value="tinystrike" selected>Tiny Strike (Solo Bots & LAN - Recommandé au travail)</option>
-        <option value="webxash">WebXash (Moteur Xash3D CS / GitHub Pages)</option>
-        <option value="playcs">Play-CS (En ligne public - Hors travail)</option>
+        <option value="tinystrike" selected>Tiny Strike (Solo Bots & LAN)</option>
+        <option value="webxash">WebXash (Moteur Xash3D CS)</option>
+        <option value="playcs">Play-CS (En ligne)</option>
       </select>
       <button class="btn" onclick="toggleFullscreen()">Plein écran</button>
       <button class="btn" onclick="openExternal()">Externe ↗</button>
@@ -139,10 +121,6 @@
 
   <div class="game-wrapper" id="game-container">
     <iframe id="cs-frame" src="https://guyzyskind.com/tinystrike/" allow="autoplay; fullscreen; pointer-lock"></iframe>
-    <div class="work-banner" id="work-banner">
-      <span>💡 <strong>Au travail :</strong> Choisissez <em>Solo + Bots</em> pour jouer immédiatement hors-ligne. Pour jouer avec des collègues sur le même réseau, créez une salle (Room) et partagez le code à 6 lettres !</span>
-      <button style="background:none;border:none;color:#71717a;cursor:pointer;" onclick="document.getElementById('work-banner').remove()">✕</button>
-    </div>
   </div>
 
   <script>
