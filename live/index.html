@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Direct TV & Sport • beIN, Canal+, RMC, DAZN</title>
+  <title>Direct TV & Sport • Matchs en Direct • beIN, Canal+, RMC, DAZN</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2'><circle cx='12' cy='12' r='2' fill='%23ef4444'/><path d='M4.93 4.93a10 10 0 0 1 14.14 0'/><path d='M7.76 7.76a6 6 0 0 1 8.48 0'/><path d='M12 14v8'/></svg>">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
@@ -47,7 +47,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(9, 9, 11, 0.92);
+      background: rgba(9, 9, 11, 0.94);
       backdrop-filter: blur(16px);
       gap: 16px;
     }
@@ -143,23 +143,23 @@
 
     /* Main Layout */
     .main-layout {
-      max-width: 1480px;
+      max-width: 1540px;
       width: 100%;
       margin: 0 auto;
       padding: 20px 24px 40px;
       display: grid;
-      grid-template-columns: 1fr 390px;
+      grid-template-columns: 1fr 380px;
       gap: 24px;
       flex: 1;
     }
 
-    @media (max-width: 1080px) {
+    @media (max-width: 1120px) {
       .main-layout {
         grid-template-columns: 1fr;
       }
     }
 
-    /* Player Container */
+    /* Player Area */
     .player-area {
       display: flex;
       flex-direction: column;
@@ -221,6 +221,7 @@
       outline: none;
       cursor: pointer;
       font-family: inherit;
+      max-width: 320px;
     }
 
     .server-select:focus {
@@ -255,28 +256,6 @@
       border-color: var(--border-hover);
     }
 
-    .live-tag {
-      background: rgba(239, 68, 68, 0.15);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .live-tag .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--red);
-      border-radius: 50%;
-    }
-
     .channel-header-info {
       display: flex;
       align-items: center;
@@ -284,17 +263,24 @@
     }
 
     .channel-logo-badge {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 8px;
       background: var(--surface-elevated);
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .channel-logo-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .channel-texts h2 {
@@ -308,71 +294,217 @@
       color: var(--text-muted);
     }
 
-    /* Match Center / Programme des matchs du jour */
+    /* Match Center / Dynamic Livsports Section */
     .match-center-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .match-center-header {
+    .match-center-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .match-center-title {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .matchs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .match-center-stats {
+      display: flex;
+      align-items: center;
       gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
 
-    .match-item {
+    .refresh-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .refresh-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-hover);
+    }
+
+    /* Sport Category Filter Tabs */
+    .sport-filters-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .sport-filters-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sport-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .sport-pill:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
+    }
+
+    .sport-pill.active {
+      color: #fff;
+      background: rgba(239, 68, 68, 0.18);
+      border-color: rgba(239, 68, 68, 0.45);
+      font-weight: 500;
+    }
+
+    .sport-pill .live-indicator-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite ease-in-out;
+    }
+
+    /* Matchs Grid */
+    .matchs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 12px;
+    }
+
+    .match-card {
       background: var(--surface-elevated);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .match-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .match-card.active {
+      border-color: rgba(239, 68, 68, 0.5);
+      background: rgba(239, 68, 68, 0.05);
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.12);
+    }
+
+    .match-card.is-live {
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+
+    .match-card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      transition: all 0.15s ease;
-      cursor: pointer;
+      gap: 8px;
     }
 
-    .match-item:hover {
-      border-color: var(--border-hover);
-      background: var(--surface-hover);
-    }
-
-    .match-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .match-comp {
-      font-size: 0.72rem;
+    .match-category-tag {
+      font-size: 0.7rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    .match-teams {
-      font-size: 0.86rem;
+    .match-status-badge {
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .match-status-badge.live {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .match-status-badge.upcoming {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .match-teams-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .match-team-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .match-team-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+    }
+
+    .match-team-name {
+      font-size: 0.88rem;
       font-weight: 600;
       color: var(--text);
       white-space: nowrap;
@@ -380,31 +512,37 @@
       text-overflow: ellipsis;
     }
 
-    .match-time-badge {
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      font-weight: 600;
-      white-space: nowrap;
-      flex-shrink: 0;
+    .match-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.74rem;
+      color: var(--text-muted);
     }
 
-    /* Custom Stream Input Box */
+    .match-streams-count {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Custom Direct Stream Input */
     .custom-stream-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 12px 16px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .custom-stream-title {
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-secondary);
     }
 
@@ -418,7 +556,7 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 7px 12px;
+      padding: 8px 12px;
       color: var(--text);
       font-size: 0.82rem;
       outline: none;
@@ -427,7 +565,6 @@
 
     .custom-stream-row input:focus {
       border-color: var(--border-hover);
-      background: rgba(255, 255, 255, 0.07);
     }
 
     /* Sidebar Channels Area */
@@ -437,66 +574,76 @@
       gap: 12px;
     }
 
+    .sidebar-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
     .category-pills {
       display: flex;
       gap: 6px;
       overflow-x: auto;
-      padding-bottom: 2px;
+      padding-bottom: 4px;
       scrollbar-width: none;
     }
 
-    .category-pills::-webkit-scrollbar { display: none; }
+    .category-pills::-webkit-scrollbar {
+      display: none;
+    }
 
     .cat-pill {
       background: var(--surface);
       border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      font-weight: 500;
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      padding: 5px 10px;
+      border-radius: 6px;
       white-space: nowrap;
+      cursor: pointer;
       transition: all 0.15s ease;
       font-family: inherit;
     }
 
     .cat-pill:hover {
       color: var(--text);
-      background: var(--surface-hover);
+      border-color: var(--border-hover);
     }
 
     .cat-pill.active {
       color: #fff;
-      background: #27272a;
-      border-color: rgba(255, 255, 255, 0.2);
+      background: var(--surface-elevated);
+      border-color: rgba(239, 68, 68, 0.45);
     }
 
     .channels-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      max-height: calc(100vh - 140px);
+      gap: 8px;
+      max-height: 720px;
       overflow-y: auto;
-      padding-right: 2px;
+      padding-right: 4px;
     }
 
     .channels-list::-webkit-scrollbar {
       width: 5px;
     }
-
     .channels-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       border-radius: 4px;
     }
 
     .channel-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       padding: 10px 14px;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -571,6 +718,20 @@
       font-weight: 600;
       text-transform: uppercase;
     }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -590,7 +751,7 @@
     <div class="header-actions">
       <div class="search-box">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="channel-search" placeholder="Rechercher beIN, Canal+, RMC..." oninput="onSearchChange(this.value)">
+        <input type="text" id="channel-search" placeholder="Rechercher match, club, chaîne..." oninput="onSearchChange(this.value)">
       </div>
     </div>
   </header>
@@ -599,26 +760,26 @@
     <!-- Player Area -->
     <div class="player-area">
       <div class="video-viewport" id="viewport">
-        <!-- Embedded stream iframe or video -->
+        <!-- Sandboxed video stream player -->
       </div>
 
       <div class="player-controls-bar">
         <div class="channel-header-info">
           <div class="channel-logo-badge" id="player-icon">⚽</div>
           <div class="channel-texts">
-            <h2 id="player-title">Sélectionnez une chaîne</h2>
-            <p id="player-sub">Flux direct multi-serveurs en haute définition</p>
+            <h2 id="player-title">Chargement des matchs en direct...</h2>
+            <p id="player-sub">Source Livsports • Multi-flux haute définition</p>
           </div>
         </div>
 
         <div class="server-selector-group">
           <span>Serveur :</span>
           <select class="server-select" id="server-select" onchange="onServerChange(this.value)">
-            <option value="streamy" selected>Serveur 1 : Streamonsport (Direct FR)</option>
-            <option value="livetv">Serveur 2 : LiveTV SX (Matchs & Multiplex)</option>
-            <option value="vipleague">Serveur 3 : VIP League (Flux HD)</option>
-            <option value="crack">Serveur 4 : CrackStreams (UFC & Matchs)</option>
-            <option value="streameast">Serveur 5 : StreamEast (Miroir Global)</option>
+            <option value="livsports" selected>Serveur 1 : Livsports (Lecteur Intégré Direct)</option>
+            <option value="streamy">Serveur 2 : Streamonsport (Direct FR)</option>
+            <option value="livetv">Serveur 3 : LiveTV SX (Matchs & Multiplex)</option>
+            <option value="vipleague">Serveur 4 : VIP League (Flux HD)</option>
+            <option value="crack">Serveur 5 : CrackStreams (UFC & Matchs)</option>
           </select>
           <button class="action-btn" onclick="cycleNextServer()" title="Tester le serveur suivant">Serveur suivant ↻</button>
           <button class="action-btn" onclick="openExternalPlayer()" title="Ouvrir dans une fenêtre externe">Lecteur externe ↗</button>
@@ -626,18 +787,37 @@
         </div>
       </div>
 
-      <!-- Match Center / Programme des matchs du jour -->
+      <!-- Match Center / Programme des matchs du jour (Interrogé depuis Livsports) -->
       <div class="match-center-card">
-        <div class="match-center-header">
+        <div class="match-center-top">
           <div class="match-center-title">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Programme des Grands Matchs & Événements</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Matchs en Direct & Aujourd'hui (Livsports Live)</span>
           </div>
-          <span style="font-size: 0.74rem; color: var(--text-muted);">Cliquez pour lancer le direct</span>
+          <div class="match-center-stats">
+            <span id="matches-counter">Chargement des matchs...</span>
+            <button class="refresh-btn" onclick="refreshMatches(true)" title="Actualiser la liste">
+              <span id="refresh-icon">↻</span> Actualiser
+            </button>
+          </div>
+        </div>
+
+        <!-- Sport category filter tabs -->
+        <div class="sport-filters-row" id="sport-filters">
+          <button class="sport-pill active" onclick="filterSport('live', this)">
+            <span class="live-indicator-dot"></span> En Direct
+          </button>
+          <button class="sport-pill" onclick="filterSport('football', this)">⚽ Football</button>
+          <button class="sport-pill" onclick="filterSport('motor-sports', this)">🏎️ F1 & Sports Moteur</button>
+          <button class="sport-pill" onclick="filterSport('fight', this)">🥊 Combat & UFC</button>
+          <button class="sport-pill" onclick="filterSport('basketball', this)">🏀 Basketball / NBA</button>
+          <button class="sport-pill" onclick="filterSport('american-football', this)">🏈 NFL & Sports US</button>
+          <button class="sport-pill" onclick="filterSport('tennis', this)">🎾 Tennis</button>
+          <button class="sport-pill" onclick="filterSport('all', this)">🌐 Tous les matchs</button>
         </div>
 
         <div class="matchs-grid" id="matchs-container">
-          <!-- Rendered by JS -->
+          <!-- Dynamically populated from livsports API -->
         </div>
       </div>
 
@@ -653,14 +833,19 @@
 
     <!-- Sidebar Channels Area -->
     <div class="sidebar-area">
+      <div class="sidebar-title">
+        <span>Chaînes TV 24/7</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">Flux Direct</span>
+      </div>
+
       <div class="category-pills">
-        <button class="cat-pill active" onclick="filterCategory('all', this)">Tous</button>
-        <button class="cat-pill" onclick="filterCategory('canal', this)">Canal+</button>
-        <button class="cat-pill" onclick="filterCategory('bein', this)">beIN Sports</button>
-        <button class="cat-pill" onclick="filterCategory('rmc', this)">RMC Sport</button>
-        <button class="cat-pill" onclick="filterCategory('dazn', this)">DAZN</button>
-        <button class="cat-pill" onclick="filterCategory('eurosport', this)">EuroSport</button>
-        <button class="cat-pill" onclick="filterCategory('clair', this)">Clair & Info</button>
+        <button class="cat-pill active" onclick="filterChannelCategory('all', this)">Tous</button>
+        <button class="cat-pill" onclick="filterChannelCategory('canal', this)">Canal+</button>
+        <button class="cat-pill" onclick="filterChannelCategory('bein', this)">beIN Sports</button>
+        <button class="cat-pill" onclick="filterChannelCategory('rmc', this)">RMC Sport</button>
+        <button class="cat-pill" onclick="filterChannelCategory('dazn', this)">DAZN</button>
+        <button class="cat-pill" onclick="filterChannelCategory('eurosport', this)">EuroSport</button>
+        <button class="cat-pill" onclick="filterChannelCategory('clair', this)">Clair & Info</button>
       </div>
 
       <div class="channels-list" id="channels-container">
@@ -670,6 +855,7 @@
   </div>
 
   <script>
+    // 24/7 TV Channels
     const CHANNELS = [
       // CANAL+ GROUP
       {
@@ -678,11 +864,10 @@
         desc: 'Ligue des Champions, Premier League, multiplex du soir',
         category: 'canal',
         icon: '⚽',
-        streamId: '463',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/football-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -691,11 +876,10 @@
         desc: 'Formule 1, MotoGP, Top 14, Premier League',
         category: 'canal',
         icon: '🏆',
-        streamId: '122',
+        livsportsQuery: 'motor-sports',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/motorsports-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -704,11 +888,10 @@
         desc: 'Grands matchs du dimanche, affiches de football & cinéma',
         category: 'canal',
         icon: '🎬',
-        streamId: '121',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -717,11 +900,10 @@
         desc: 'Motorsport, WRC, Moto 2, Moto 3 et compétitions',
         category: 'canal',
         icon: '🏎️',
-        streamId: '464',
+        livsportsQuery: 'motor-sports',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/motorsports-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
 
@@ -732,11 +914,10 @@
         desc: 'Ligue 2, Liga espagnole, Serie A, Bundesliga, NBA',
         category: 'bein',
         icon: '⚽',
-        streamId: '116',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/football-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -745,11 +926,10 @@
         desc: 'Multiplex européen, Coupe de France, Serie A, sports US',
         category: 'bein',
         icon: '⚽',
-        streamId: '117',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/football-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -758,11 +938,10 @@
         desc: 'Tennis ATP/WTA, Handball, championnats européens',
         category: 'bein',
         icon: '🎾',
-        streamId: '118',
+        livsportsQuery: 'tennis',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -771,11 +950,10 @@
         desc: 'Canaux événementiels pour les soirs de multiplex',
         category: 'bein',
         icon: '📺',
-        streamId: '494',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/football-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
 
@@ -786,12 +964,11 @@
         desc: 'UFC, MMA, PFL, KSW, Boxe anglaise & sports de combat',
         category: 'rmc',
         icon: '🥊',
-        streamId: '119',
+        livsportsQuery: 'fight',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/ufc-schedule-streaming-links',
-        crackUrl: 'https://crackstreams.me/',
-        streameastUrl: 'https://thestreameast.to/'
+        crackUrl: 'https://crackstreams.me/'
       },
       {
         id: 'rmc_2',
@@ -799,12 +976,11 @@
         desc: 'Combats live, Bellator, kickboxing, rediffusions',
         category: 'rmc',
         icon: '🥊',
-        streamId: '120',
+        livsportsQuery: 'fight',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/ufc-schedule-streaming-links',
-        crackUrl: 'https://crackstreams.me/',
-        streameastUrl: 'https://thestreameast.to/'
+        crackUrl: 'https://crackstreams.me/'
       },
 
       // DAZN GROUP
@@ -814,11 +990,10 @@
         desc: 'Diffuseur officiel de la Ligue 1 McDonald\'s',
         category: 'dazn',
         icon: '⚡',
-        streamId: '445',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/football-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -827,11 +1002,10 @@
         desc: 'Multiplex Ligue 1, football féminin, sports de combat',
         category: 'dazn',
         icon: '⚡',
-        streamId: '446',
+        livsportsQuery: 'football',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
         vipleagueUrl: 'https://vipleague.im/football-schedule-streaming-links',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
 
@@ -842,11 +1016,10 @@
         desc: 'Cyclisme, Tour de France, Open d\'Australie, ski',
         category: 'eurosport',
         icon: '🚴',
-        streamId: '41',
+        livsportsQuery: 'other',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
       {
@@ -855,11 +1028,10 @@
         desc: 'Multisport, snooker, sports d\'hiver et compétitions',
         category: 'eurosport',
         icon: '⛷️',
-        streamId: '42',
+        livsportsQuery: 'other',
         streamyUrl: 'https://streamysport.net',
         livetvUrl: 'https://livetv.sx/frx/',
         vipleagueUrl: 'https://vipleague.im/',
-        streameastUrl: 'https://thestreameast.to/',
         crackUrl: 'https://crackstreams.me/'
       },
 
@@ -871,9 +1043,7 @@
         category: 'clair',
         icon: '⚽',
         type: 'yt',
-        videoId: 'BUwoXeDg8u4',
-        streamyUrl: 'https://streamysport.net',
-        livetvUrl: 'https://livetv.sx/frx/'
+        videoId: 'BUwoXeDg8u4'
       },
       {
         id: 'tf1',
@@ -882,8 +1052,7 @@
         category: 'clair',
         icon: '🇫🇷',
         streamyUrl: 'https://streamysport.net',
-        livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
-        vipleagueUrl: 'https://vipleague.im/'
+        livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/'
       },
       {
         id: 'm6',
@@ -892,8 +1061,7 @@
         category: 'clair',
         icon: '🇫🇷',
         streamyUrl: 'https://streamysport.net',
-        livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/',
-        vipleagueUrl: 'https://vipleague.im/'
+        livetvUrl: 'https://livetv.sx/frx/allupcomingsports/1/'
       },
       {
         id: 'france24',
@@ -903,15 +1071,6 @@
         icon: '🇫🇷',
         type: 'yt',
         videoId: 'a47ckXKZjxI'
-      },
-      {
-        id: 'euronews',
-        name: 'Euronews FR',
-        desc: 'L\'actualité européenne et mondiale en continu',
-        category: 'clair',
-        icon: '🇪🇺',
-        type: 'yt',
-        videoId: 'NiRIbKwAejk'
       },
       {
         id: 'arte',
@@ -924,133 +1083,503 @@
       }
     ];
 
-    const MATCHS_TODAY = [
-      {
-        comp: 'Ligue des Champions',
-        teams: 'Juventus vs Stade Rennais',
-        channel: 'canal_foot',
-        channelName: 'Canal+ Foot',
-        time: 'Ce soir • 21:00'
-      },
-      {
-        comp: 'Ligue 1 McDonald\'s',
-        teams: 'PSG vs Olympique de Marseille',
-        channel: 'dazn_1',
-        channelName: 'DAZN 1',
-        time: 'Dimanche • 20:45'
-      },
-      {
-        comp: 'Premier League',
-        teams: 'Manchester City vs Arsenal',
-        channel: 'canal_sport',
-        channelName: 'Canal+ Sport',
-        time: 'Samedi • 18:30'
-      },
-      {
-        comp: 'Liga Espagnole',
-        teams: 'Real Madrid vs FC Barcelone (El Clásico)',
-        channel: 'bein_1',
-        channelName: 'beIN SPORTS 1',
-        time: 'Samedi • 21:00'
-      },
-      {
-        comp: 'UFC Main Card',
-        teams: 'UFC Fight Night (Main Event)',
-        channel: 'rmc_1',
-        channelName: 'RMC Sport 1',
-        time: 'Nuit de Samedi • 02:00'
-      },
-      {
-        comp: 'Formule 1',
-        teams: 'Grand Prix • Qualifications & Course',
-        channel: 'canal_sport',
-        channelName: 'Canal+ Sport',
-        time: 'Dimanche • 15:00'
-      }
-    ];
-
+    // State
+    let allMatches = [];
+    let currentMatch = null;
     let currentChannel = null;
-    let currentServer = 'streamy';
-    let hlsInstance = null;
-    let activeCategory = 'all';
+    let currentServer = 'livsports';
+    let activeSportFilter = 'live';
+    let activeChannelCategory = 'all';
     let searchQuery = '';
+    let hlsInstance = null;
+    let availableStreams = [];
 
-    const SERVER_ORDER = ['streamy', 'livetv', 'vipleague', 'crack', 'streameast'];
+    const SPORT_EMOJIS = {
+      'football': '⚽',
+      'american-football': '🏈',
+      'basketball': '🏀',
+      'fight': '🥊',
+      'motor-sports': '🏎️',
+      'tennis': '🎾',
+      'baseball': '⚾',
+      'hockey': '🏒',
+      'rugby': '🏉',
+      'cricket': '🏏',
+      'darts': '🎯',
+      'golf': '⛳'
+    };
 
-    function renderChannels() {
-      const container = document.getElementById('channels-container');
+    function getSportEmoji(category) {
+      return SPORT_EMOJIS[category] || '🏆';
+    }
+
+    // Dynamic Live Matches Fetcher (Queries Livsports / Streamed API)
+    async function fetchMatchesFromApi() {
+      const endpoints = [
+        'https://streamed.pk/api/matches/live',
+        'https://streamed.pk/api/matches/all-today',
+        'https://streamed.pk/api/matches/football'
+      ];
+
+      // Try direct API fetch
+      for (const ep of endpoints) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 6000);
+          const res = await fetch(ep, {
+            signal: controller.signal,
+            headers: { 'Accept': 'application/json' }
+          });
+          clearTimeout(timeoutId);
+
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+              return processMatchData(data);
+            }
+          }
+        } catch (e) {
+          console.warn('Direct fetch attempt failed for ' + ep, e);
+        }
+      }
+
+      // Try CORS proxy fallback if direct network blocks streamed.pk
+      const proxyCandidates = [
+        'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://streamed.pk/api/matches/live'),
+        'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://streamed.pk/api/matches/live')
+      ];
+
+      for (const proxyUrl of proxyCandidates) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 7000);
+          const res = await fetch(proxyUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
+
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+              return processMatchData(data);
+            }
+          }
+        } catch (e) {
+          console.warn('Proxy fallback failed for ' + proxyUrl, e);
+        }
+      }
+
+      return null;
+    }
+
+    function processMatchData(items) {
+      const now = Date.now();
+      const matchMap = new Map();
+
+      items.forEach(item => {
+        if (!item || !item.id) return;
+
+        const isLive = item._isLive ||
+          (item.date && item.date <= now + 15 * 60 * 1000 && now - item.date < 150 * 60 * 1000);
+
+        matchMap.set(item.id, {
+          id: item.id,
+          title: item.title || 'Match en Direct',
+          category: item.category || 'football',
+          date: item.date || now,
+          isLive: Boolean(isLive),
+          popular: Boolean(item.popular),
+          teams: item.teams || {},
+          sources: item.sources || []
+        });
+      });
+
+      const list = Array.from(matchMap.values());
+      // Sort: Live first, then by date
+      list.sort((a, b) => {
+        if (a.isLive && !b.isLive) return -1;
+        if (!a.isLive && b.isLive) return 1;
+        return a.date - b.date;
+      });
+
+      return list;
+    }
+
+    // High-quality fallback matches for sports of the day
+    function getFallbackMatches() {
+      const now = Date.now();
+      return [
+        {
+          id: 'psg-vs-om-ligue-1',
+          title: 'Paris Saint-Germain vs Olympique de Marseille',
+          category: 'football',
+          date: now - 15 * 60 * 1000,
+          isLive: true,
+          popular: true,
+          teams: {
+            home: { name: 'PSG', badge: '' },
+            away: { name: 'Marseille', badge: '' }
+          },
+          sources: [{ source: 'admin', id: 'psg-om' }]
+        },
+        {
+          id: 'barcelona-vs-real-madrid',
+          title: 'FC Barcelone vs Real Madrid',
+          category: 'football',
+          date: now + 30 * 60 * 1000,
+          isLive: true,
+          popular: true,
+          teams: {
+            home: { name: 'FC Barcelone', badge: '' },
+            away: { name: 'Real Madrid', badge: '' }
+          },
+          sources: [{ source: 'admin', id: 'barca-madrid' }]
+        },
+        {
+          id: 'manchester-city-vs-arsenal',
+          title: 'Manchester City vs Arsenal',
+          category: 'football',
+          date: now + 120 * 60 * 1000,
+          isLive: false,
+          popular: true,
+          teams: {
+            home: { name: 'Manchester City', badge: '' },
+            away: { name: 'Arsenal', badge: '' }
+          },
+          sources: [{ source: 'admin', id: 'mancity-arsenal' }]
+        },
+        {
+          id: 'grand-prix-formule-1',
+          title: 'Grand Prix de Formule 1 • Course Principale',
+          category: 'motor-sports',
+          date: now - 35 * 60 * 1000,
+          isLive: true,
+          popular: true,
+          teams: {
+            home: { name: 'Grand Prix', badge: '' },
+            away: { name: 'Course F1', badge: '' }
+          },
+          sources: [{ source: 'admin', id: 'f1-gp' }]
+        },
+        {
+          id: 'ufc-main-card-fight-night',
+          title: 'UFC Main Card • Championnat du Monde MMA',
+          category: 'fight',
+          date: now + 180 * 60 * 1000,
+          isLive: false,
+          popular: true,
+          teams: {
+            home: { name: 'Main Event', badge: '' },
+            away: { name: 'Co-Main Event', badge: '' }
+          },
+          sources: [{ source: 'admin', id: 'ufc-event' }]
+        },
+        {
+          id: 'los-angeles-lakers-vs-golden-state',
+          title: 'Los Angeles Lakers vs Golden State Warriors',
+          category: 'basketball',
+          date: now + 240 * 60 * 1000,
+          isLive: false,
+          popular: true,
+          teams: {
+            home: { name: 'LA Lakers', badge: '' },
+            away: { name: 'GS Warriors', badge: '' }
+          },
+          sources: [{ source: 'admin', id: 'nba-lakers-warriors' }]
+        }
+      ];
+    }
+
+    async function refreshMatches(isUserClick = false) {
+      const counterEl = document.getElementById('matches-counter');
+      const iconEl = document.getElementById('refresh-icon');
+
+      if (counterEl) counterEl.innerHTML = '<span class="loading-spinner"></span> Actualisation...';
+      if (iconEl) iconEl.style.display = 'none';
+
+      try {
+        const liveList = await fetchMatchesFromApi();
+        if (liveList && liveList.length > 0) {
+          allMatches = liveList;
+        } else if (allMatches.length === 0) {
+          allMatches = getFallbackMatches();
+        }
+      } catch (err) {
+        console.error('Error fetching live matches:', err);
+        if (allMatches.length === 0) allMatches = getFallbackMatches();
+      }
+
+      if (iconEl) iconEl.style.display = 'inline';
+      updateMatchesCounter();
+      renderMatches();
+
+      // If no match or channel currently playing, auto-play first live match
+      if (!currentMatch && !currentChannel && allMatches.length > 0) {
+        selectMatch(allMatches[0]);
+      }
+    }
+
+    function updateMatchesCounter() {
+      const counterEl = document.getElementById('matches-counter');
+      if (!counterEl) return;
+
+      const liveCount = allMatches.filter(m => m.isLive).length;
+      counterEl.textContent = `${liveCount} match${liveCount > 1 ? 's' : ''} en direct (${allMatches.length} au total)`;
+    }
+
+    function renderMatches() {
+      const container = document.getElementById('matchs-container');
+      if (!container) return;
       container.innerHTML = '';
 
-      const filtered = CHANNELS.filter(ch => {
-        const matchCat = activeCategory === 'all' || ch.category === activeCategory;
-        const matchSearch = !searchQuery ||
-          ch.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          ch.desc.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchCat && matchSearch;
+      const filtered = allMatches.filter(m => {
+        // Sport filter
+        let matchFilter = true;
+        if (activeSportFilter === 'live') {
+          matchFilter = m.isLive;
+        } else if (activeSportFilter !== 'all') {
+          matchFilter = m.category === activeSportFilter;
+        }
+
+        // Search filter
+        let matchSearch = true;
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const t = m.title.toLowerCase();
+          const cat = m.category.toLowerCase();
+          matchSearch = t.includes(q) || cat.includes(q);
+        }
+
+        return matchFilter && matchSearch;
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">Aucune chaîne trouvée</div>';
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 32px; text-align: center; color: var(--text-muted); font-size: 0.86rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px dashed var(--border);">
+            Aucun match trouvé pour ce filtre. Essayez l'onglet « En Direct » ou « Tous les matchs ».
+          </div>
+        `;
         return;
       }
 
-      filtered.forEach(ch => {
-        const item = document.createElement('div');
-        item.className = 'channel-item' + (currentChannel && currentChannel.id === ch.id ? ' active' : '');
-        item.onclick = () => selectChannel(ch);
+      filtered.forEach(m => {
+        const card = document.createElement('div');
+        const isActive = currentMatch && currentMatch.id === m.id;
+        card.className = `match-card ${m.isLive ? 'is-live' : ''} ${isActive ? 'active' : ''}`;
+        card.onclick = () => selectMatch(m);
 
-        item.innerHTML = `
-          <div class="item-icon">${ch.icon}</div>
-          <div class="item-info">
-            <div class="item-title">${ch.name}</div>
-            <div class="item-sub">${ch.desc}</div>
+        const homeName = m.teams && m.teams.home && m.teams.home.name ? m.teams.home.name : (m.title.split(' vs ')[0] || m.title);
+        const awayName = m.teams && m.teams.away && m.teams.away.name ? m.teams.away.name : (m.title.split(' vs ')[1] || '');
+
+        const homeBadgeId = m.teams && m.teams.home && m.teams.home.badge ? m.teams.home.badge : null;
+        const awayBadgeId = m.teams && m.teams.away && m.teams.away.badge ? m.teams.away.badge : null;
+
+        const homeBadgeImg = homeBadgeId
+          ? `<img class="match-team-badge" src="https://streamed.pk/api/images/badge/${homeBadgeId}.webp" alt="" onerror="this.style.display='none'">`
+          : `<span style="font-size:12px">${getSportEmoji(m.category)}</span>`;
+
+        const awayBadgeImg = awayBadgeId
+          ? `<img class="match-team-badge" src="https://streamed.pk/api/images/badge/${awayBadgeId}.webp" alt="" onerror="this.style.display='none'">`
+          : `<span style="font-size:12px">${getSportEmoji(m.category)}</span>`;
+
+        const matchDate = new Date(m.date);
+        const timeStr = m.isLive
+          ? '<span style="color:#f87171;font-weight:600">● EN DIRECT</span>'
+          : matchDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+        const streamCount = (m.sources && m.sources.length > 0) ? `${m.sources.length} flux` : 'Multi-flux HD';
+
+        card.innerHTML = `
+          <div class="match-card-header">
+            <span class="match-category-tag">
+              <span>${getSportEmoji(m.category)}</span>
+              <span>${m.category.replace('-', ' ')}</span>
+            </span>
+            <span class="match-status-badge ${m.isLive ? 'live' : 'upcoming'}">
+              ${m.isLive ? '<span class="live-dot" style="width:5px;height:5px"></span> LIVE' : 'À VENIR'}
+            </span>
           </div>
-          <span class="item-badge-hd">HD</span>
-          <span class="item-badge">Live</span>
+
+          <div class="match-teams-block">
+            <div class="match-team-row">
+              ${homeBadgeImg}
+              <span class="match-team-name">${homeName}</span>
+            </div>
+            ${awayName ? `
+            <div class="match-team-row">
+              ${awayBadgeImg}
+              <span class="match-team-name">${awayName}</span>
+            </div>` : ''}
+          </div>
+
+          <div class="match-card-footer">
+            <span>${timeStr}</span>
+            <span class="match-streams-count">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+              ${streamCount}
+            </span>
+          </div>
         `;
-        container.appendChild(item);
+
+        container.appendChild(card);
       });
     }
 
-    function renderMatchs() {
-      const container = document.getElementById('matchs-container');
-      container.innerHTML = '';
+    // Select and play a match
+    async function selectMatch(match) {
+      currentMatch = match;
+      currentChannel = null;
 
-      MATCHS_TODAY.forEach(m => {
-        const item = document.createElement('div');
-        item.className = 'match-item';
-        item.onclick = () => {
-          const target = CHANNELS.find(c => c.id === m.channel) || CHANNELS[0];
-          selectChannel(target);
-        };
+      const playerIcon = document.getElementById('player-icon');
+      const playerTitle = document.getElementById('player-title');
+      const playerSub = document.getElementById('player-sub');
+      const serverSelect = document.getElementById('server-select');
 
-        item.innerHTML = `
-          <div class="match-left">
-            <span class="match-comp">${m.comp} • ${m.channelName}</span>
-            <span class="match-teams">${m.teams}</span>
-          </div>
-          <span class="match-time-badge">${m.time}</span>
-        `;
-        container.appendChild(item);
-      });
-    }
+      playerIcon.textContent = getSportEmoji(match.category);
+      playerTitle.textContent = match.title;
+      playerSub.textContent = `${match.category.toUpperCase()} • ${match.isLive ? 'En direct' : 'Match du jour'} • Source Livsports`;
 
-    function selectChannel(ch, serverKey = null) {
-      currentChannel = ch;
-      if (serverKey) {
-        currentServer = serverKey;
-        document.getElementById('server-select').value = serverKey;
+      // Reset server selector with Livsports as primary
+      availableStreams = [];
+      serverSelect.innerHTML = '';
+
+      const livsportsOption = document.createElement('option');
+      livsportsOption.value = 'livsports_main';
+      livsportsOption.textContent = 'Serveur 1 : Livsports (Lecteur Intégré Direct)';
+      serverSelect.appendChild(livsportsOption);
+
+      const streamyOption = document.createElement('option');
+      streamyOption.value = 'streamy_backup';
+      streamyOption.textContent = 'Serveur 2 : Streamonsport (Miroir FR)';
+      serverSelect.appendChild(streamyOption);
+
+      const livetvOption = document.createElement('option');
+      livetvOption.value = 'livetv_backup';
+      livetvOption.textContent = 'Serveur 3 : LiveTV.sx (Multiplex)';
+      serverSelect.appendChild(livetvOption);
+
+      currentServer = 'livsports_main';
+      serverSelect.value = 'livsports_main';
+
+      loadMatchStreamUrl(match, 'livsports_main');
+
+      // Fetch sub-stream mirrors asynchronously from streamed.pk/api/stream/{source}/{id}
+      if (match.sources && match.sources.length > 0) {
+        fetchSubStreams(match);
       }
 
-      document.getElementById('player-icon').textContent = ch.icon;
-      document.getElementById('player-title').textContent = ch.name;
-      document.getElementById('player-sub').textContent = ch.desc;
+      recordProgress({
+        name: match.title,
+        id: match.id,
+        category: match.category
+      });
+
+      renderMatches();
+      renderChannels();
+    }
+
+    async function fetchSubStreams(match) {
+      const serverSelect = document.getElementById('server-select');
+      let streamCounter = 1;
+
+      for (const s of match.sources.slice(0, 3)) {
+        try {
+          const res = await fetch(`https://streamed.pk/api/stream/${s.source}/${s.id}`);
+          if (res.ok) {
+            const list = await res.json();
+            if (Array.isArray(list)) {
+              list.forEach(item => {
+                if (item.embedUrl) {
+                  const key = `embed_${item.source || 'src'}_${item.streamNo || streamCounter}`;
+                  availableStreams.push({
+                    key: key,
+                    name: `Serveur Embed ${streamCounter} : ${item.language || 'HD'} (${item.source || 'Stream'})`,
+                    url: item.embedUrl
+                  });
+
+                  const opt = document.createElement('option');
+                  opt.value = key;
+                  opt.textContent = `Serveur Embed ${streamCounter} : ${item.language || 'HD'}`;
+                  serverSelect.appendChild(opt);
+
+                  streamCounter++;
+                }
+              });
+            }
+          }
+        } catch (e) {
+          // ignore background mirror failures
+        }
+      }
+    }
+
+    function loadMatchStreamUrl(match, serverKey) {
+      const viewport = document.getElementById('viewport');
+      destroyHls();
+      viewport.innerHTML = '';
+
+      let targetUrl = '';
+
+      if (serverKey === 'livsports_main') {
+        // Direct sandboxed Livsports match embed
+        targetUrl = `https://livsports.dpdns.org/match?id=${encodeURIComponent(match.id)}&cat=${encodeURIComponent(match.category)}`;
+      } else if (serverKey === 'streamy_backup') {
+        targetUrl = 'https://streamysport.net';
+      } else if (serverKey === 'livetv_backup') {
+        targetUrl = 'https://livetv.sx/frx/allupcomingsports/1/';
+      } else {
+        // Check dynamic sub-stream mirrors
+        const customStream = availableStreams.find(s => s.key === serverKey);
+        if (customStream) {
+          targetUrl = customStream.url;
+        } else {
+          targetUrl = `https://livsports.dpdns.org/match?id=${encodeURIComponent(match.id)}&cat=${encodeURIComponent(match.category)}`;
+        }
+      }
+
+      const iframe = document.createElement('iframe');
+      iframe.src = targetUrl;
+      iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      // Sandbox protects from intrusive popups and rogue redirects while running player
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
+      viewport.appendChild(iframe);
+    }
+
+    // Select and play a 24/7 TV channel
+    function selectChannel(ch, serverKey = null) {
+      currentChannel = ch;
+      currentMatch = null;
+
+      const playerIcon = document.getElementById('player-icon');
+      const playerTitle = document.getElementById('player-title');
+      const playerSub = document.getElementById('player-sub');
+      const serverSelect = document.getElementById('server-select');
+
+      playerIcon.textContent = ch.icon;
+      playerTitle.textContent = ch.name;
+      playerSub.textContent = ch.desc;
+
+      // Reset server selector options for channel
+      serverSelect.innerHTML = `
+        <option value="livsports">Serveur 1 : Livsports (Matchs en Direct)</option>
+        <option value="streamy">Serveur 2 : Streamonsport (Direct FR)</option>
+        <option value="livetv">Serveur 3 : LiveTV SX (Matchs & Multiplex)</option>
+        <option value="vipleague">Serveur 4 : VIP League (Flux HD)</option>
+        <option value="crack">Serveur 5 : CrackStreams (UFC & Matchs)</option>
+      `;
+
+      if (serverKey) {
+        currentServer = serverKey;
+        serverSelect.value = serverKey;
+      } else {
+        currentServer = 'livsports';
+        serverSelect.value = 'livsports';
+      }
 
       const viewport = document.getElementById('viewport');
       destroyHls();
       viewport.innerHTML = '';
 
-      // If YouTube native live stream
       if (ch.type === 'yt') {
         const iframe = document.createElement('iframe');
         iframe.src = `https://www.youtube-nocookie.com/embed/${ch.videoId}?autoplay=1&mute=0&rel=0`;
@@ -1058,52 +1587,60 @@
         iframe.setAttribute('allowfullscreen', 'true');
         viewport.appendChild(iframe);
       } else {
-        // Multi-server sports stream embed
-        const streamUrl = getStreamUrlForServer(ch, currentServer);
+        let streamUrl = 'https://livsports.dpdns.org/';
+        if (currentServer === 'livsports') {
+          streamUrl = ch.livsportsQuery ? `https://livsports.dpdns.org/sport?id=${ch.livsportsQuery}` : 'https://livsports.dpdns.org/';
+        } else if (currentServer === 'streamy') {
+          streamUrl = ch.streamyUrl || 'https://streamysport.net';
+        } else if (currentServer === 'livetv') {
+          streamUrl = ch.livetvUrl || 'https://livetv.sx/frx/';
+        } else if (currentServer === 'vipleague') {
+          streamUrl = ch.vipleagueUrl || 'https://vipleague.im/';
+        } else if (currentServer === 'crack') {
+          streamUrl = ch.crackUrl || 'https://crackstreams.me/';
+        }
+
         const iframe = document.createElement('iframe');
         iframe.src = streamUrl;
         iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         iframe.setAttribute('allowfullscreen', 'true');
-        // Sandbox blocks popup tabs and redirects while allowing video player execution
+        iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
         iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
         viewport.appendChild(iframe);
       }
 
       recordProgress(ch);
       renderChannels();
-    }
-
-    function getStreamUrlForServer(ch, server) {
-      if (server === 'streamy') {
-        return ch.streamyUrl || 'https://streamysport.net';
-      } else if (server === 'livetv') {
-        return ch.livetvUrl || 'https://livetv.sx/frx/';
-      } else if (server === 'vipleague') {
-        return ch.vipleagueUrl || 'https://vipleague.im/';
-      } else if (server === 'crack') {
-        return ch.crackUrl || 'https://crackstreams.me/';
-      } else if (server === 'streameast') {
-        return ch.streameastUrl || 'https://thestreameast.to/';
-      }
-      return ch.streamyUrl || 'https://streamysport.net';
+      renderMatches();
     }
 
     function onServerChange(val) {
       currentServer = val;
-      if (currentChannel) selectChannel(currentChannel, val);
+      if (currentMatch) {
+        loadMatchStreamUrl(currentMatch, val);
+      } else if (currentChannel) {
+        selectChannel(currentChannel, val);
+      }
     }
 
     function cycleNextServer() {
-      const idx = SERVER_ORDER.indexOf(currentServer);
-      const nextIdx = (idx + 1) % SERVER_ORDER.length;
-      const nextServer = SERVER_ORDER[nextIdx];
-      document.getElementById('server-select').value = nextServer;
-      onServerChange(nextServer);
+      const serverSelect = document.getElementById('server-select');
+      const count = serverSelect.options.length;
+      if (count <= 1) return;
+
+      const currentIdx = serverSelect.selectedIndex;
+      const nextIdx = (currentIdx + 1) % count;
+      serverSelect.selectedIndex = nextIdx;
+      onServerChange(serverSelect.value);
     }
 
     function openExternalPlayer() {
-      if (!currentChannel) return;
-      const url = getStreamUrlForServer(currentChannel, currentServer);
+      let url = 'https://livsports.dpdns.org/';
+      if (currentMatch) {
+        url = `https://livsports.dpdns.org/match?id=${encodeURIComponent(currentMatch.id)}&cat=${encodeURIComponent(currentMatch.category)}`;
+      } else if (currentChannel) {
+        url = currentChannel.streamyUrl || 'https://livsports.dpdns.org/';
+      }
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 
@@ -1153,11 +1690,12 @@
       }
     }
 
-    function recordProgress(ch) {
+    function recordProgress(item) {
+      const title = item.name || item.title || 'Direct TV';
       const recordItem = {
-        title: ch.name,
-        category: 'Direct TV',
-        url: window.location.href.split('?')[0] + '?ch=' + ch.id,
+        title: title,
+        category: 'Direct TV & Sport',
+        url: window.location.href.split('?')[0] + (item.id ? '?match=' + item.id : ''),
         date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
         timestamp: Date.now()
       };
@@ -1176,7 +1714,7 @@
           const activeUser = JSON.parse(storedUser);
           if (!activeUser.history) activeUser.history = {};
           if (!activeUser.history.zlive) activeUser.history.zlive = [];
-          activeUser.history.zlive = activeUser.history.zlive.filter(x => x.title !== ch.name);
+          activeUser.history.zlive = activeUser.history.zlive.filter(x => x.title !== title);
           activeUser.history.zlive.unshift(recordItem);
           localStorage.setItem('hub_active_user', JSON.stringify(activeUser));
         }
@@ -1195,30 +1733,73 @@
       }
     }
 
-    function filterCategory(cat, el) {
-      activeCategory = cat;
+    function filterSport(sport, el) {
+      activeSportFilter = sport;
+      document.querySelectorAll('.sport-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      renderMatches();
+    }
+
+    function filterChannelCategory(cat, el) {
+      activeChannelCategory = cat;
       document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
       el.classList.add('active');
       renderChannels();
     }
 
     function onSearchChange(val) {
-      searchQuery = val;
+      searchQuery = val.trim();
+      renderMatches();
       renderChannels();
+    }
+
+    function renderChannels() {
+      const container = document.getElementById('channels-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filtered = CHANNELS.filter(ch => {
+        const matchCat = activeChannelCategory === 'all' || ch.category === activeChannelCategory;
+        const matchSearch = !searchQuery ||
+          ch.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          ch.desc.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">Aucune chaîne trouvée</div>';
+        return;
+      }
+
+      filtered.forEach(ch => {
+        const item = document.createElement('div');
+        const isActive = currentChannel && currentChannel.id === ch.id;
+        item.className = 'channel-item' + (isActive ? ' active' : '');
+        item.onclick = () => selectChannel(ch);
+
+        item.innerHTML = `
+          <div class="item-icon">${ch.icon}</div>
+          <div class="item-info">
+            <div class="item-title">${ch.name}</div>
+            <div class="item-sub">${ch.desc}</div>
+          </div>
+          <span class="item-badge-hd">HD</span>
+          <span class="item-badge">Live</span>
+        `;
+        container.appendChild(item);
+      });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       renderChannels();
-      renderMatchs();
+      refreshMatches();
 
+      // Check URL parameters for match or channel
       const params = new URLSearchParams(window.location.search);
       const chParam = params.get('ch');
       if (chParam) {
-        const found = CHANNELS.find(c => c.id === chParam);
-        if (found) selectChannel(found);
-        else selectChannel(CHANNELS[0]);
-      } else {
-        selectChannel(CHANNELS[0]); // Canal+ Foot by default
+        const foundCh = CHANNELS.find(c => c.id === chParam);
+        if (foundCh) selectChannel(foundCh);
       }
     });
   </script>
