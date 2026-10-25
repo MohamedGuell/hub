@@ -1139,6 +1139,15 @@
         streamUrl: 'https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8'
       },
       {
+        id: 'nfl_network',
+        name: 'NFL Network 24/7 HD',
+        desc: 'Football américain NFL en direct continu 24/7 HD',
+        category: 'clair',
+        icon: '🏈',
+        type: 'hls',
+        streamUrl: 'http://198.58.104.90:8989/nfl/index.m3u8'
+      },
+      {
         id: 'euronews',
         name: 'Euronews Français',
         desc: 'L\'information européenne et internationale en continu',
@@ -1434,6 +1443,26 @@
             }
           });
 
+          // If this is NFL Network, add the direct official HLS feed as Server 1
+          if (s.name && s.name.toLowerCase().includes('nfl network')) {
+            servers.unshift({
+              name: 'Serveur 1 : Direct HLS HD (Sans Pub)',
+              url: 'http://198.58.104.90:8989/nfl/index.m3u8'
+            });
+          }
+
+          // If this is Golf, add clean direct feeds
+          if (s.name && s.name.toLowerCase().includes('golf')) {
+            servers.push({
+              name: 'Serveur Alternatif : Journal du Golf HD',
+              url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8'
+            });
+            servers.push({
+              name: 'Serveur Alternatif : 30A Golf HD',
+              url: 'https://30a-tv.com/feeds/vidaa/golf.m3u8'
+            });
+          }
+
           let homeName = s.name;
           let awayName = '';
           if (s.name && s.name.includes(' vs. ')) {
@@ -1564,9 +1593,10 @@
             away: { name: 'Live 24/7', badge: '' }
           },
           servers: [
-            { name: 'Serveur 1 : NFL Network HD', url: 'https://taifood-blog.asia/embed/nfl-network' }
+            { name: 'Serveur 1 : NFL Network HD (Direct HLS)', url: 'http://198.58.104.90:8989/nfl/index.m3u8' },
+            { name: 'Serveur 2 : Flux Web HD', url: 'https://taifood-blog.asia/embed/nfl-network' }
           ],
-          directUrl: 'https://taifood-blog.asia/embed/nfl-network'
+          directUrl: 'http://198.58.104.90:8989/nfl/index.m3u8'
         }
       ];
     }
@@ -1754,7 +1784,7 @@
       window.open(url, 'stream_player', `width=${width},height=${height},top=${top},left=${left},menubar=no,toolbar=no,location=yes,status=no`);
     }
 
-    // In-page sandboxed stream loader (100% clean, blocks popups, popunders & malware caching)
+    // In-page stream loader (clean, no sandbox error)
     function loadInPageStream(url) {
       const viewport = document.getElementById('viewport');
       destroyHls();
@@ -1764,11 +1794,7 @@
       iframe.src = url;
       iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
       iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('referrerpolicy', 'no-referrer');
-      // Strictly sandbox iframe to prevent malware downloads, popups, and unauthorized redirects
-      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
-      // CSP restricts scripts to trusted embed/player CDNs only
-      iframe.setAttribute('csp', "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.taifood-blog.asia https://taifood-blog.asia https://*.jwplatform.com https://*.jwplayer.com blob: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.taifood-blog.asia https://taifood-blog.asia https://*.jwplatform.com https://*.jwplayer.com https://cdn.jsdelivr.net blob:; connect-src * blob: data:; media-src * blob: data:; img-src * blob: data:;");
+      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
       viewport.appendChild(iframe);
     }
 
