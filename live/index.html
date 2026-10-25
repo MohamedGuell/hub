@@ -975,7 +975,7 @@
         category: 'clair',
         icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/S6ItEh6xjSKS/xGc3zhumoIORxyhE.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/xGc3zhumoIORxyhE.m3u8'
       },
       {
         id: 'france2',
@@ -1007,11 +1007,12 @@
       {
         id: 'arte',
         name: 'Arte TV HD',
-        desc: 'Culture, documentaires, concerts et cinéma en direct',
+        desc: 'Culture, documentaires, concerts et cinéma en direct HD',
         category: 'clair',
         icon: '🎭',
-        type: 'yt',
-        videoId: 'b5m4l8tO96o'
+        type: 'hls',
+        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8',
+        ytFallback: 'b5m4l8tO96o'
       },
       {
         id: 'france24',
@@ -1039,7 +1040,7 @@
         category: 'clair',
         icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/S6ItEh6xjSKS/TAkRQNFqpNRNNmEF.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/TAkRQNFqpNRNNmEF.m3u8'
       },
       {
         id: 'tfx',
@@ -1048,7 +1049,7 @@
         category: 'clair',
         icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/S6ItEh6xjSKS/ko86hmp96i1kEvh.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/ko86hmp96i1kEvh.m3u8'
       },
       {
         id: 'lci',
@@ -1057,7 +1058,7 @@
         category: 'clair',
         icon: '📰',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/S6ItEh6xjSKS/CcfImhiiNl8Ydnfb.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/CcfImhiiNl8Ydnfb.m3u8'
       },
       {
         id: 'euronews',
@@ -1347,8 +1348,12 @@
 
       categories.forEach(cat => {
         const catName = cat.category || 'Sports';
-        let catKey = 'other';
         const lowerCat = catName.toLowerCase();
+
+        // Skip non-sports categories (cartoon loops, fake 24/7 channels)
+        if (lowerCat.includes('24/7') || lowerCat === 'other') return;
+
+        let catKey = 'other';
         if (lowerCat.includes('american football')) catKey = 'american-football';
         else if (lowerCat.includes('football') || lowerCat.includes('soccer')) catKey = 'football';
         else if (lowerCat.includes('basket')) catKey = 'basketball';
@@ -1364,8 +1369,7 @@
           if (!s || !s.id) return;
           const start = s.starts_at || now;
           const end = s.ends_at || 0;
-          const is247 = lowerCat.includes('24/7') || (s.name && s.name.includes('24/7'));
-          const isLive = is247 || (start <= now && (end === 0 || now <= end));
+          const isLive = start <= now && (end === 0 || now <= end);
 
           const servers = [];
           const substreams = s.substreams || [];
@@ -1719,7 +1723,7 @@
       window.open(url, 'stream_player', `width=${width},height=${height},top=${top},left=${left},menubar=no,toolbar=no,location=yes,status=no`);
     }
 
-    // In-page stream loader with safe sandbox
+    // In-page stream loader
     function loadInPageStream(url) {
       const viewport = document.getElementById('viewport');
       destroyHls();
@@ -1730,8 +1734,6 @@
       iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
       iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-      // allow-popups is included to prevent the 'Remove sandbox attributes' error from player scripts
-      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-popups');
       viewport.appendChild(iframe);
     }
 
