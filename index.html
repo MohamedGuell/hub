@@ -978,6 +978,39 @@
         </div>
       </div>
 
+      <!-- CARD: EA Sports FC Companion (FUT Web App) -->
+      <div class="app-card" data-category="games" data-keywords="ea fc 27 26 25 fut companion ea sports fc ultimate team web app transferts sbc dce futbin paletools fifa foot companion">
+        <div class="card-top">
+          <div class="card-icon-wrap" style="color: #10b981;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
+          <span class="card-status-badge">
+            <span class="status-dot live"></span>
+            FUT Web App • EA FC
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <h2 class="card-name">EA Sports FC Companion (FUT)</h2>
+          </div>
+          <p class="card-desc">Application Web officielle Ultimate Team. Gérez votre effectif, achetez/vendez sur le marché des transferts, validez vos DCE (SBC) et récupérez vos récompenses en direct.</p>
+          <div class="card-tags">
+            <span class="tag">FUT Ultimate Team</span>
+            <span class="tag">Marché des Transferts</span>
+            <span class="tag">DCE & SBC</span>
+            <span class="tag">Paletools & FUTBIN</span>
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-solid" href="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/" target="_blank" rel="noopener noreferrer">Lancer Web App ↗</a>
+            <button class="btn btn-subtle" onclick="openFutToolsModal()">Outils FUT ⚽</button>
+          </div>
+        </div>
+      </div>
+
       <!-- CARD 4: Minecraft (Local Singleplayer) -->
       <div class="app-card" data-category="games" data-keywords="minecraft eaglercraft crafting survie solo blocs sandbox local voxels">
         <div class="card-top">
@@ -1411,6 +1444,75 @@
 
         <div id="lb-table-container">
           <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUT Companion & Ultimate Team Tools Modal -->
+  <div class="modal-overlay" id="fut-modal">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h2>⚽ EA Sports FC • FUT Companion & Outils</h2>
+        <button class="modal-close" onclick="closeFutToolsModal()">✕</button>
+      </div>
+
+      <div class="modal-content" style="display: flex; flex-direction: column; gap: 14px;">
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin: 0;">
+          Accédez directement à l'application Web officielle EA FC Ultimate Team et aux meilleurs outils pour vos transferts, calculs de note et DCE :
+        </p>
+
+        <!-- Tool 1: Official Web App -->
+        <a href="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.5rem;">🎮</span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.95rem; color: #34d399;">EA Sports FC Web App (Officiel)</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Marché des transferts, gestion du club, récompenses & DCE</div>
+            </div>
+          </div>
+          <span style="font-size: 0.82rem; font-weight: 600; color: #34d399; background: rgba(16, 185, 129, 0.2); padding: 4px 10px; border-radius: 6px;">Ouvrir ↗</span>
+        </a>
+
+        <!-- Tool 2: Paletools -->
+        <a href="https://paleta.gg/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.5rem;">⚡</span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.95rem;">Paletools (Web App Mod)</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Automatisation des DCE, raccourcis snip & matrice de prix</div>
+            </div>
+          </div>
+          <span style="font-size: 0.82rem; font-weight: 600; color: var(--text); background: var(--surface-hover); padding: 4px 10px; border-radius: 6px;">Visiter ↗</span>
+        </a>
+
+        <!-- Tool 3: FUTBIN -->
+        <a href="https://www.futbin.com/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.5rem;">📊</span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.95rem;">FUTBIN (Prix du Marché & Solutions)</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Prix des cartes en direct, solutions DCE économiques & évolutions</div>
+            </div>
+          </div>
+          <span style="font-size: 0.82rem; font-weight: 600; color: var(--text); background: var(--surface-hover); padding: 4px 10px; border-radius: 6px;">Visiter ↗</span>
+        </a>
+
+        <!-- Tool 4: EasySBC -->
+        <a href="https://easysbc.io/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 1.5rem;">🧠</span>
+            <div>
+              <div style="font-weight: 600; font-size: 0.95rem;">EasySBC (Solveur IA)</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Constructeur d'équipe optimisé avec les cartes de votre club</div>
+            </div>
+          </div>
+          <span style="font-size: 0.82rem; font-weight: 600; color: var(--text); background: var(--surface-hover); padding: 4px 10px; border-radius: 6px;">Visiter ↗</span>
+        </a>
+
+        <!-- Astuce Paletools -->
+        <div style="padding: 10px 14px; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 6px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+          <strong style="color: #60a5fa;">💡 Astuce Paletools :</strong> Glissez le bouton du site <em>Paleta.gg</em> dans votre barre de favoris. Une fois sur la page EA Web App, cliquez dessus pour débloquer l'automatisation des DCE.
         </div>
       </div>
     </div>
@@ -2136,20 +2238,41 @@
       }
     }
 
+    function openFutToolsModal() {
+      const modal = document.getElementById('fut-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeFutToolsModal() {
+      const modal = document.getElementById('fut-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
     function escapeHtml(str) {
       if (!str) return '';
       return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    // Keyboard Shortcuts
+    // Keyboard Shortcuts & Modal click outside
+    window.addEventListener('click', (e) => {
+      const fut = document.getElementById('fut-modal');
+      if (fut && e.target === fut) closeFutToolsModal();
+      const profile = document.getElementById('profile-modal');
+      if (profile && e.target === profile) closeProfileModal();
+      const lb = document.getElementById('leaderboard-modal');
+      if (lb && e.target === lb) closeLeaderboardModal();
+    });
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const viewer = document.getElementById('viewer-modal');
-        if (viewer.style.display === 'flex') closeViewer();
+        if (viewer && viewer.style.display === 'flex') closeViewer();
         const profile = document.getElementById('profile-modal');
-        if (profile.style.display === 'flex') closeProfileModal();
+        if (profile && profile.style.display === 'flex') closeProfileModal();
         const lb = document.getElementById('leaderboard-modal');
-        if (lb.style.display === 'flex') closeLeaderboardModal();
+        if (lb && lb.style.display === 'flex') closeLeaderboardModal();
+        const fut = document.getElementById('fut-modal');
+        if (fut && fut.style.display === 'flex') closeFutToolsModal();
       } else if (e.key === '/' && document.activeElement !== document.getElementById('filter-input')) {
         e.preventDefault();
         const input = document.getElementById('filter-input');
