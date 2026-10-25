@@ -754,27 +754,27 @@
     <!-- Player Area -->
     <div class="player-area">
       <div class="video-viewport" id="viewport">
-        <!-- Direct clean video stream player -->
+        <!-- Secure sandboxed video player -->
       </div>
 
       <div class="player-controls-bar">
         <div class="channel-header-info">
           <div class="channel-logo-badge" id="player-icon">⚽</div>
           <div class="channel-texts">
-            <h2 id="player-title">Chargement des matchs en direct...</h2>
-            <p id="player-sub">Lecteur vidéo direct HD • Zéro publicité intrusive</p>
+            <h2 id="player-title">Livsports Live</h2>
+            <p id="player-sub">Flux direct sécurisé • Multi-diffuseurs sport</p>
           </div>
         </div>
 
         <div class="server-selector-group">
-          <span>Serveur :</span>
+          <span>Mode :</span>
           <select class="server-select" id="server-select" onchange="onServerChange(this.value)">
-            <option value="direct_stream" selected>Serveur 1 : Embed.st HD (Lecteur Vidéo Direct)</option>
-            <option value="livsports_feed">Serveur 2 : Flux Livsports Alternatif</option>
+            <option value="livsports_home" selected>Serveur 1 : Livsports Accueil (Tous les Matchs Live)</option>
+            <option value="livsports_cat">Serveur 2 : Livsports Catégorie Dédiée</option>
           </select>
-          <button class="action-btn" onclick="cycleNextServer()" title="Tester le serveur suivant">Serveur suivant ↻</button>
-          <button class="action-btn" onclick="openExternalPlayer()" title="Ouvrir dans une fenêtre externe">Lecteur externe ↗</button>
-          <button class="action-btn" onclick="toggleFullscreen()" title="Plein écran">Plein écran</button>
+          <button class="action-btn" onclick="reloadLivsportsHome()" title="Recharger la page d'accueil Livsports">Accueil Livsports 🏠</button>
+          <button class="action-btn" onclick="openExternalPlayer()" title="Ouvrir dans une fenêtre externe propre">Plein écran ↗</button>
+          <button class="action-btn" onclick="toggleFullscreen()" title="Plein écran du lecteur">Agrandir ⛶</button>
         </div>
       </div>
 
@@ -846,7 +846,7 @@
   </div>
 
   <script>
-    // 24/7 TV Channels with Direct, verified 200 OK stream embeds
+    // 24/7 TV Channels with secure, verified direct streams
     const CHANNELS = [
       // CANAL+ GROUP
       {
@@ -855,8 +855,7 @@
         desc: 'Ligue des Champions, Premier League, multiplex du soir',
         category: 'canal',
         icon: '⚽',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/canal-foot/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'canal_sport',
@@ -864,8 +863,7 @@
         desc: 'Formule 1, MotoGP, Top 14, Premier League',
         category: 'canal',
         icon: '🏆',
-        livsportsQuery: 'motor-sports',
-        embedDirectUrl: 'https://embed.st/embed/channel/canal-sport/1'
+        livsportsQuery: 'motor-sports'
       },
       {
         id: 'canal_plus',
@@ -873,8 +871,7 @@
         desc: 'Grands matchs du dimanche, affiches de football & cinéma',
         category: 'canal',
         icon: '🎬',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/canal-plus/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'canal_360',
@@ -882,8 +879,7 @@
         desc: 'Motorsport, WRC, Moto 2, Moto 3 et compétitions',
         category: 'canal',
         icon: '🏎️',
-        livsportsQuery: 'motor-sports',
-        embedDirectUrl: 'https://embed.st/embed/channel/canal-sport-360/1'
+        livsportsQuery: 'motor-sports'
       },
 
       // BEIN SPORTS GROUP
@@ -893,8 +889,7 @@
         desc: 'Ligue 2, Liga espagnole, Serie A, Bundesliga, NBA',
         category: 'bein',
         icon: '⚽',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/bein-sports-1/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'bein_2',
@@ -902,8 +897,7 @@
         desc: 'Multiplex européen, Coupe de France, Serie A, sports US',
         category: 'bein',
         icon: '⚽',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/bein-sports-2/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'bein_3',
@@ -911,8 +905,7 @@
         desc: 'Tennis ATP/WTA, Handball, championnats européens',
         category: 'bein',
         icon: '🎾',
-        livsportsQuery: 'tennis',
-        embedDirectUrl: 'https://embed.st/embed/channel/bein-sports-3/1'
+        livsportsQuery: 'tennis'
       },
       {
         id: 'bein_max',
@@ -920,8 +913,7 @@
         desc: 'Canaux événementiels pour les soirs de multiplex',
         category: 'bein',
         icon: '📺',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/bein-sports-1/1'
+        livsportsQuery: 'football'
       },
 
       // RMC SPORT GROUP
@@ -931,8 +923,7 @@
         desc: 'UFC, MMA, PFL, KSW, Boxe anglaise & sports de combat',
         category: 'rmc',
         icon: '🥊',
-        livsportsQuery: 'fight',
-        embedDirectUrl: 'https://embed.st/embed/channel/rmc-sport-1/1'
+        livsportsQuery: 'fight'
       },
       {
         id: 'rmc_2',
@@ -940,8 +931,7 @@
         desc: 'Combats live, Bellator, kickboxing, rediffusions',
         category: 'rmc',
         icon: '🥊',
-        livsportsQuery: 'fight',
-        embedDirectUrl: 'https://embed.st/embed/channel/rmc-sport-2/1'
+        livsportsQuery: 'fight'
       },
 
       // DAZN GROUP
@@ -951,8 +941,7 @@
         desc: 'Diffuseur officiel de la Ligue 1 McDonald\'s',
         category: 'dazn',
         icon: '⚡',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/dazn-1/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'dazn_2',
@@ -960,8 +949,7 @@
         desc: 'Multiplex Ligue 1, football féminin, sports de combat',
         category: 'dazn',
         icon: '⚡',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/dazn-2/1'
+        livsportsQuery: 'football'
       },
 
       // EUROSPORT GROUP
@@ -971,8 +959,7 @@
         desc: 'Cyclisme, Tour de France, Open d\'Australie, ski',
         category: 'eurosport',
         icon: '🚴',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/eurosport-1/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'eurosport_2',
@@ -980,8 +967,7 @@
         desc: 'Multisport, snooker, sports d\'hiver et compétitions',
         category: 'eurosport',
         icon: '⛷️',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/eurosport-2/1'
+        livsportsQuery: 'football'
       },
 
       // EN CLAIR & ACTUALITÉS
@@ -1000,8 +986,7 @@
         desc: 'Équipe de France, Coupe du Monde, Euro, grands événements',
         category: 'clair',
         icon: '🇫🇷',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/tf1/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'm6',
@@ -1009,8 +994,7 @@
         desc: 'Équipe de France, finales de coupe d\'Europe en clair',
         category: 'clair',
         icon: '🇫🇷',
-        livsportsQuery: 'football',
-        embedDirectUrl: 'https://embed.st/embed/channel/m6/1'
+        livsportsQuery: 'football'
       },
       {
         id: 'france24',
@@ -1036,12 +1020,11 @@
     let allMatches = [];
     let currentMatch = null;
     let currentChannel = null;
-    let currentServer = 'direct_stream';
+    let currentServer = 'livsports_home';
     let activeSportFilter = 'live';
     let activeChannelCategory = 'all';
     let searchQuery = '';
     let hlsInstance = null;
-    let availableStreams = [];
 
     const SPORT_EMOJIS = {
       'football': '⚽',
@@ -1123,7 +1106,7 @@
       return list;
     }
 
-    // Real verified Livsports & Streamed.pk IDs with direct Embed.st video player
+    // Real verified Livsports & Streamed.pk IDs
     function getFallbackMatches() {
       const now = Date.now();
       return [
@@ -1138,12 +1121,7 @@
             home: { name: 'FC Barcelone', badge: '121' },
             away: { name: 'Real Madrid', badge: '122' }
           },
-          sources: [
-            { source: 'admin', id: 'ppv-barcelona-vs-real-madrid' },
-            { source: 'golf', id: '2561' }
-          ],
-          directEmbed: 'https://embed.st/embed/admin/ppv-barcelona-vs-real-madrid/7',
-          frenchEmbed: 'https://embed.st/embed/admin/ppv-barcelona-vs-real-madrid/7'
+          sources: [{ source: 'admin', id: 'ppv-barcelona-vs-real-madrid' }]
         },
         {
           id: 'udinese-vs-ac-milan-2482211',
@@ -1156,8 +1134,7 @@
             home: { name: 'Udinese', badge: '' },
             away: { name: 'AC Milan', badge: '' }
           },
-          sources: [{ source: 'admin', id: 'udinese-vs-ac-milan' }],
-          directEmbed: 'https://embed.st/embed/admin/ppv-udinese-vs-ac-milan/1'
+          sources: [{ source: 'admin', id: 'udinese-vs-ac-milan' }]
         },
         {
           id: 'united-states-grand-prix-2408201',
@@ -1170,8 +1147,7 @@
             home: { name: 'Grand Prix F1', badge: '' },
             away: { name: 'Course Principale', badge: '' }
           },
-          sources: [{ source: 'admin', id: 'f1-gp' }],
-          directEmbed: 'https://embed.st/embed/admin/ppv-united-states-grand-prix-race/5'
+          sources: [{ source: 'admin', id: 'f1-gp' }]
         },
         {
           id: 'detroit-lions-vs-green-bay-packers-2475477',
@@ -1184,8 +1160,7 @@
             home: { name: 'Detroit Lions', badge: '' },
             away: { name: 'Green Bay Packers', badge: '' }
           },
-          sources: [{ source: 'admin', id: 'ppv-green-bay-packers-at-detroit-lions' }],
-          directEmbed: 'https://embed.st/embed/admin/ppv-green-bay-packers-at-detroit-lions/1'
+          sources: [{ source: 'admin', id: 'ppv-green-bay-packers-at-detroit-lions' }]
         },
         {
           id: 'las-vegas-raiders-vs-los-angeles-rams-2475478',
@@ -1198,8 +1173,7 @@
             home: { name: 'LV Raiders', badge: '' },
             away: { name: 'LA Rams', badge: '' }
           },
-          sources: [{ source: 'admin', id: 'raiders-rams' }],
-          directEmbed: 'https://embed.st/embed/admin/ppv-los-angeles-rams-at-las-vegas-raiders/3'
+          sources: [{ source: 'admin', id: 'raiders-rams' }]
         },
         {
           id: 'az-alkmaar-vs-twente-2489155',
@@ -1212,8 +1186,7 @@
             home: { name: 'AZ Alkmaar', badge: '' },
             away: { name: 'FC Twente', badge: '' }
           },
-          sources: [{ source: 'admin', id: 'az-twente' }],
-          directEmbed: 'https://embed.st/embed/admin/ppv-az-alkmaar-vs-twente/1'
+          sources: [{ source: 'admin', id: 'az-twente' }]
         }
       ];
     }
@@ -1240,11 +1213,6 @@
       if (iconEl) iconEl.style.display = 'inline';
       updateMatchesCounter();
       renderMatches();
-
-      // Auto-select first match if none loaded
-      if (!currentMatch && !currentChannel && allMatches.length > 0) {
-        selectMatch(allMatches[0]);
-      }
     }
 
     function updateMatchesCounter() {
@@ -1351,8 +1319,32 @@
       });
     }
 
-    // Select and play a match directly in full video stream (No sandbox block, no 404)
-    async function selectMatch(match) {
+    // Load clean Livsports home directly in the player
+    function loadLivsportsUrl(url) {
+      const viewport = document.getElementById('viewport');
+      destroyHls();
+      viewport.innerHTML = '';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      // Strictly sandboxed: protects from malware, drive-by downloads, and popups
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
+      viewport.appendChild(iframe);
+    }
+
+    function reloadLivsportsHome() {
+      loadLivsportsUrl('https://livsports.dpdns.org/');
+      document.getElementById('player-icon').textContent = '🏠';
+      document.getElementById('player-title').textContent = 'Livsports Accueil (Tous les Matchs Live)';
+      document.getElementById('player-sub').textContent = 'Sélectionnez votre match en direct dans l\'accueil';
+      document.getElementById('server-select').value = 'livsports_home';
+    }
+
+    // Select and focus on a match
+    function selectMatch(match) {
       currentMatch = match;
       currentChannel = null;
 
@@ -1363,31 +1355,17 @@
 
       playerIcon.textContent = getSportEmoji(match.category);
       playerTitle.textContent = match.title;
-      playerSub.textContent = `${match.category.toUpperCase()} • ${match.isLive ? 'En direct' : 'Match du jour'} • Lecteur Vidéo Direct HD`;
+      playerSub.textContent = `${match.category.toUpperCase()} • ${match.isLive ? 'En direct' : 'Match du jour'} • Cliquez sur le match dans le lecteur pour lancer le live`;
 
-      availableStreams = [];
-      serverSelect.innerHTML = '';
+      serverSelect.innerHTML = `
+        <option value="livsports_home" selected>Serveur 1 : Livsports Accueil (Tous les Matchs Live)</option>
+        <option value="livsports_cat">Serveur 2 : Catégorie ${match.category.toUpperCase()}</option>
+        <option value="livsports_match">Serveur 3 : Page Match Dédiée</option>
+      `;
 
-      // Primary Direct Video Player (Embed.st HD)
-      const primaryOption = document.createElement('option');
-      primaryOption.value = 'embed_primary';
-      primaryOption.textContent = 'Serveur 1 : Embed.st HD (Lecteur Vidéo Direct)';
-      serverSelect.appendChild(primaryOption);
-
-      const livsportsOption = document.createElement('option');
-      livsportsOption.value = 'livsports_feed';
-      livsportsOption.textContent = 'Serveur 2 : Flux Livsports Alternatif';
-      serverSelect.appendChild(livsportsOption);
-
-      currentServer = 'embed_primary';
-      serverSelect.value = 'embed_primary';
-
-      loadMatchStreamUrl(match, 'embed_primary');
-
-      // Fetch dynamic sub-stream mirrors from streamed.pk/api/stream/{source}/{id}
-      if (match.sources && match.sources.length > 0) {
-        fetchSubStreams(match);
-      }
+      currentServer = 'livsports_home';
+      // Load Livsports home where client-side navigation works seamlessly (as confirmed in screenshot)
+      loadLivsportsUrl('https://livsports.dpdns.org/');
 
       recordProgress({
         name: match.title,
@@ -1399,94 +1377,7 @@
       renderChannels();
     }
 
-    async function fetchSubStreams(match) {
-      const serverSelect = document.getElementById('server-select');
-      let streamCounter = 1;
-
-      for (const s of match.sources.slice(0, 3)) {
-        try {
-          const res = await fetch(`https://streamed.pk/api/stream/${s.source}/${s.id}`);
-          if (res.ok) {
-            const list = await res.json();
-            if (Array.isArray(list)) {
-              list.forEach(item => {
-                if (item.embedUrl) {
-                  const key = `stream_${item.source || 'src'}_${item.streamNo || streamCounter}`;
-                  const isFr = (item.language || '').toLowerCase().includes('french');
-                  const label = `${isFr ? '🇫🇷 ' : ''}Flux ${streamCounter} : ${item.language || 'HD'}`;
-
-                  availableStreams.push({
-                    key: key,
-                    name: label,
-                    url: item.embedUrl
-                  });
-
-                  const opt = document.createElement('option');
-                  opt.value = key;
-                  opt.textContent = label;
-                  serverSelect.appendChild(opt);
-
-                  // If French stream found, auto-switch to it
-                  if (isFr && currentServer === 'embed_primary') {
-                    currentServer = key;
-                    serverSelect.value = key;
-                    loadMatchStreamUrl(match, key);
-                  }
-
-                  streamCounter++;
-                }
-              });
-            }
-          }
-        } catch (e) {
-          // ignore
-        }
-      }
-    }
-
-    function loadMatchStreamUrl(match, serverKey) {
-      const viewport = document.getElementById('viewport');
-      destroyHls();
-      viewport.innerHTML = '';
-
-      let targetUrl = '';
-
-      if (serverKey === 'embed_primary') {
-        if (match.directEmbed) {
-          targetUrl = match.directEmbed;
-        } else if (availableStreams.length > 0) {
-          targetUrl = availableStreams[0].url;
-        } else {
-          // Clean direct player without website wrapper
-          const cleanId = match.id.replace(/-\d+$/, '');
-          targetUrl = `https://embed.st/embed/admin/ppv-${cleanId}/1`;
-        }
-      } else if (serverKey === 'livsports_feed') {
-        const hasRealId = match.id && /\d{4,}/.test(match.id);
-        targetUrl = hasRealId
-          ? `https://livsports.dpdns.org/match?id=${encodeURIComponent(match.id)}&cat=${encodeURIComponent(match.category)}`
-          : `https://livsports.dpdns.org/sport?id=${encodeURIComponent(match.category)}`;
-      } else {
-        const customStream = availableStreams.find(s => s.key === serverKey);
-        if (customStream) {
-          targetUrl = customStream.url;
-        } else if (match.directEmbed) {
-          targetUrl = match.directEmbed;
-        } else {
-          targetUrl = `https://embed.st/embed/admin/ppv-${match.id}/1`;
-        }
-      }
-
-      const iframe = document.createElement('iframe');
-      iframe.src = targetUrl;
-      iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-      // Crucial: No sandbox attribute! Stream player scripts reject sandboxed environments
-      viewport.appendChild(iframe);
-    }
-
-    // Select and play a 24/7 TV channel with direct working stream
+    // Select and play a TV channel
     function selectChannel(ch, serverKey = null) {
       currentChannel = ch;
       currentMatch = null;
@@ -1498,48 +1389,31 @@
 
       playerIcon.textContent = ch.icon;
       playerTitle.textContent = ch.name;
-      playerSub.textContent = ch.desc + ' • Direct HD 24/7';
-
-      // 2 clean stream sources
-      serverSelect.innerHTML = `
-        <option value="direct_stream" selected>Serveur 1 : Flux Direct Live (${ch.name})</option>
-        <option value="livsports_feed">Serveur 2 : Flux Livsports Alternatif</option>
-      `;
-
-      if (serverKey) {
-        currentServer = serverKey;
-        serverSelect.value = serverKey;
-      } else {
-        currentServer = 'direct_stream';
-        serverSelect.value = 'direct_stream';
-      }
+      playerSub.textContent = ch.desc + ' • Direct HD';
 
       const viewport = document.getElementById('viewport');
       destroyHls();
       viewport.innerHTML = '';
 
       if (ch.type === 'yt') {
+        serverSelect.innerHTML = `
+          <option value="yt_official" selected>Flux Officiel HD (100% Sécurisé)</option>
+        `;
         const iframe = document.createElement('iframe');
         iframe.src = `https://www.youtube-nocookie.com/embed/${ch.videoId}?autoplay=1&mute=0&rel=0`;
         iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
         viewport.appendChild(iframe);
       } else {
-        let streamUrl = '';
-        if (currentServer === 'livsports_feed') {
-          streamUrl = ch.livsportsQuery ? `https://livsports.dpdns.org/sport?id=${ch.livsportsQuery}` : 'https://livsports.dpdns.org/';
-        } else {
-          // Direct working channel stream from embed.st
-          streamUrl = ch.embedDirectUrl || `https://embed.st/embed/channel/${ch.id}/1`;
-        }
+        const sportCat = ch.livsportsQuery || 'football';
+        serverSelect.innerHTML = `
+          <option value="livsports_cat" selected>Serveur 1 : Directs ${ch.name} (Livsports ${sportCat.toUpperCase()})</option>
+          <option value="livsports_home">Serveur 2 : Livsports Accueil (Tous les Matchs Live)</option>
+        `;
 
-        const iframe = document.createElement('iframe');
-        iframe.src = streamUrl;
-        iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
-        iframe.setAttribute('allowfullscreen', 'true');
-        iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-        // Crucial: No sandbox attribute!
-        viewport.appendChild(iframe);
+        // Direct dedicated category on Livsports (e.g. /sport?id=football for Canal+ Foot, beIN, DAZN)
+        loadLivsportsUrl(`https://livsports.dpdns.org/sport?id=${sportCat}`);
       }
 
       recordProgress(ch);
@@ -1549,10 +1423,13 @@
 
     function onServerChange(val) {
       currentServer = val;
-      if (currentMatch) {
-        loadMatchStreamUrl(currentMatch, val);
-      } else if (currentChannel) {
-        selectChannel(currentChannel, val);
+      if (val === 'livsports_home') {
+        loadLivsportsUrl('https://livsports.dpdns.org/');
+      } else if (val === 'livsports_cat') {
+        const cat = (currentMatch && currentMatch.category) || (currentChannel && currentChannel.livsportsQuery) || 'football';
+        loadLivsportsUrl(`https://livsports.dpdns.org/sport?id=${cat}`);
+      } else if (val === 'livsports_match' && currentMatch) {
+        loadLivsportsUrl(`https://livsports.dpdns.org/match?id=${encodeURIComponent(currentMatch.id)}&cat=${encodeURIComponent(currentMatch.category)}`);
       }
     }
 
@@ -1568,11 +1445,11 @@
     }
 
     function openExternalPlayer() {
-      let url = 'https://embed.st/';
-      if (currentMatch) {
-        url = currentMatch.directEmbed || `https://embed.st/embed/admin/ppv-${currentMatch.id}/1`;
-      } else if (currentChannel) {
-        url = currentChannel.embedDirectUrl || 'https://embed.st/';
+      let url = 'https://livsports.dpdns.org/';
+      if (currentMatch && currentServer === 'livsports_match') {
+        url = `https://livsports.dpdns.org/match?id=${encodeURIComponent(currentMatch.id)}&cat=${encodeURIComponent(currentMatch.category)}`;
+      } else if (currentChannel && currentChannel.livsportsQuery) {
+        url = `https://livsports.dpdns.org/sport?id=${currentChannel.livsportsQuery}`;
       }
       window.open(url, '_blank', 'noopener,noreferrer');
     }
@@ -1607,6 +1484,7 @@
         iframe.src = val;
         iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
         viewport.appendChild(iframe);
       }
 
@@ -1725,6 +1603,9 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderChannels();
       refreshMatches();
+
+      // Load Livsports Home by default in the player
+      loadLivsportsUrl('https://livsports.dpdns.org/');
 
       const params = new URLSearchParams(window.location.search);
       const chParam = params.get('ch');
