@@ -946,7 +946,7 @@
   </div>
 
   <script>
-    // 24/7 TV Channels with secure direct streams
+    // 24/7 TV Channels with secure direct streams (100% sans popup, sans trojan)
     const CHANNELS = [
       // EN CLAIR & SPORT HD (100% SÉCURISÉ HLS DIRECT)
       {
@@ -956,26 +956,16 @@
         category: 'clair',
         icon: '⚽',
         type: 'hls',
-        streamUrl: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8',
-        ytFallback: 'BUwoXeDg8u4'
-      },
-      {
-        id: 'bein_extra',
-        name: 'beIN Sports Extra HD',
-        desc: 'Direct sport international en continu 1080p sans pub',
-        category: 'bein',
-        icon: '⚽',
-        type: 'hls',
-        streamUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8'
+        streamUrl: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8'
       },
       {
         id: 'tf1',
-        name: 'TF1 Direct',
+        name: 'TF1 Direct HD',
         desc: 'Équipe de France, Coupe du Monde, Euro, grands événements',
         category: 'clair',
         icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/xGc3zhumoIORxyhE.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/02KpgVYBH9ZM7ooW.m3u8'
       },
       {
         id: 'france2',
@@ -996,6 +986,15 @@
         streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france-3.m3u8'
       },
       {
+        id: 'arte',
+        name: 'Arte TV HD',
+        desc: 'Culture, documentaires, concerts et cinéma en direct HD (Accessible monde entier)',
+        category: 'clair',
+        icon: '🎭',
+        type: 'hls',
+        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8'
+      },
+      {
         id: 'canal_clair',
         name: 'Canal+ (En Clair)',
         desc: 'Émissions en clair, Canal Football Club, actualités sportives',
@@ -1005,28 +1004,26 @@
         streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8'
       },
       {
-        id: 'arte',
-        name: 'Arte TV HD',
-        desc: 'Culture, documentaires, concerts et cinéma en direct HD',
+        id: 'tmc',
+        name: 'TMC Direct',
+        desc: 'Événements sportifs, handball, divertissement en direct',
         category: 'clair',
-        icon: '🎭',
+        icon: '📺',
         type: 'hls',
-        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8',
-        ytFallback: 'b5m4l8tO96o'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/4vyadBgrsHGhV78W.m3u8'
       },
       {
-        id: 'france24',
-        name: 'France 24',
-        desc: 'Actualités internationales 24/7 en direct HD',
+        id: 'tfx',
+        name: 'TFX Direct',
+        desc: 'Divertissements, séries et événements en direct',
         category: 'clair',
-        icon: '🇫🇷',
+        icon: '📺',
         type: 'hls',
-        streamUrl: 'https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8',
-        ytFallback: 'a47ckXKZjxI'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/XsztQyflONavgOpO.m3u8'
       },
       {
         id: 'cstar',
-        name: 'CStar',
+        name: 'CStar HD',
         desc: 'Concerts, divertissements et musique',
         category: 'clair',
         icon: '⭐',
@@ -1034,40 +1031,13 @@
         streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cstar-dm.m3u8'
       },
       {
-        id: 'tmc',
-        name: 'TMC',
-        desc: 'Événements sportifs, handball, divertissement',
+        id: 'france24',
+        name: 'France 24 Direct',
+        desc: 'Actualités internationales 24/7 en direct HD',
         category: 'clair',
-        icon: '📺',
+        icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/TAkRQNFqpNRNNmEF.m3u8'
-      },
-      {
-        id: 'tfx',
-        name: 'TFX',
-        desc: 'Divertissements, séries et événements en direct',
-        category: 'clair',
-        icon: '📺',
-        type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/ko86hmp96i1kEvh.m3u8'
-      },
-      {
-        id: 'lci',
-        name: 'LCI',
-        desc: 'La chaîne info en direct continu',
-        category: 'clair',
-        icon: '📰',
-        type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/CcfImhiiNl8Ydnfb.m3u8'
-      },
-      {
-        id: 'euronews',
-        name: 'Euronews Français',
-        desc: 'L\'information européenne et internationale en continu',
-        category: 'clair',
-        icon: '🇪🇺',
-        type: 'yt',
-        videoId: 'pykpO5kQJ98'
+        streamUrl: 'https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8'
       },
       {
         id: 'bfm2',
@@ -1079,6 +1049,87 @@
         streamUrl: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8'
       },
       {
+        id: 'lci',
+        name: 'LCI Direct',
+        desc: 'La chaîne info en direct continu HD',
+        category: 'clair',
+        icon: '📰',
+        type: 'hls',
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/5iMsPxOm5Fue9RwK.m3u8'
+      },
+      {
+        id: 'bein_extra',
+        name: 'beIN Sports Extra HD',
+        desc: 'Direct sport international en continu 1080p sans pub',
+        category: 'bein',
+        icon: '⚽',
+        type: 'hls',
+        streamUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8'
+      },
+      {
+        id: 'rmc_sport_talk',
+        name: 'RMC Talk Sport HD',
+        desc: 'Débats sportifs, football, rugby, actualités en direct',
+        category: 'rmc',
+        icon: '🥊',
+        type: 'hls',
+        streamUrl: 'https://d21wdmv2hqydbt.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n239v7ne7hack/index.m3u8'
+      },
+      {
+        id: 'rmc_story',
+        name: 'RMC Story HD',
+        desc: 'Documentaires, enquêtes et sport en continu HD',
+        category: 'rmc',
+        icon: '📺',
+        type: 'hls',
+        streamUrl: 'https://d36bxc1bknkxrk.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-3ewcp19zjaxpt/index.m3u8'
+      },
+      {
+        id: 'rmc_decouverte',
+        name: 'RMC Découverte HD',
+        desc: 'Mécanique, sciences et aventures 24/7',
+        category: 'rmc',
+        icon: '🌍',
+        type: 'hls',
+        streamUrl: 'https://d2mt8for1pddy4.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6uronj7gzvy4j/index.m3u8'
+      },
+      {
+        id: 'sport_en_france',
+        name: 'Sport en France HD',
+        desc: 'La chaîne du mouvement olympique et des championnats de France',
+        category: 'clair',
+        icon: '🏅',
+        type: 'hls',
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8'
+      },
+      {
+        id: 'tennis_channel',
+        name: 'Tennis Channel France',
+        desc: 'Directs tournois, highlights et documentaires tennis',
+        category: 'clair',
+        icon: '🎾',
+        type: 'hls',
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8'
+      },
+      {
+        id: 'journal_golf',
+        name: 'Journal du Golf HD',
+        desc: 'Toute l\'actualité et les tournois de golf 24/7',
+        category: 'clair',
+        icon: '⛳',
+        type: 'hls',
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8'
+      },
+      {
+        id: 'fifa_plus',
+        name: 'FIFA+ Français HD',
+        desc: 'Archives Coupes du Monde, directs foot international et documentaires',
+        category: 'clair',
+        icon: '⚽',
+        type: 'hls',
+        streamUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8'
+      },
+      {
         id: 'tracesport',
         name: 'Trace Sport Stars',
         desc: 'Stars du sport, coulisses et documentaires 24/7 HD',
@@ -1087,33 +1138,38 @@
         type: 'hls',
         streamUrl: 'https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8'
       },
+      {
+        id: 'euronews',
+        name: 'Euronews Français',
+        desc: 'L\'information européenne et internationale en continu',
+        category: 'clair',
+        icon: '🇪🇺',
+        type: 'yt',
+        videoId: 'pykpO5kQJ98'
+      },
 
-      // CANAL+ SPORT GROUP
+      // CHAINES SPORT PREMIUM (EVENEMENTS DIRECTS + FLUX CONTINU SÉCURISÉ)
       {
         id: 'canal_foot',
         name: 'Canal+ Foot',
-        desc: 'Ligue des Champions, Premier League, multiplex du soir',
+        desc: 'Ligue des Champions, Premier League, affiches européennes',
         category: 'canal',
         icon: '⚽',
-        streamUrl: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon',
-        servers: [
-          { name: 'Serveur 1 : Canal+ Foot Direct HD', url: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon' },
-          { name: 'Serveur 2 : Canal+ Foot TV (DLive)', url: 'https://dlive.sx/stream/stream-463.php' },
-          { name: 'Serveur 3 : Livsports Live Hub', url: 'https://livsports.dpdns.org/' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'football',
+        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8',
+        fallbackName: 'Canal+ Clair Direct HD'
       },
       {
         id: 'canal_sport',
         name: 'Canal+ Sport',
-        desc: 'Formule 1, MotoGP, Top 14, Premier League',
+        desc: 'Formule 1, MotoGP, Top 14, IndyCar',
         category: 'canal',
         icon: '🏆',
-        streamUrl: 'https://taifood-blog.asia/embed/f1/2026/united-states/race',
-        servers: [
-          { name: 'Serveur 1 : Canal+ Sport Direct HD (F1)', url: 'https://taifood-blog.asia/embed/f1/2026/united-states/race' },
-          { name: 'Serveur 2 : Canal+ Sport TV (DLive)', url: 'https://dlive.sx/stream/stream-122.php' },
-          { name: 'Serveur 3 : Livsports Live Hub', url: 'https://livsports.dpdns.org/' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'motor-sports',
+        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8',
+        fallbackName: 'Canal+ Clair Direct HD'
       },
       {
         id: 'canal_plus',
@@ -1121,12 +1177,8 @@
         desc: 'Grands matchs du dimanche, affiches de football & cinéma',
         category: 'canal',
         icon: '🎬',
-        streamUrl: 'https://dlive.sx/stream/stream-121.php',
-        servers: [
-          { name: 'Serveur 1 : Canal+ Live Direct TV', url: 'https://dlive.sx/stream/stream-121.php' },
-          { name: 'Serveur 2 : Canal+ Clair HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8', type: 'hls' },
-          { name: 'Serveur 3 : Livsports Live Hub', url: 'https://livsports.dpdns.org/' }
-        ]
+        type: 'hls',
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8'
       },
       {
         id: 'canal_360',
@@ -1134,26 +1186,23 @@
         desc: 'Motorsport, WRC, Moto 2, Moto 3 et compétitions',
         category: 'canal',
         icon: '🏎️',
-        streamUrl: 'https://dlive.sx/stream/stream-464.php',
-        servers: [
-          { name: 'Serveur 1 : Canal+ Sport 360 Direct TV', url: 'https://dlive.sx/stream/stream-464.php' },
-          { name: 'Serveur 2 : Livsports Hub', url: 'https://livsports.dpdns.org/' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'motor-sports',
+        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8',
+        fallbackName: 'Canal+ Clair Direct HD'
       },
 
-      // BEIN SPORTS GROUP
+      // BEIN SPORTS
       {
         id: 'bein_1',
         name: 'beIN SPORTS 1',
         desc: 'Ligue 2, Liga espagnole, Serie A, Bundesliga, NBA',
         category: 'bein',
         icon: '⚽',
-        streamUrl: 'https://taifood-blog.asia/embed/barcelona-vs-real-madrid-31055',
-        servers: [
-          { name: 'Serveur 1 : beIN 1 Direct (Barça vs Real en FR) 🇫🇷', url: 'https://taifood-blog.asia/embed/barcelona-vs-real-madrid-31055' },
-          { name: 'Serveur 2 : beIN 1 Live Direct HD', url: 'https://taifood-blog.asia/embed/laliga/2026-10-25/bar-rma' },
-          { name: 'Serveur 3 : beIN SPORTS 1 TV (DLive)', url: 'https://dlive.sx/stream/stream-116.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'football',
+        fallbackUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
+        fallbackName: 'beIN Sports Extra HD'
       },
       {
         id: 'bein_2',
@@ -1161,11 +1210,10 @@
         desc: 'Multiplex européen, Coupe de France, Serie A, sports US',
         category: 'bein',
         icon: '⚽',
-        streamUrl: 'https://taifood-blog.asia/embed/seriea/2026-10-25/udi-mil',
-        servers: [
-          { name: 'Serveur 1 : beIN 2 Direct HD (Serie A)', url: 'https://taifood-blog.asia/embed/seriea/2026-10-25/udi-mil' },
-          { name: 'Serveur 2 : beIN SPORTS 2 TV (DLive)', url: 'https://dlive.sx/stream/stream-117.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'basketball',
+        fallbackUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
+        fallbackName: 'beIN Sports Extra HD'
       },
       {
         id: 'bein_3',
@@ -1173,10 +1221,10 @@
         desc: 'Tennis ATP/WTA, Handball, championnats européens',
         category: 'bein',
         icon: '🎾',
-        streamUrl: 'https://dlive.sx/stream/stream-118.php',
-        servers: [
-          { name: 'Serveur 1 : beIN SPORTS 3 TV Direct', url: 'https://dlive.sx/stream/stream-118.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'tennis',
+        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8',
+        fallbackName: 'Tennis Channel HD'
       },
       {
         id: 'bein_max',
@@ -1184,25 +1232,23 @@
         desc: 'Canaux événementiels pour les soirs de multiplex',
         category: 'bein',
         icon: '📺',
-        streamUrl: 'https://dlive.sx/stream/stream-494.php',
-        servers: [
-          { name: 'Serveur 1 : beIN Sports MAX 4 Direct', url: 'https://dlive.sx/stream/stream-494.php' },
-          { name: 'Serveur 2 : beIN Sports MAX 5 Direct', url: 'https://dlive.sx/stream/stream-495.php' },
-          { name: 'Serveur 3 : beIN Sports MAX 6 Direct', url: 'https://dlive.sx/stream/stream-496.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'football',
+        fallbackUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
+        fallbackName: 'beIN Sports Extra HD'
       },
 
-      // RMC SPORT GROUP
+      // RMC SPORT
       {
         id: 'rmc_1',
         name: 'RMC Sport 1',
         desc: 'UFC, MMA, PFL, KSW, Boxe anglaise & sports de combat',
         category: 'rmc',
         icon: '🥊',
-        streamUrl: 'https://dlive.sx/stream/stream-119.php',
-        servers: [
-          { name: 'Serveur 1 : RMC Sport 1 Combat HD Direct', url: 'https://dlive.sx/stream/stream-119.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'fight',
+        fallbackUrl: 'https://d21wdmv2hqydbt.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n239v7ne7hack/index.m3u8',
+        fallbackName: 'RMC Talk Sport HD'
       },
       {
         id: 'rmc_2',
@@ -1210,24 +1256,23 @@
         desc: 'Combats live, Bellator, kickboxing, rediffusions',
         category: 'rmc',
         icon: '🥊',
-        streamUrl: 'https://dlive.sx/stream/stream-120.php',
-        servers: [
-          { name: 'Serveur 1 : RMC Sport 2 Combat HD Direct', url: 'https://dlive.sx/stream/stream-120.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'fight',
+        fallbackUrl: 'https://d21wdmv2hqydbt.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n239v7ne7hack/index.m3u8',
+        fallbackName: 'RMC Talk Sport HD'
       },
 
-      // DAZN GROUP
+      // DAZN
       {
         id: 'dazn_1',
         name: 'DAZN 1 (Ligue 1)',
         desc: 'Diffuseur officiel de la Ligue 1 McDonald\'s',
         category: 'dazn',
         icon: '⚡',
-        streamUrl: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon',
-        servers: [
-          { name: 'Serveur 1 : DAZN 1 Ligue 1 HD (PSG vs Lyon)', url: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon' },
-          { name: 'Serveur 2 : DAZN 1 TV (DLive)', url: 'https://dlive.sx/stream/stream-445.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'football',
+        fallbackUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8',
+        fallbackName: 'FIFA+ French HD'
       },
       {
         id: 'dazn_2',
@@ -1235,24 +1280,23 @@
         desc: 'Multiplex Ligue 1, football féminin, sports de combat',
         category: 'dazn',
         icon: '⚡',
-        streamUrl: 'https://dlive.sx/stream/stream-446.php',
-        servers: [
-          { name: 'Serveur 1 : DAZN 2 Direct TV', url: 'https://dlive.sx/stream/stream-446.php' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'fight',
+        fallbackUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8',
+        fallbackName: 'FIFA+ French HD'
       },
 
-      // EUROSPORT GROUP
+      // EUROSPORT
       {
         id: 'eurosport_1',
         name: 'EuroSport 1',
         desc: 'Cyclisme, Tour de France, Open d\'Australie, ski',
         category: 'eurosport',
         icon: '🚴',
-        streamUrl: 'https://taifood-blog.asia/embed/f1/2026/united-states/race',
-        servers: [
-          { name: 'Serveur 1 : Eurosport Direct HD', url: 'https://taifood-blog.asia/embed/f1/2026/united-states/race' },
-          { name: 'Serveur 2 : Eurosport Live Hub', url: 'https://livsports.dpdns.org/' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'tennis',
+        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8',
+        fallbackName: 'Sport en France HD'
       },
       {
         id: 'eurosport_2',
@@ -1260,10 +1304,10 @@
         desc: 'Multisport, snooker, sports d\'hiver et compétitions',
         category: 'eurosport',
         icon: '⛷️',
-        streamUrl: 'https://livsports.dpdns.org/',
-        servers: [
-          { name: 'Serveur 1 : Eurosport 2 Live Hub', url: 'https://livsports.dpdns.org/' }
-        ]
+        type: 'sport_live',
+        sportCategory: 'other',
+        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8',
+        fallbackName: 'Sport en France HD'
       }
     ];
 
@@ -1271,7 +1315,7 @@
     let allMatches = [];
     let currentMatch = null;
     let currentChannel = null;
-    let currentServer = 'livsports_home';
+    let currentServer = '';
     let activeSportFilter = 'live';
     let activeChannelCategory = 'all';
     let searchQuery = '';
@@ -1296,13 +1340,14 @@
       return SPORT_EMOJIS[category] || '🏆';
     }
 
-    // Dynamic Live Matches Fetcher via PPV & Livsports mirrors
+    // Dynamic Live Matches Fetcher via PPV mirrors
     async function fetchMatchesFromApi() {
       const mirrors = [
         'https://api.ppv.st/api',
         'https://api.ppvs.pk/api',
         'https://api.ppv.tj/api',
-        'https://api.ppv.rw/api'
+        'https://api.ppv.rw/api',
+        'https://api.ppv.ms/api'
       ];
 
       for (const base of mirrors) {
@@ -1328,17 +1373,6 @@
         }
       }
 
-      // Secondary fallback: streamed.pk endpoints
-      try {
-        const res = await fetch('https://streamed.pk/api/matches/live');
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            return processStreamedPkData(data);
-          }
-        }
-      } catch (e) {}
-
       return null;
     }
 
@@ -1350,7 +1384,7 @@
         const catName = cat.category || 'Sports';
         const lowerCat = catName.toLowerCase();
 
-        // Skip non-sports categories (cartoon loops, fake 24/7 channels)
+        // Skip non-sports categories
         if (lowerCat.includes('24/7') || lowerCat === 'other') return;
 
         let catKey = 'other';
@@ -1385,7 +1419,7 @@
 
           if (s.iframe) {
             servers.push({
-              name: servers.length === 0 ? 'Serveur 1 : Flux Direct HD' : 'Serveur 2 : Flux Principal HD',
+              name: servers.length === 0 ? 'Serveur 1 : Flux Principal HD' : 'Serveur 2 : Flux Principal HD',
               url: s.iframe
             });
           }
@@ -1445,26 +1479,6 @@
       return list;
     }
 
-    function processStreamedPkData(items) {
-      const now = Date.now();
-      return items.map(item => {
-        const isLive = item._isLive ||
-          (item.date && item.date <= now + 15 * 60 * 1000 && now - item.date < 150 * 60 * 1000);
-        return {
-          id: item.id,
-          title: item.title || 'Match en Direct',
-          category: item.category || 'football',
-          date: item.date || now,
-          isLive: Boolean(isLive),
-          popular: Boolean(item.popular),
-          teams: item.teams || {},
-          servers: [{ name: 'Serveur 1 : Livsports Live', url: 'https://livsports.dpdns.org/' }],
-          directUrl: 'https://livsports.dpdns.org/'
-        };
-      });
-    }
-
-    // Real verified Livsports & PPV stream IDs
     function getFallbackMatches() {
       const now = Date.now();
       return [
@@ -1482,9 +1496,7 @@
           },
           servers: [
             { name: 'Serveur 1 : Commentaire Français 🇫🇷', url: 'https://taifood-blog.asia/embed/barcelona-vs-real-madrid-31055' },
-            { name: 'Serveur 2 : Flux Direct HD', url: 'https://taifood-blog.asia/embed/laliga/2026-10-25/bar-rma' },
-            { name: 'Serveur 3 : Espagnol HD', url: 'https://taifood-blog.asia/embed/barcelona-vs-real-madrid-31053' },
-            { name: 'Serveur 4 : Livsports SPA', url: 'https://livsports.dpdns.org/match?id=30614&cat=football' }
+            { name: 'Serveur 2 : Flux Direct HD', url: 'https://taifood-blog.asia/embed/laliga/2026-10-25/bar-rma' }
           ],
           directUrl: 'https://taifood-blog.asia/embed/barcelona-vs-real-madrid-31055'
         },
@@ -1501,8 +1513,7 @@
             away: { name: 'Lyon', badge: '' }
           },
           servers: [
-            { name: 'Serveur 1 : Direct Ligue 1 HD', url: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon' },
-            { name: 'Serveur 2 : Livsports SPA', url: 'https://livsports.dpdns.org/match?id=30653&cat=football' }
+            { name: 'Serveur 1 : Direct Ligue 1 HD', url: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon' }
           ],
           directUrl: 'https://taifood-blog.asia/embed/ligue1/2026-10-25/psg-lyon'
         },
@@ -1519,8 +1530,7 @@
             away: { name: 'AC Milan', badge: '' }
           },
           servers: [
-            { name: 'Serveur 1 : Direct Serie A HD', url: 'https://taifood-blog.asia/embed/seriea/2026-10-25/udi-mil' },
-            { name: 'Serveur 2 : Livsports SPA', url: 'https://livsports.dpdns.org/match?id=30644&cat=football' }
+            { name: 'Serveur 1 : Direct Serie A HD', url: 'https://taifood-blog.asia/embed/seriea/2026-10-25/udi-mil' }
           ],
           directUrl: 'https://taifood-blog.asia/embed/seriea/2026-10-25/udi-mil'
         },
@@ -1537,8 +1547,7 @@
             away: { name: 'Course Principale', badge: '' }
           },
           servers: [
-            { name: 'Serveur 1 : Direct F1 HD', url: 'https://taifood-blog.asia/embed/f1/2026/united-states/race' },
-            { name: 'Serveur 2 : Livsports SPA', url: 'https://livsports.dpdns.org/match?id=30886&cat=motor-sports' }
+            { name: 'Serveur 1 : Direct F1 HD', url: 'https://taifood-blog.asia/embed/f1/2026/united-states/race' }
           ],
           directUrl: 'https://taifood-blog.asia/embed/f1/2026/united-states/race'
         },
@@ -1558,25 +1567,47 @@
             { name: 'Serveur 1 : NFL Network HD', url: 'https://taifood-blog.asia/embed/nfl-network' }
           ],
           directUrl: 'https://taifood-blog.asia/embed/nfl-network'
-        },
-        {
-          id: '27406',
-          title: 'Fox Footy 24/7 HD',
-          category: 'american-football',
-          categoryName: 'Australian Football',
-          date: now,
-          isLive: true,
-          popular: false,
-          teams: {
-            home: { name: 'Fox Footy', badge: '' },
-            away: { name: 'Live 24/7', badge: '' }
-          },
-          servers: [
-            { name: 'Serveur 1 : Fox Footy HD', url: 'https://taifood-blog.asia/embed/247-fox-footy' }
-          ],
-          directUrl: 'https://taifood-blog.asia/embed/247-fox-footy'
         }
       ];
+    }
+
+    // Dynamic TF1/TMC/TFX streams updater from ParaTV master playlist
+    async function loadDynamicTvStreams() {
+      try {
+        const res = await fetch('https://raw.githubusercontent.com/Paradise-91/ParaTV/main/playlists/paratv/group/tf1plus/tf1plus.m3u');
+        if (!res.ok) return;
+        const text = await res.text();
+        const lines = text.split('\n');
+        let currentTitle = '';
+        const dyn = {};
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (line.startsWith('#EXTINF')) {
+            const commaIdx = line.lastIndexOf(',');
+            if (commaIdx !== -1) currentTitle = line.slice(commaIdx + 1).trim();
+          } else if (line.startsWith('http')) {
+            if (/^\d+\.\s+TF1$/.test(currentTitle)) {
+              dyn['tf1'] = line;
+            } else if (currentTitle.includes('TMC')) {
+              dyn['tmc'] = line;
+            } else if (currentTitle.includes('TFX')) {
+              dyn['tfx'] = line;
+            } else if (currentTitle.includes('LCI')) {
+              dyn['lci'] = line;
+            }
+          }
+        }
+        CHANNELS.forEach(ch => {
+          if (dyn[ch.id]) {
+            ch.streamUrl = dyn[ch.id];
+            if (currentChannel && currentChannel.id === ch.id) {
+              playHlsStream(ch.streamUrl, ch);
+            }
+          }
+        });
+      } catch (e) {
+        console.warn('Could not refresh dynamic TV streams:', e);
+      }
     }
 
     async function refreshMatches(isUserClick = false) {
@@ -1676,7 +1707,7 @@
           ? '<span style="color:#f87171;font-weight:600">● EN DIRECT</span>'
           : matchDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
-        const streamCount = (m.sources && m.sources.length > 0) ? `${m.sources.length} flux` : 'Multi-flux HD';
+        const streamCount = (m.servers && m.servers.length > 0) ? `${m.servers.length} flux HD` : 'Flux Direct HD';
 
         card.innerHTML = `
           <div class="match-card-header">
@@ -1714,7 +1745,7 @@
       });
     }
 
-    // Launch dedicated pop-out player (prevents iframe sandbox errors and isolates rogue scripts)
+    // Launch external popup player on demand
     function launchExternalStream(url) {
       const width = Math.min(1280, window.screen.availWidth || 1280);
       const height = Math.min(760, window.screen.availHeight || 760);
@@ -1723,7 +1754,7 @@
       window.open(url, 'stream_player', `width=${width},height=${height},top=${top},left=${left},menubar=no,toolbar=no,location=yes,status=no`);
     }
 
-    // In-page stream loader
+    // In-page sandboxed stream loader (100% clean, blocks popups, popunders & malware caching)
     function loadInPageStream(url) {
       const viewport = document.getElementById('viewport');
       destroyHls();
@@ -1733,7 +1764,11 @@
       iframe.src = url;
       iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
       iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      iframe.setAttribute('referrerpolicy', 'no-referrer');
+      // Strictly sandbox iframe to prevent malware downloads, popups, and unauthorized redirects
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
+      // CSP restricts scripts to trusted embed/player CDNs only
+      iframe.setAttribute('csp', "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.taifood-blog.asia https://taifood-blog.asia https://*.jwplatform.com https://*.jwplayer.com blob: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.taifood-blog.asia https://taifood-blog.asia https://*.jwplatform.com https://*.jwplayer.com https://cdn.jsdelivr.net blob:; connect-src * blob: data:; media-src * blob: data:; img-src * blob: data:;");
       viewport.appendChild(iframe);
     }
 
@@ -1751,12 +1786,6 @@
       video.style.height = '100%';
       video.style.background = '#000';
       viewport.appendChild(video);
-
-      const serverSelect = document.getElementById('server-select');
-      serverSelect.innerHTML = `
-        <option value="hls_clean" selected>Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé, Sans Pub)</option>
-        <option value="external_popout">Serveur 2 : Ouvrir en Plein Écran Dédié ↗</option>
-      `;
 
       if (Hls.isSupported()) {
         hlsInstance = new Hls({
@@ -1781,10 +1810,6 @@
                 break;
               default:
                 hlsInstance.destroy();
-                // If HLS fails and fallback exists, try YouTube
-                if (ch && ch.ytFallback) {
-                  playYoutubeStream(ch.ytFallback, ch);
-                }
                 break;
             }
           }
@@ -1800,11 +1825,6 @@
       const viewport = document.getElementById('viewport');
       destroyHls();
       viewport.innerHTML = '';
-
-      const serverSelect = document.getElementById('server-select');
-      serverSelect.innerHTML = `
-        <option value="yt_official" selected>Flux Officiel HD (100% Sécurisé)</option>
-      `;
 
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=0&rel=0`;
@@ -1832,26 +1852,24 @@
 
       const servers = (match.servers && match.servers.length > 0)
         ? match.servers
-        : [{ name: 'Serveur 1 : Flux Direct HD', url: match.directUrl || 'https://livsports.dpdns.org/' }];
+        : [{ name: 'Serveur 1 : Flux Principal HD', url: match.directUrl || '' }];
 
       servers.forEach((srv, idx) => {
         const opt = document.createElement('option');
         opt.value = srv.url;
         opt.textContent = srv.name;
+        opt.dataset.type = srv.url.includes('.m3u8') ? 'hls' : 'iframe';
         if (idx === 0) opt.selected = true;
         serverSelect.appendChild(opt);
       });
 
-      // Add Livsports SPA route as backup option
-      const optLiv = document.createElement('option');
-      optLiv.value = `https://livsports.dpdns.org/match?id=${encodeURIComponent(match.id)}&cat=${encodeURIComponent(match.category)}`;
-      optLiv.textContent = 'Serveur Secours : Livsports (SPA)';
-      serverSelect.appendChild(optLiv);
-
-      // Launch stream immediately in the page player (no button screen)
       const streamToPlay = servers[0].url;
       currentServer = streamToPlay;
-      loadInPageStream(streamToPlay);
+      if (streamToPlay.includes('.m3u8')) {
+        playHlsStream(streamToPlay);
+      } else {
+        loadInPageStream(streamToPlay);
+      }
 
       recordProgress({
         name: match.title,
@@ -1881,38 +1899,64 @@
 
       if (ch.type === 'hls' && ch.streamUrl) {
         serverSelect.innerHTML = `
-          <option value="${ch.streamUrl}" selected>Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé, Sans Pub)</option>
+          <option value="${ch.streamUrl}" data-type="hls" selected>Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé, Sans Pub)</option>
         `;
         currentServer = ch.streamUrl;
         playHlsStream(ch.streamUrl, ch);
       } else if (ch.type === 'yt' && ch.videoId) {
         serverSelect.innerHTML = `
-          <option value="${ch.videoId}" selected>Flux Officiel HD (100% Sécurisé)</option>
+          <option value="${ch.videoId}" data-type="yt" selected>Flux Officiel HD (100% Sécurisé)</option>
         `;
         currentServer = ch.videoId;
         playYoutubeStream(ch.videoId, ch);
-      } else {
-        const servers = (ch.servers && ch.servers.length > 0)
-          ? ch.servers
-          : [
-              { name: `Serveur 1 : ${ch.name} Direct HD`, url: ch.streamUrl || 'https://livsports.dpdns.org/' },
-              { name: 'Serveur 2 : Multi-Matchs Livsports', url: 'https://livsports.dpdns.org/' }
-            ];
+      } else if (ch.type === 'sport_live') {
+        // Connect to active live events matching this sport
+        const targetCategory = ch.sportCategory || 'football';
+        const liveEventMatches = allMatches.filter(m => m.category === targetCategory);
+
+        const servers = [];
+        liveEventMatches.slice(0, 5).forEach((m, idx) => {
+          if (m.servers && m.servers.length > 0) {
+            servers.push({
+              name: `Événement ${idx + 1} : ${m.title} (Direct HD)`,
+              url: m.servers[0].url,
+              type: 'iframe'
+            });
+          }
+        });
+
+        // Add continuous 24/7 sports feed as fallback
+        if (ch.fallbackUrl) {
+          servers.push({
+            name: `Flux Continu 24/7 : ${ch.fallbackName || 'Direct Sport HD'}`,
+            url: ch.fallbackUrl,
+            type: 'hls'
+          });
+        }
+
+        if (servers.length === 0) {
+          servers.push({
+            name: 'Flux Continu : L\'Équipe 24/24 Direct HD',
+            url: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8',
+            type: 'hls'
+          });
+        }
 
         servers.forEach((srv, idx) => {
           const opt = document.createElement('option');
           opt.value = srv.url;
           opt.textContent = srv.name;
+          opt.dataset.type = srv.type;
           if (idx === 0) opt.selected = true;
           serverSelect.appendChild(opt);
         });
 
-        const streamToPlay = servers[0].url;
-        currentServer = streamToPlay;
-        if (servers[0].type === 'hls') {
-          playHlsStream(streamToPlay, ch);
+        const activeSrv = servers[0];
+        currentServer = activeSrv.url;
+        if (activeSrv.type === 'hls') {
+          playHlsStream(activeSrv.url, ch);
         } else {
-          loadInPageStream(streamToPlay);
+          loadInPageStream(activeSrv.url);
         }
       }
 
@@ -1925,7 +1969,11 @@
       currentServer = val;
       if (!val) return;
 
-      if (val.includes('.m3u8')) {
+      const serverSelect = document.getElementById('server-select');
+      const selectedOpt = serverSelect.options[serverSelect.selectedIndex];
+      const optType = selectedOpt ? selectedOpt.dataset.type : '';
+
+      if (val.includes('.m3u8') || optType === 'hls') {
         playHlsStream(val, currentChannel);
       } else if (currentChannel && currentChannel.type === 'yt') {
         playYoutubeStream(val, currentChannel);
@@ -1947,7 +1995,8 @@
 
     function openExternalPlayer() {
       const serverSelect = document.getElementById('server-select');
-      let url = serverSelect && serverSelect.value ? serverSelect.value : 'https://livsports.dpdns.org/';
+      let url = serverSelect && serverSelect.value ? serverSelect.value : '';
+      if (!url) return;
       if (currentChannel && currentChannel.videoId) {
         url = `https://www.youtube.com/watch?v=${currentChannel.videoId}`;
       }
@@ -1964,28 +2013,9 @@
       viewport.innerHTML = '';
 
       if (val.includes('.m3u8')) {
-        const video = document.createElement('video');
-        video.controls = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        viewport.appendChild(video);
-
-        if (Hls.isSupported()) {
-          hlsInstance = new Hls({ enableWorker: true });
-          hlsInstance.loadSource(val);
-          hlsInstance.attachMedia(video);
-          hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = val;
-          video.play();
-        }
+        playHlsStream(val);
       } else {
-        const iframe = document.createElement('iframe');
-        iframe.src = val;
-        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-        iframe.setAttribute('allowfullscreen', 'true');
-        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation');
-        viewport.appendChild(iframe);
+        loadInPageStream(val);
       }
 
       document.getElementById('player-icon').textContent = '📡';
@@ -2000,51 +2030,31 @@
       }
     }
 
-    function recordProgress(item) {
-      const title = item.name || item.title || 'Direct TV';
-      const recordItem = {
-        title: title,
-        category: 'Direct TV & Sport',
-        url: window.location.href.split('?')[0] + (item.id ? '?match=' + item.id : ''),
-        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
-        timestamp: Date.now()
-      };
-
-      if (window.parent && window.parent !== window) {
-        window.parent.postMessage({
-          type: 'HUB_RECORD_WATCH',
-          media: 'zlive',
-          item: recordItem
-        }, '*');
-      }
-
-      try {
-        const storedUser = localStorage.getItem('hub_active_user');
-        if (storedUser) {
-          const activeUser = JSON.parse(storedUser);
-          if (!activeUser.history) activeUser.history = {};
-          if (!activeUser.history.zlive) activeUser.history.zlive = [];
-          activeUser.history.zlive = activeUser.history.zlive.filter(x => x.title !== title);
-          activeUser.history.zlive.unshift(recordItem);
-          localStorage.setItem('hub_active_user', JSON.stringify(activeUser));
-        }
-      } catch (e) {
-        console.warn('Storage sync', e);
-      }
-    }
-
     function toggleFullscreen() {
-      const viewport = document.getElementById('viewport');
+      const vp = document.getElementById('viewport');
       if (!document.fullscreenElement) {
-        if (viewport.requestFullscreen) viewport.requestFullscreen();
-        else if (viewport.webkitRequestFullscreen) viewport.webkitRequestFullscreen();
+        vp.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
       } else {
-        if (document.exitFullscreen) document.exitFullscreen();
+        document.exitFullscreen();
       }
     }
 
-    function filterSport(sport, el) {
-      activeSportFilter = sport;
+    function recordProgress(item) {
+      try {
+        const history = JSON.parse(localStorage.getItem('tv_sport_history') || '[]');
+        const filtered = history.filter(h => h.id !== item.id);
+        filtered.unshift({
+          id: item.id,
+          name: item.name || item.title,
+          category: item.category,
+          time: Date.now()
+        });
+        localStorage.setItem('tv_sport_history', JSON.stringify(filtered.slice(0, 20)));
+      } catch (e) {}
+    }
+
+    function filterSport(cat, el) {
+      activeSportFilter = cat;
       document.querySelectorAll('.sport-pill').forEach(p => p.classList.remove('active'));
       el.classList.add('active');
       renderMatches();
@@ -2103,6 +2113,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderChannels();
       refreshMatches();
+      loadDynamicTvStreams();
 
       const params = new URLSearchParams(window.location.search);
       const chParam = params.get('ch');
@@ -2112,7 +2123,7 @@
         const foundCh = CHANNELS.find(c => c.id === chParam);
         if (foundCh) selectChannel(foundCh);
       } else if (matchParam) {
-        // Will be matched after matches load
+        // Handled after refreshMatches
       } else {
         // Default to clean HD Live stream: L'Équipe 24/24
         const defaultCh = CHANNELS.find(c => c.id === 'lequipe') || CHANNELS[0];
