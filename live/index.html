@@ -956,7 +956,10 @@
         category: 'clair',
         icon: '⚽',
         type: 'hls',
-        streamUrl: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8'
+        streamUrl: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (100% Sans Pub)', url: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'tf1',
@@ -965,7 +968,11 @@
         category: 'clair',
         icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/02KpgVYBH9ZM7ooW.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/02KpgVYBH9ZM7ooW.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/02KpgVYBH9ZM7ooW.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=469', type: 'iframe' }
+        ]
       },
       {
         id: 'france2',
@@ -974,7 +981,13 @@
         category: 'clair',
         icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france-2.m3u8'
+        streamUrl: 'http://149.62.177.107:9999/France_2/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS 100% Sans Pub)', url: 'http://149.62.177.107:9999/France_2/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir Direct HD (HLS)', url: 'http://89.187.185.76:8080/France2/index.m3u8', type: 'hls' },
+          { name: 'Serveur 3 : Flux Web HD', url: 'https://dembed.st/premiumtv/daddy.php?id=950', type: 'iframe' },
+          { name: 'Serveur 4 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-950.php', type: 'iframe' }
+        ]
       },
       {
         id: 'france3',
@@ -983,7 +996,13 @@
         category: 'clair',
         icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france-3.m3u8'
+        streamUrl: 'http://149.62.177.107:9999/France_3/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS 100% Sans Pub)', url: 'http://149.62.177.107:9999/France_3/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir Direct HD (HLS)', url: 'http://89.187.185.76:8080/France3/index.m3u8', type: 'hls' },
+          { name: 'Serveur 3 : Flux Web HD', url: 'https://dembed.st/premiumtv/daddy.php?id=951', type: 'iframe' },
+          { name: 'Serveur 4 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-951.php', type: 'iframe' }
+        ]
       },
       {
         id: 'arte',
@@ -992,7 +1011,11 @@
         category: 'clair',
         icon: '🎭',
         type: 'hls',
-        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8'
+        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=958', type: 'iframe' }
+        ]
       },
       {
         id: 'canal_clair',
@@ -1000,8 +1023,11 @@
         desc: 'Émissions en clair, Canal Football Club, actualités sportives',
         category: 'canal',
         icon: '🎬',
-        type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Canal+ Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=121', type: 'iframe' },
+          { name: 'Serveur 2 : Canal+ Direct Miroir HD', url: 'https://thedaddy.pk/stream/stream-121.php', type: 'iframe' }
+        ]
       },
       {
         id: 'tmc',
@@ -1010,7 +1036,11 @@
         category: 'clair',
         icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/4vyadBgrsHGhV78W.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/4vyadBgrsHGhV78W.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/4vyadBgrsHGhV78W.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=955', type: 'iframe' }
+        ]
       },
       {
         id: 'tfx',
@@ -1019,7 +1049,10 @@
         category: 'clair',
         icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/XsztQyflONavgOpO.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/XsztQyflONavgOpO.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/XsztQyflONavgOpO.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'cstar',
@@ -1027,8 +1060,11 @@
         desc: 'Concerts, divertissements et musique',
         category: 'clair',
         icon: '⭐',
-        type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cstar-dm.m3u8'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Direct Officiel Dailymotion HD (Continu)', url: 'https://www.dailymotion.com/embed/video/x5gv5v0?autoplay=1', type: 'iframe' },
+          { name: 'Serveur 2 : Flux Direct HLS HD', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cstar-dm.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'france24',
@@ -1037,7 +1073,10 @@
         category: 'clair',
         icon: '🇫🇷',
         type: 'hls',
-        streamUrl: 'https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8'
+        streamUrl: 'https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'bfm2',
@@ -1046,7 +1085,11 @@
         category: 'clair',
         icon: '📰',
         type: 'hls',
-        streamUrl: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8'
+        streamUrl: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : BFM TV Direct Miroir', url: 'https://dembed.st/premiumtv/daddy.php?id=957', type: 'iframe' }
+        ]
       },
       {
         id: 'lci',
@@ -1055,7 +1098,11 @@
         category: 'clair',
         icon: '📰',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/5iMsPxOm5Fue9RwK.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/5iMsPxOm5Fue9RwK.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/5iMsPxOm5Fue9RwK.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : LCI Direct Miroir', url: 'https://dembed.st/premiumtv/daddy.php?id=962', type: 'iframe' }
+        ]
       },
       {
         id: 'bein_extra',
@@ -1064,7 +1111,10 @@
         category: 'bein',
         icon: '⚽',
         type: 'hls',
-        streamUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8'
+        streamUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD 1080p (HLS)', url: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'rmc_sport_talk',
@@ -1073,7 +1123,12 @@
         category: 'rmc',
         icon: '🥊',
         type: 'hls',
-        streamUrl: 'https://d21wdmv2hqydbt.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n239v7ne7hack/index.m3u8'
+        streamUrl: 'https://stream.rcs.revma.com/an1ugyygzk8uv',
+        servers: [
+          { name: 'Serveur 1 : Direct Débats Studio RMC (Live continu)', url: 'https://stream.rcs.revma.com/an1ugyygzk8uv', type: 'hls' },
+          { name: 'Serveur 2 : RMC Sport 1 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=119', type: 'iframe' },
+          { name: 'Serveur 3 : BFM TV / RMC Talk 24/7', url: 'https://dembed.st/premiumtv/daddy.php?id=957', type: 'iframe' }
+        ]
       },
       {
         id: 'rmc_story',
@@ -1081,8 +1136,11 @@
         desc: 'Documentaires, enquêtes et sport en continu HD',
         category: 'rmc',
         icon: '📺',
-        type: 'hls',
-        streamUrl: 'https://d36bxc1bknkxrk.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-3ewcp19zjaxpt/index.m3u8'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Direct RMC Story HD', url: 'https://dembed.st/premiumtv/daddy.php?id=954', type: 'iframe' },
+          { name: 'Serveur 2 : Miroir Direct HD', url: 'https://thedaddy.pk/stream/stream-954.php', type: 'iframe' }
+        ]
       },
       {
         id: 'rmc_decouverte',
@@ -1091,7 +1149,11 @@
         category: 'rmc',
         icon: '🌍',
         type: 'hls',
-        streamUrl: 'https://d2mt8for1pddy4.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6uronj7gzvy4j/index.m3u8'
+        streamUrl: 'http://149.62.177.107:9999/RMC_Decouverte/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HLS HD (100% Sans Pub)', url: 'http://149.62.177.107:9999/RMC_Decouverte/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=954', type: 'iframe' }
+        ]
       },
       {
         id: 'sport_en_france',
@@ -1100,7 +1162,11 @@
         category: 'clair',
         icon: '🏅',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=965', type: 'iframe' }
+        ]
       },
       {
         id: 'tennis_channel',
@@ -1109,7 +1175,10 @@
         category: 'clair',
         icon: '🎾',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'journal_golf',
@@ -1118,7 +1187,10 @@
         category: 'clair',
         icon: '⛳',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8'
+        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'fifa_plus',
@@ -1127,7 +1199,10 @@
         category: 'clair',
         icon: '⚽',
         type: 'hls',
-        streamUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8'
+        streamUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'tracesport',
@@ -1136,7 +1211,11 @@
         category: 'clair',
         icon: '🌟',
         type: 'hls',
-        streamUrl: 'https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8'
+        streamUrl: 'https://trace-sportstars-tcl.amagi.tv/playlist.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct 1080p HLS (100% Sans Pub, CORS OK)', url: 'https://trace-sportstars-tcl.amagi.tv/playlist.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Direct 720p HLS', url: 'https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8', type: 'hls' }
+        ]
       },
       {
         id: 'nfl_network',
@@ -1144,17 +1223,24 @@
         desc: 'Football américain NFL en direct continu 24/7 HD',
         category: 'clair',
         icon: '🏈',
-        type: 'hls',
-        streamUrl: 'http://198.58.104.90:8989/nfl/index.m3u8'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Direct 24/7 HD', url: 'https://dembed.st/premiumtv/daddy.php?id=405', type: 'iframe' },
+          { name: 'Serveur 2 : Direct Miroir HD', url: 'https://thedaddy.pk/stream/stream-405.php', type: 'iframe' }
+        ]
       },
       {
         id: 'euronews',
         name: 'Euronews Français',
-        desc: 'L\'information européenne et internationale en continu',
+        desc: 'L\'information européenne et internationale en continu 100% en français',
         category: 'clair',
         icon: '🇪🇺',
         type: 'yt',
-        videoId: 'pykpO5kQJ98'
+        videoId: 'NiRIbKwAejk',
+        servers: [
+          { name: 'Serveur 1 : Direct Officiel YouTube Français HD', url: 'NiRIbKwAejk', type: 'yt' },
+          { name: 'Serveur 2 : Chaîne Direct Live FR', url: 'https://www.youtube-nocookie.com/embed/live_stream?channel=UCW2QcKZiU8aUGg4yxCSIditg&autoplay=1', type: 'iframe' }
+        ]
       },
 
       // CHAINES SPORT PREMIUM (EVENEMENTS DIRECTS + FLUX CONTINU SÉCURISÉ)
@@ -1164,10 +1250,12 @@
         desc: 'Ligue des Champions, Premier League, affiches européennes',
         category: 'canal',
         icon: '⚽',
-        type: 'sport_live',
         sportCategory: 'football',
-        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8',
-        fallbackName: 'Canal+ Clair Direct HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Canal+ Foot France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=463', type: 'iframe' },
+          { name: 'Serveur 2 : Canal+ Foot France Miroir HD', url: 'https://thedaddy.pk/stream/stream-463.php', type: 'iframe' }
+        ]
       },
       {
         id: 'canal_sport',
@@ -1175,10 +1263,13 @@
         desc: 'Formule 1, MotoGP, Top 14, IndyCar',
         category: 'canal',
         icon: '🏆',
-        type: 'sport_live',
         sportCategory: 'motor-sports',
-        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8',
-        fallbackName: 'Canal+ Clair Direct HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Canal+ Sport France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=122', type: 'iframe' },
+          { name: 'Serveur 2 : Canal+ Sport France Miroir HD', url: 'https://thedaddy.pk/stream/stream-122.php', type: 'iframe' },
+          { name: 'Serveur 3 : Canal+ Formula 1 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=273', type: 'iframe' }
+        ]
       },
       {
         id: 'canal_plus',
@@ -1186,8 +1277,13 @@
         desc: 'Grands matchs du dimanche, affiches de football & cinéma',
         category: 'canal',
         icon: '🎬',
-        type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8'
+        sportCategory: 'football',
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Canal+ France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=121', type: 'iframe' },
+          { name: 'Serveur 2 : Canal+ France Miroir HD', url: 'https://thedaddy.pk/stream/stream-121.php', type: 'iframe' },
+          { name: 'Serveur 3 : Canal+ MotoGP France HD', url: 'https://dembed.st/premiumtv/daddy.php?id=271', type: 'iframe' }
+        ]
       },
       {
         id: 'canal_360',
@@ -1195,10 +1291,12 @@
         desc: 'Motorsport, WRC, Moto 2, Moto 3 et compétitions',
         category: 'canal',
         icon: '🏎️',
-        type: 'sport_live',
         sportCategory: 'motor-sports',
-        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/canalplusclair-hd.m3u8',
-        fallbackName: 'Canal+ Clair Direct HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Canal+ Sport360 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=464', type: 'iframe' },
+          { name: 'Serveur 2 : Canal+ Sport360 Miroir HD', url: 'https://thedaddy.pk/stream/stream-464.php', type: 'iframe' }
+        ]
       },
 
       // BEIN SPORTS
@@ -1208,10 +1306,12 @@
         desc: 'Ligue 2, Liga espagnole, Serie A, Bundesliga, NBA',
         category: 'bein',
         icon: '⚽',
-        type: 'sport_live',
         sportCategory: 'football',
-        fallbackUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
-        fallbackName: 'beIN Sports Extra HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : beIN SPORTS 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=116', type: 'iframe' },
+          { name: 'Serveur 2 : beIN SPORTS 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-116.php', type: 'iframe' }
+        ]
       },
       {
         id: 'bein_2',
@@ -1219,10 +1319,12 @@
         desc: 'Multiplex européen, Coupe de France, Serie A, sports US',
         category: 'bein',
         icon: '⚽',
-        type: 'sport_live',
         sportCategory: 'basketball',
-        fallbackUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
-        fallbackName: 'beIN Sports Extra HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : beIN SPORTS 2 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=117', type: 'iframe' },
+          { name: 'Serveur 2 : beIN SPORTS 2 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-117.php', type: 'iframe' }
+        ]
       },
       {
         id: 'bein_3',
@@ -1230,10 +1332,12 @@
         desc: 'Tennis ATP/WTA, Handball, championnats européens',
         category: 'bein',
         icon: '🎾',
-        type: 'sport_live',
         sportCategory: 'tennis',
-        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8',
-        fallbackName: 'Tennis Channel HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : beIN SPORTS 3 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=118', type: 'iframe' },
+          { name: 'Serveur 2 : beIN SPORTS 3 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-118.php', type: 'iframe' }
+        ]
       },
       {
         id: 'bein_max',
@@ -1241,10 +1345,17 @@
         desc: 'Canaux événementiels pour les soirs de multiplex',
         category: 'bein',
         icon: '📺',
-        type: 'sport_live',
         sportCategory: 'football',
-        fallbackUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
-        fallbackName: 'beIN Sports Extra HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Canal beIN MAX 4 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=494', type: 'iframe' },
+          { name: 'Canal beIN MAX 5 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=495', type: 'iframe' },
+          { name: 'Canal beIN MAX 6 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=496', type: 'iframe' },
+          { name: 'Canal beIN MAX 7 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=497', type: 'iframe' },
+          { name: 'Canal beIN MAX 8 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=498', type: 'iframe' },
+          { name: 'Canal beIN MAX 9 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=499', type: 'iframe' },
+          { name: 'Canal beIN MAX 10 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=500', type: 'iframe' }
+        ]
       },
 
       // RMC SPORT
@@ -1254,10 +1365,12 @@
         desc: 'UFC, MMA, PFL, KSW, Boxe anglaise & sports de combat',
         category: 'rmc',
         icon: '🥊',
-        type: 'sport_live',
         sportCategory: 'fight',
-        fallbackUrl: 'https://d21wdmv2hqydbt.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n239v7ne7hack/index.m3u8',
-        fallbackName: 'RMC Talk Sport HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : RMC Sport 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=119', type: 'iframe' },
+          { name: 'Serveur 2 : RMC Sport 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-119.php', type: 'iframe' }
+        ]
       },
       {
         id: 'rmc_2',
@@ -1265,23 +1378,27 @@
         desc: 'Combats live, Bellator, kickboxing, rediffusions',
         category: 'rmc',
         icon: '🥊',
-        type: 'sport_live',
         sportCategory: 'fight',
-        fallbackUrl: 'https://d21wdmv2hqydbt.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-n239v7ne7hack/index.m3u8',
-        fallbackName: 'RMC Talk Sport HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : RMC Sport 2 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=120', type: 'iframe' },
+          { name: 'Serveur 2 : RMC Sport 2 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-120.php', type: 'iframe' }
+        ]
       },
 
       // DAZN
       {
         id: 'dazn_1',
         name: 'DAZN 1 (Ligue 1)',
-        desc: 'Diffuseur officiel de la Ligue 1 McDonald\'s',
+        desc: 'Diffuseur officiel de la Ligue 1 McDonald\'s (France)',
         category: 'dazn',
         icon: '⚡',
-        type: 'sport_live',
         sportCategory: 'football',
-        fallbackUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8',
-        fallbackName: 'FIFA+ French HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : DAZN Ligue 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=960', type: 'iframe' },
+          { name: 'Serveur 2 : DAZN Ligue 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-960.php', type: 'iframe' }
+        ]
       },
       {
         id: 'dazn_2',
@@ -1289,10 +1406,13 @@
         desc: 'Multiplex Ligue 1, football féminin, sports de combat',
         category: 'dazn',
         icon: '⚡',
-        type: 'sport_live',
         sportCategory: 'fight',
-        fallbackUrl: 'https://37b4c228.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/playlist.m3u8',
-        fallbackName: 'FIFA+ French HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : DAZN 2 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=446', type: 'iframe' },
+          { name: 'Serveur 2 : DAZN 2 Bar DE Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=427', type: 'iframe' },
+          { name: 'Serveur 3 : DAZN 2 Miroir HD', url: 'https://thedaddy.pk/stream/stream-446.php', type: 'iframe' }
+        ]
       },
 
       // EUROSPORT
@@ -1302,10 +1422,12 @@
         desc: 'Cyclisme, Tour de France, Open d\'Australie, ski',
         category: 'eurosport',
         icon: '🚴',
-        type: 'sport_live',
         sportCategory: 'tennis',
-        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8',
-        fallbackName: 'Sport en France HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Eurosport 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=772', type: 'iframe' },
+          { name: 'Serveur 2 : Eurosport 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-772.php', type: 'iframe' }
+        ]
       },
       {
         id: 'eurosport_2',
@@ -1313,10 +1435,12 @@
         desc: 'Multisport, snooker, sports d\'hiver et compétitions',
         category: 'eurosport',
         icon: '⛷️',
-        type: 'sport_live',
         sportCategory: 'other',
-        fallbackUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8',
-        fallbackName: 'Sport en France HD'
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Eurosport 2 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=773', type: 'iframe' },
+          { name: 'Serveur 2 : Eurosport 2 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-773.php', type: 'iframe' }
+        ]
       }
     ];
 
@@ -1813,6 +1937,12 @@
       video.style.background = '#000';
       viewport.appendChild(video);
 
+      if (streamUrl.includes('revma.com') || streamUrl.endsWith('.mp3') || streamUrl.endsWith('.aac')) {
+        video.src = streamUrl;
+        video.play().catch(e => console.log('Audio autoplay prevented:', e));
+        return;
+      }
+
       if (Hls.isSupported()) {
         hlsInstance = new Hls({
           enableWorker: true,
@@ -1825,17 +1955,24 @@
         });
         hlsInstance.on(Hls.Events.ERROR, (event, data) => {
           if (data.fatal) {
+            console.warn('Fatal HLS Error:', data.type, data.details);
             switch (data.type) {
               case Hls.ErrorTypes.NETWORK_ERROR:
-                console.warn('HLS Network error, reloading...');
-                hlsInstance.startLoad();
+                if (data.details === 'manifestLoadError' || data.details === 'manifestParsingError') {
+                  console.warn('HLS Manifest error, switching server...');
+                  destroyHls();
+                  cycleNextServer();
+                } else {
+                  hlsInstance.startLoad();
+                }
                 break;
               case Hls.ErrorTypes.MEDIA_ERROR:
                 console.warn('HLS Media error, recovering...');
                 hlsInstance.recoverMediaError();
                 break;
               default:
-                hlsInstance.destroy();
+                destroyHls();
+                cycleNextServer();
                 break;
             }
           }
@@ -1847,17 +1984,39 @@
     }
 
     // YouTube official player embed (100% clean)
-    function playYoutubeStream(videoId, ch) {
+    function playYoutubeStream(videoIdOrUrl, ch) {
       const viewport = document.getElementById('viewport');
       destroyHls();
       viewport.innerHTML = '';
 
+      let src = '';
+      if (videoIdOrUrl.startsWith('http')) {
+        src = videoIdOrUrl;
+      } else {
+        src = `https://www.youtube-nocookie.com/embed/${videoIdOrUrl}?autoplay=1&mute=0&rel=0`;
+      }
+
       const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=0&rel=0`;
+      iframe.src = src;
       iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-presentation allow-popups');
       viewport.appendChild(iframe);
+    }
+
+    // Universal server dispatcher
+    function playServer(srv, item) {
+      if (!srv || !srv.url) return;
+      currentServer = srv.url;
+      const type = srv.type || (srv.url.includes('.m3u8') ? 'hls' : (srv.url.includes('youtube') ? 'yt' : 'iframe'));
+
+      if (type === 'yt') {
+        playYoutubeStream(srv.url, item);
+      } else if (type === 'hls' || srv.url.includes('.m3u8')) {
+        playHlsStream(srv.url, item);
+      } else {
+        loadInPageStream(srv.url);
+      }
     }
 
     // Select and play a match directly in the page player
@@ -1884,17 +2043,13 @@
         const opt = document.createElement('option');
         opt.value = srv.url;
         opt.textContent = srv.name;
-        opt.dataset.type = srv.url.includes('.m3u8') ? 'hls' : 'iframe';
+        opt.dataset.type = srv.type || (srv.url.includes('.m3u8') ? 'hls' : 'iframe');
         if (idx === 0) opt.selected = true;
         serverSelect.appendChild(opt);
       });
 
-      const streamToPlay = servers[0].url;
-      currentServer = streamToPlay;
-      if (streamToPlay.includes('.m3u8')) {
-        playHlsStream(streamToPlay);
-      } else {
-        loadInPageStream(streamToPlay);
+      if (servers.length > 0) {
+        playServer(servers[0], match);
       }
 
       renderMatches();
@@ -1917,68 +2072,59 @@
       const serverSelect = document.getElementById('server-select');
       serverSelect.innerHTML = '';
 
-      if (ch.type === 'hls' && ch.streamUrl) {
-        serverSelect.innerHTML = `
-          <option value="${ch.streamUrl}" data-type="hls" selected>Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé, Sans Pub)</option>
-        `;
-        currentServer = ch.streamUrl;
-        playHlsStream(ch.streamUrl, ch);
-      } else if (ch.type === 'yt' && ch.videoId) {
-        serverSelect.innerHTML = `
-          <option value="${ch.videoId}" data-type="yt" selected>Flux Officiel HD (100% Sécurisé)</option>
-        `;
-        currentServer = ch.videoId;
-        playYoutubeStream(ch.videoId, ch);
-      } else if (ch.type === 'sport_live') {
-        // Connect to active live events matching this sport
-        const targetCategory = ch.sportCategory || 'football';
-        const liveEventMatches = allMatches.filter(m => m.category === targetCategory);
+      const servers = [];
 
-        const servers = [];
-        liveEventMatches.slice(0, 5).forEach((m, idx) => {
+      // 1. First add channel's own direct 24/7 feeds
+      if (ch.servers && ch.servers.length > 0) {
+        ch.servers.forEach(s => servers.push({ ...s }));
+      } else if (ch.type === 'hls' && ch.streamUrl) {
+        servers.push({
+          name: 'Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé)',
+          url: ch.streamUrl,
+          type: 'hls'
+        });
+      } else if (ch.type === 'yt' && ch.videoId) {
+        servers.push({
+          name: 'Serveur 1 : Flux Officiel YouTube HD',
+          url: ch.videoId,
+          type: 'yt'
+        });
+      }
+
+      // 2. If sport channel, append live matches in that sport category as extra choices
+      if (ch.sportCategory) {
+        const liveEventMatches = allMatches.filter(m => m.category === ch.sportCategory && m.isLive);
+        liveEventMatches.slice(0, 4).forEach((m, idx) => {
           if (m.servers && m.servers.length > 0) {
             servers.push({
-              name: `Événement ${idx + 1} : ${m.title} (Direct HD)`,
+              name: `Match Direct : ${m.title}`,
               url: m.servers[0].url,
-              type: 'iframe'
+              type: m.servers[0].url.includes('.m3u8') ? 'hls' : 'iframe'
             });
           }
         });
-
-        // Add continuous 24/7 sports feed as fallback
-        if (ch.fallbackUrl) {
-          servers.push({
-            name: `Flux Continu 24/7 : ${ch.fallbackName || 'Direct Sport HD'}`,
-            url: ch.fallbackUrl,
-            type: 'hls'
-          });
-        }
-
-        if (servers.length === 0) {
-          servers.push({
-            name: 'Flux Continu : L\'Équipe 24/24 Direct HD',
-            url: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8',
-            type: 'hls'
-          });
-        }
-
-        servers.forEach((srv, idx) => {
-          const opt = document.createElement('option');
-          opt.value = srv.url;
-          opt.textContent = srv.name;
-          opt.dataset.type = srv.type;
-          if (idx === 0) opt.selected = true;
-          serverSelect.appendChild(opt);
-        });
-
-        const activeSrv = servers[0];
-        currentServer = activeSrv.url;
-        if (activeSrv.type === 'hls') {
-          playHlsStream(activeSrv.url, ch);
-        } else {
-          loadInPageStream(activeSrv.url);
-        }
       }
+
+      // 3. Fallback if empty
+      if (servers.length === 0) {
+        servers.push({
+          name: 'Serveur 1 : Flux L\'Équipe 24/24 Direct HD',
+          url: 'https://dq37unyetkpcz.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-m04j89j7k5gtp/LEquipe_FR.m3u8',
+          type: 'hls'
+        });
+      }
+
+      servers.forEach((srv, idx) => {
+        const opt = document.createElement('option');
+        opt.value = srv.url;
+        opt.textContent = srv.name;
+        opt.dataset.type = srv.type || (srv.url.includes('.m3u8') ? 'hls' : 'iframe');
+        if (idx === 0) opt.selected = true;
+        serverSelect.appendChild(opt);
+      });
+
+      const activeSrv = servers[0];
+      playServer(activeSrv, ch);
 
       renderChannels();
       renderMatches();
@@ -1992,13 +2138,7 @@
       const selectedOpt = serverSelect.options[serverSelect.selectedIndex];
       const optType = selectedOpt ? selectedOpt.dataset.type : '';
 
-      if (val.includes('.m3u8') || optType === 'hls') {
-        playHlsStream(val, currentChannel);
-      } else if (currentChannel && currentChannel.type === 'yt') {
-        playYoutubeStream(val, currentChannel);
-      } else {
-        loadInPageStream(val);
-      }
+      playServer({ url: val, type: optType }, currentChannel || currentMatch);
     }
 
     function cycleNextServer() {
@@ -2016,8 +2156,8 @@
       const serverSelect = document.getElementById('server-select');
       let url = serverSelect && serverSelect.value ? serverSelect.value : '';
       if (!url) return;
-      if (currentChannel && currentChannel.videoId) {
-        url = `https://www.youtube.com/watch?v=${currentChannel.videoId}`;
+      if (currentChannel && currentChannel.videoId && (!url.startsWith('http'))) {
+        url = `https://www.youtube.com/watch?v=${url}`;
       }
       launchExternalStream(url);
     }
