@@ -827,6 +827,123 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    /* Enhanced Sync & Badge styling */
+    .sync-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #34d399;
+      font-size: 0.74rem;
+      font-weight: 500;
+    }
+
+    .pill-count {
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .sport-pill.active .pill-count {
+      background: rgba(239, 68, 68, 0.35);
+      color: #fff;
+    }
+
+    .unlock-btn {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: rgba(239, 68, 68, 0.4) !important;
+      color: #f87171 !important;
+      font-weight: 600;
+    }
+
+    .unlock-btn:hover {
+      background: rgba(239, 68, 68, 0.25) !important;
+      color: #fff !important;
+      border-color: #ef4444 !important;
+    }
+
+    .iframe-helper-bar {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 25;
+      background: rgba(18, 18, 21, 0.94);
+      border: 1px solid var(--border-hover);
+      border-radius: 8px;
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .helper-unlock-btn {
+      background: #ef4444;
+      border: 1px solid #f87171;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .helper-unlock-btn:hover {
+      background: #dc2626;
+      transform: scale(1.03);
+    }
+
+    .iptv-badge {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .channel-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .live-status-pill {
+      color: #f87171;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .upcoming-time {
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+    }
   </style>
 </head>
 <body>
@@ -873,7 +990,7 @@
             <option value="hls_clean" selected>Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé)</option>
             <option value="external_popout">Serveur 2 : Ouvrir en Plein Écran Dédié ↗</option>
           </select>
-          <button class="action-btn" onclick="openExternalPlayer()" title="Ouvrir dans une fenêtre externe dédiée">Plein écran ↗</button>
+          <button class="action-btn unlock-btn" onclick="openExternalPlayer()" title="Débloque tout flux restreint (Not allowed to stream) dans un lecteur externe indépendant">🚀 Débloquer / Plein Écran ↗</button>
           <button class="action-btn" onclick="toggleFullscreen()" title="Plein écran du lecteur">Agrandir ⛶</button>
         </div>
       </div>
@@ -886,25 +1003,43 @@
             <span>Matchs en Direct & Aujourd'hui (Livsports Live)</span>
           </div>
           <div class="match-center-stats">
+            <div class="sync-indicator" id="sync-indicator" title="Mise à jour automatique en arrière-plan">
+              <span class="live-dot" style="width:6px;height:6px;background:#10b981;box-shadow:0 0 8px #10b981;"></span>
+              <span>Auto-sync : <b id="sync-timer">45s</b></span>
+            </div>
             <span id="matches-counter">Chargement des matchs...</span>
-            <button class="refresh-btn" onclick="refreshMatches(true)" title="Actualiser la liste">
+            <button class="refresh-btn" onclick="refreshMatches(true)" title="Actualiser manuellement la liste">
               <span id="refresh-icon">↻</span> Actualiser
             </button>
           </div>
         </div>
 
-        <!-- Sport category filter tabs -->
+        <!-- Sport category filter tabs with dynamic live counters -->
         <div class="sport-filters-row" id="sport-filters">
-          <button class="sport-pill active" onclick="filterSport('live', this)">
-            <span class="live-indicator-dot"></span> En Direct
+          <button class="sport-pill active" data-cat="live" onclick="filterSport('live', this)">
+            <span class="live-indicator-dot"></span> En Direct <span class="pill-count" id="count-live">0</span>
           </button>
-          <button class="sport-pill" onclick="filterSport('football', this)">⚽ Football</button>
-          <button class="sport-pill" onclick="filterSport('motor-sports', this)">🏎️ F1 & Sports Moteur</button>
-          <button class="sport-pill" onclick="filterSport('fight', this)">🥊 Combat & UFC</button>
-          <button class="sport-pill" onclick="filterSport('basketball', this)">🏀 Basketball / NBA</button>
-          <button class="sport-pill" onclick="filterSport('american-football', this)">🏈 NFL & Sports US</button>
-          <button class="sport-pill" onclick="filterSport('tennis', this)">🎾 Tennis</button>
-          <button class="sport-pill" onclick="filterSport('all', this)">🌐 Tous les matchs</button>
+          <button class="sport-pill" data-cat="football" onclick="filterSport('football', this)">
+            ⚽ Football <span class="pill-count" id="count-football">0</span>
+          </button>
+          <button class="sport-pill" data-cat="motor-sports" onclick="filterSport('motor-sports', this)">
+            🏎️ F1 & Sports Moteur <span class="pill-count" id="count-motor-sports">0</span>
+          </button>
+          <button class="sport-pill" data-cat="fight" onclick="filterSport('fight', this)">
+            🥊 Combat & UFC <span class="pill-count" id="count-fight">0</span>
+          </button>
+          <button class="sport-pill" data-cat="basketball" onclick="filterSport('basketball', this)">
+            🏀 Basketball / NBA <span class="pill-count" id="count-basketball">0</span>
+          </button>
+          <button class="sport-pill" data-cat="american-football" onclick="filterSport('american-football', this)">
+            🏈 NFL & Sports US <span class="pill-count" id="count-american-football">0</span>
+          </button>
+          <button class="sport-pill" data-cat="tennis" onclick="filterSport('tennis', this)">
+            🎾 Tennis <span class="pill-count" id="count-tennis">0</span>
+          </button>
+          <button class="sport-pill" data-cat="all" onclick="filterSport('all', this)">
+            🌐 Tous les matchs <span class="pill-count" id="count-all">0</span>
+          </button>
         </div>
 
         <div class="matchs-grid" id="matchs-container">
@@ -937,6 +1072,8 @@
         <button class="cat-pill" onclick="filterChannelCategory('dazn', this)">DAZN</button>
         <button class="cat-pill" onclick="filterChannelCategory('eurosport', this)">EuroSport</button>
         <button class="cat-pill" onclick="filterChannelCategory('clair', this)">Clair & Info</button>
+        <button class="cat-pill" onclick="filterChannelCategory('iptv_fr', this)">🌐 IPTV-org FR</button>
+        <button class="cat-pill" onclick="filterChannelCategory('iptv_sports', this)">🏆 IPTV Sports</button>
       </div>
 
       <div class="channels-list" id="channels-container">
@@ -1518,7 +1655,7 @@
         const lowerCat = catName.toLowerCase();
 
         // Skip non-sports categories
-        if (lowerCat.includes('24/7') || lowerCat === 'other') return;
+        if (lowerCat.includes('24/7') || lowerCat === 'other' || lowerCat.includes('tv shows') || lowerCat.includes('movies')) return;
 
         let catKey = 'other';
         if (lowerCat.includes('american football')) catKey = 'american-football';
@@ -1534,9 +1671,22 @@
 
         (cat.streams || []).forEach(s => {
           if (!s || !s.id) return;
-          const start = s.starts_at || now;
-          const end = s.ends_at || 0;
-          const isLive = start <= now && (end === 0 || now <= end);
+
+          // Convert UNIX timestamps (seconds to ms)
+          const rawStart = Number(s.starts_at) || 0;
+          const rawEnd = Number(s.ends_at) || 0;
+          const startMs = rawStart > 0 ? (rawStart < 1e11 ? rawStart * 1000 : rawStart) : now;
+          const endMs = rawEnd > 0 ? (rawEnd < 1e11 ? rawEnd * 1000 : rawEnd) : 0;
+
+          // Live detection: always_live OR ongoing timeframe (with 3.5h default window)
+          let isLive = Boolean(s.always_live);
+          if (!isLive && startMs > 0) {
+            if (endMs > 0) {
+              isLive = (now >= startMs && now <= endMs);
+            } else {
+              isLive = (now >= startMs && (now - startMs) < 3.5 * 3600 * 1000);
+            }
+          }
 
           const servers = [];
           const substreams = s.substreams || [];
@@ -1561,7 +1711,7 @@
             if (sub.iframe && sub !== frSub) {
               const loc = (sub.locale || 'HD').toUpperCase();
               servers.push({
-                name: `Serveur ${servers.length + 1} : Multi-Langue (${loc})`,
+                name: 'Serveur ' + (servers.length + 1) + ' : Multi-Langue (' + loc + ')',
                 url: sub.iframe
               });
             }
@@ -1608,7 +1758,7 @@
             title: s.name,
             category: catKey,
             categoryName: catName,
-            date: start,
+            date: startMs,
             isLive: Boolean(isLive),
             popular: Boolean(s.tag || isLive),
             tag: s.tag || catName,
@@ -1764,12 +1914,108 @@
       }
     }
 
-    async function refreshMatches(isUserClick = false) {
+    
+    // --- iptv-org/iptv integration (France & Sports) ---
+    const iptvOrgCache = {
+      iptv_fr: null,
+      iptv_sports: null
+    };
+
+    async function fetchIptvOrgPlaylist(type) {
+      const url = type === 'iptv_sports'
+        ? 'https://iptv-org.github.io/iptv/categories/sports.m3u'
+        : 'https://iptv-org.github.io/iptv/countries/fr.m3u';
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const lines = text.split('\n');
+      const channels = [];
+
+      let currentInfo = null;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.startsWith('#EXTINF:')) {
+          const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+          const groupMatch = line.match(/group-title="([^"]+)"/);
+          const commaIdx = line.lastIndexOf(',');
+          const name = commaIdx !== -1 ? line.slice(commaIdx + 1).trim() : 'Chaîne IPTV';
+
+          currentInfo = {
+            name: name,
+            logo: logoMatch ? logoMatch[1] : '',
+            group: groupMatch ? groupMatch[1] : (type === 'iptv_sports' ? 'Sports' : 'France')
+          };
+        } else if (line.startsWith('http://') || line.startsWith('https://')) {
+          if (currentInfo) {
+            const chId = 'iptv_' + type + '_' + channels.length;
+            const logoHtml = currentInfo.logo
+              ? '<img class="channel-logo-img" src="' + currentInfo.logo + '" alt="" onerror="this.style.display=\'none\';this.parentElement.innerText=\'📺\';">'
+              : '📺';
+            channels.push({
+              id: chId,
+              name: currentInfo.name,
+              category: type,
+              desc: currentInfo.group + ' • IPTV-org',
+              icon: logoHtml,
+              streamUrl: line,
+              servers: [
+                { name: 'Serveur 1 : Flux IPTV Direct (M3U8)', url: line, type: 'hls' }
+              ],
+              directUrl: line,
+              isIptvOrg: true
+            });
+            currentInfo = null;
+          }
+        }
+      }
+      return channels;
+    }
+
+    async function loadIptvOrgCategory(type) {
+      if (iptvOrgCache[type]) return iptvOrgCache[type];
+      const list = await fetchIptvOrgPlaylist(type);
+      iptvOrgCache[type] = list;
+      return list;
+    }
+
+    // --- Automatic Background Synchronization (45s) ---
+    let autoSyncSeconds = 45;
+    let autoSyncInterval = null;
+
+    function startAutoUpdate() {
+      if (autoSyncInterval) clearInterval(autoSyncInterval);
+      autoSyncSeconds = 45;
+      const timerEl = document.getElementById('sync-timer');
+      if (timerEl) timerEl.textContent = autoSyncSeconds + 's';
+
+      autoSyncInterval = setInterval(async () => {
+        autoSyncSeconds--;
+        const timerEl = document.getElementById('sync-timer');
+        if (autoSyncSeconds <= 0) {
+          autoSyncSeconds = 45;
+          if (timerEl) timerEl.textContent = 'Sync...';
+          await refreshMatches(false);
+        } else {
+          if (timerEl) timerEl.textContent = autoSyncSeconds + 's';
+        }
+      }, 1000);
+    }
+
+async function refreshMatches(isUserClick = false) {
       const counterEl = document.getElementById('matches-counter');
       const iconEl = document.getElementById('refresh-icon');
 
-      if (counterEl) counterEl.innerHTML = '<span class="loading-spinner"></span> Actualisation...';
-      if (iconEl) iconEl.style.display = 'none';
+      if (isUserClick) {
+        autoSyncSeconds = 45;
+        const timerEl = document.getElementById('sync-timer');
+        if (timerEl) timerEl.textContent = autoSyncSeconds + 's';
+      }
+
+      if (counterEl && isUserClick) {
+        counterEl.innerHTML = '<span class="loading-spinner"></span> Actualisation...';
+      }
+      if (iconEl && isUserClick) iconEl.style.display = 'none';
 
       try {
         const liveList = await fetchMatchesFromApi();
@@ -1797,10 +2043,25 @@
 
     function updateMatchesCounter() {
       const counterEl = document.getElementById('matches-counter');
-      if (!counterEl) return;
+      const liveMatches = allMatches.filter(m => m.isLive);
+      if (counterEl) {
+        counterEl.textContent = liveMatches.length + ' match' + (liveMatches.length > 1 ? 's' : '') + ' en direct (' + allMatches.length + ' au total)';
+      }
 
-      const liveCount = allMatches.filter(m => m.isLive).length;
-      counterEl.textContent = `${liveCount} match${liveCount > 1 ? 's' : ''} en direct (${allMatches.length} au total)`;
+      const countLiveEl = document.getElementById('count-live');
+      if (countLiveEl) countLiveEl.textContent = liveMatches.length;
+
+      const categories = ['football', 'motor-sports', 'fight', 'basketball', 'american-football', 'tennis'];
+      categories.forEach(cat => {
+        const badge = document.getElementById('count-' + cat);
+        if (badge) {
+          const count = allMatches.filter(m => m.category === cat && m.isLive).length;
+          badge.textContent = count;
+        }
+      });
+
+      const countAllEl = document.getElementById('count-all');
+      if (countAllEl) countAllEl.textContent = allMatches.length;
     }
 
     function renderMatches() {
@@ -1918,8 +2179,16 @@
       iframe.src = url;
       iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
       iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      iframe.setAttribute('referrerpolicy', 'no-referrer');
       viewport.appendChild(iframe);
+
+      const helper = document.createElement('div');
+      helper.className = 'iframe-helper-bar';
+      helper.innerHTML = '<span>⚠️ « Not allowed to stream » ou lecteur bloqué ?</span>' +
+        '<button class="helper-unlock-btn" onclick="launchExternalStream(\'' + url.replace(/'/g, "\\'") + '\')">' +
+        '🚀 Débloquer le flux ↗' +
+        '</button>';
+      viewport.appendChild(helper);
     }
 
     // Native HTML5 HLS video stream player (0 ads, 0 popups, 0 malware)
@@ -2065,7 +2334,11 @@
       const playerTitle = document.getElementById('player-title');
       const playerSub = document.getElementById('player-sub');
 
-      playerIcon.textContent = ch.icon;
+      if (typeof ch.icon === 'string' && ch.icon.startsWith('<')) {
+        playerIcon.innerHTML = ch.icon;
+      } else {
+        playerIcon.textContent = ch.icon || '📺';
+      }
       playerTitle.textContent = ch.name;
       playerSub.textContent = (ch.desc || '') + ' • Direct HD';
 
@@ -2205,10 +2478,33 @@
       renderMatches();
     }
 
-    function filterChannelCategory(cat, el) {
+    async function filterChannelCategory(cat, el) {
       activeChannelCategory = cat;
       document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
       el.classList.add('active');
+
+      if (cat === 'iptv_fr' || cat === 'iptv_sports') {
+        if (!iptvOrgCache[cat]) {
+          const container = document.getElementById('channels-container');
+          if (container) {
+            container.innerHTML = '<div style="padding: 32px; text-align: center; color: var(--text-secondary); font-size: 0.88rem;">' +
+              '<span class="loading-spinner"></span>' +
+              '<div style="margin-top:10px;font-weight:600;color:#fff">Chargement ' + (cat === 'iptv_sports' ? 'IPTV Sports' : 'IPTV-org France') + '...</div>' +
+              '<div style="margin-top:4px;font-size:0.75rem;color:var(--text-muted)">Synchronisation en direct avec iptv-org/iptv</div>' +
+              '</div>';
+          }
+          try {
+            await loadIptvOrgCategory(cat);
+          } catch (e) {
+            console.error('Erreur chargement iptv-org:', e);
+            if (container) {
+              container.innerHTML = '<div style="padding: 24px; text-align: center; color: #f87171; font-size: 0.85rem;">Impossible de charger la playlist IPTV-org (' + e.message + ').</div>';
+            }
+            return;
+          }
+        }
+      }
+
       renderChannels();
     }
 
@@ -2223,12 +2519,21 @@
       if (!container) return;
       container.innerHTML = '';
 
-      const filtered = CHANNELS.filter(ch => {
-        const matchCat = activeChannelCategory === 'all' || ch.category === activeChannelCategory;
-        const matchSearch = !searchQuery ||
-          ch.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          ch.desc.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchCat && matchSearch;
+      let listToDisplay = [];
+      if (activeChannelCategory === 'iptv_fr' || activeChannelCategory === 'iptv_sports') {
+        listToDisplay = iptvOrgCache[activeChannelCategory] || [];
+      } else {
+        listToDisplay = CHANNELS.filter(ch => {
+          return activeChannelCategory === 'all' || ch.category === activeChannelCategory;
+        });
+      }
+
+      const q = (searchQuery || '').toLowerCase();
+      const filtered = listToDisplay.filter(ch => {
+        if (!q) return true;
+        const nameMatch = (ch.name || '').toLowerCase().includes(q);
+        const descMatch = (ch.desc || '').toLowerCase().includes(q);
+        return nameMatch || descMatch;
       });
 
       if (filtered.length === 0) {
@@ -2242,15 +2547,16 @@
         item.className = 'channel-item' + (isActive ? ' active' : '');
         item.onclick = () => selectChannel(ch);
 
-        item.innerHTML = `
-          <div class="item-icon">${ch.icon}</div>
-          <div class="item-info">
-            <div class="item-title">${ch.name}</div>
-            <div class="item-sub">${ch.desc}</div>
-          </div>
-          <span class="item-badge-hd">HD</span>
-          <span class="item-badge">Live</span>
-        `;
+        const badgeText = ch.isIptvOrg ? 'IPTV' : 'Live';
+        const badgeClass = ch.isIptvOrg ? 'iptv-badge' : 'item-badge';
+
+        item.innerHTML = '<div class="item-icon">' + ch.icon + '</div>' +
+          '<div class="item-info">' +
+          '<div class="item-title">' + ch.name + '</div>' +
+          '<div class="item-sub">' + ch.desc + '</div>' +
+          '</div>' +
+          '<span class="item-badge-hd">HD</span>' +
+          '<span class="' + badgeClass + '">' + badgeText + '</span>';
         container.appendChild(item);
       });
     }
@@ -2260,6 +2566,7 @@
       renderChannels();
       refreshMatches();
       loadDynamicTvStreams();
+      startAutoUpdate();
 
       const params = new URLSearchParams(window.location.search);
       const chParam = params.get('ch');
