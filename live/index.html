@@ -1897,12 +1897,6 @@
         loadInPageStream(streamToPlay);
       }
 
-      recordProgress({
-        name: match.title,
-        id: match.id,
-        category: match.category
-      });
-
       renderMatches();
       renderChannels();
     }
@@ -1986,7 +1980,6 @@
         }
       }
 
-      recordProgress(ch);
       renderChannels();
       renderMatches();
     }
@@ -2065,20 +2058,6 @@
       }
     }
 
-    function recordProgress(item) {
-      try {
-        const history = JSON.parse(localStorage.getItem('tv_sport_history') || '[]');
-        const filtered = history.filter(h => h.id !== item.id);
-        filtered.unshift({
-          id: item.id,
-          name: item.name || item.title,
-          category: item.category,
-          time: Date.now()
-        });
-        localStorage.setItem('tv_sport_history', JSON.stringify(filtered.slice(0, 20)));
-      } catch (e) {}
-    }
-
     function filterSport(cat, el) {
       activeSportFilter = cat;
       document.querySelectorAll('.sport-pill').forEach(p => p.classList.remove('active'));
@@ -2137,6 +2116,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      try { localStorage.removeItem('tv_sport_history'); } catch (e) {}
       renderChannels();
       refreshMatches();
       loadDynamicTvStreams();

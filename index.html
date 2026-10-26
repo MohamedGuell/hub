@@ -1497,12 +1497,25 @@
 
     // Initialize Active User & Auto-apply data
     function initUser() {
+      try {
+        localStorage.removeItem('tv_sport_history');
+        const g = JSON.parse(localStorage.getItem('hub_global_watch_v1') || '{}');
+        if (g.zlive) {
+          delete g.zlive;
+          localStorage.setItem('hub_global_watch_v1', JSON.stringify(g));
+        }
+      } catch (e) {}
+
       const savedUsername = localStorage.getItem(STORAGE_KEY_ACTIVE);
       const users = getUsers();
       if (savedUsername) {
         const found = users.find(u => u.username === savedUsername);
         if (found) {
           activeUser = found;
+          if (activeUser.history && activeUser.history.zlive) {
+            delete activeUser.history.zlive;
+            saveUsers(users);
+          }
           updateNavProfileUI();
           renderContinueWatchingShelf();
           return;
@@ -1558,8 +1571,7 @@
         },
         history: {
           movy: [],
-          yt: [],
-          zlive: []
+          yt: []
         }
       };
 
@@ -1689,7 +1701,7 @@
             row.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:6px 8px; background:var(--surface-elevated); border-radius:6px; border:1px solid var(--border);';
             row.innerHTML = `
               <div style="display:flex; align-items:center; gap:8px; overflow:hidden;">
-                <span class="continue-badge ${item.media === 'movy' ? 'badge-movy' : (item.media === 'yt' ? 'badge-yt' : 'badge-zlive')}">${item.badge}</span>
+                <span class="continue-badge ${item.media === 'movy' ? 'badge-movy' : 'badge-yt'}">${item.badge}</span>
                 <span style="font-size:0.78rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;">${escapeHtml(item.title)}</span>
               </div>
               <button class="btn btn-subtle" style="font-size:0.7rem; padding:3px 8px;" onclick="resumeMediaItem('${item.media}', ${JSON.stringify(item).replace(/"/g, '&quot;')})">Reprendre ↗</button>
@@ -1701,10 +1713,10 @@
     }
 
     // ==========================================
-    // 2. WATCH PROGRESS & HISTORY (Movy, YT, Z-Live)
+    // 2. WATCH PROGRESS & HISTORY (Movy, YT)
     // ==========================================
     function recordWatchProgress(media, item) {
-      if (!item) return;
+      if (!item || media === 'zlive' || media === 'live' || media === 'tv') return;
 
       if (activeUser) {
         if (!activeUser.history) activeUser.history = {};
@@ -1718,10 +1730,6 @@
           activeUser.history.yt = activeUser.history.yt.filter(x => x.id !== item.id);
           activeUser.history.yt.unshift(item);
           activeUser.history.yt = activeUser.history.yt.slice(0, 30);
-        } else if (media === 'zlive') {
-          activeUser.history.zlive = (activeUser.history.zlive || []).filter(x => x.title !== item.title);
-          activeUser.history.zlive.unshift(item);
-          activeUser.history.zlive = activeUser.history.zlive.slice(0, 20);
         }
 
         const users = getUsers();
@@ -1744,10 +1752,6 @@
           globalHist.yt = globalHist.yt.filter(x => x.id !== item.id);
           globalHist.yt.unshift(item);
           globalHist.yt = globalHist.yt.slice(0, 30);
-        } else if (media === 'zlive') {
-          globalHist.zlive = globalHist.zlive.filter(x => x.title !== item.title);
-          globalHist.zlive.unshift(item);
-          globalHist.zlive = globalHist.zlive.slice(0, 20);
         }
         localStorage.setItem('hub_global_watch_v1', JSON.stringify(globalHist));
       } catch (e) {}
@@ -1761,25 +1765,20 @@
     function getCombinedWatchHistory() {
       let movyList = [];
       let ytList = [];
-      let zliveList = [];
-
       if (activeUser && activeUser.history) {
         movyList = activeUser.history.movy || [];
         ytList = activeUser.history.yt || [];
-        zliveList = activeUser.history.zlive || [];
-      } else {
+        } else {
         try {
           const g = JSON.parse(localStorage.getItem('hub_global_watch_v1') || '{}');
           movyList = g.movy || [];
           ytList = g.yt || [];
-          zliveList = g.zlive || [];
-        } catch (e) {}
+          } catch (e) {}
       }
 
       const combined = [
         ...movyList.map(x => ({ ...x, media: 'movy', badge: x.type === 'tv' ? `S${x.season}:E${x.episode}` : 'Film' })),
-        ...ytList.map(x => ({ ...x, media: 'yt', badge: 'YouTube' })),
-        ...zliveList.map(x => ({ ...x, media: 'zlive', badge: 'Direct TV' }))
+        ...ytList.map(x => ({ ...x, media: 'yt', badge: 'YouTube' }))
       ];
 
       combined.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
@@ -1818,8 +1817,6 @@
           subtitle = item.type === 'tv' ? `Movy • Saison ${item.season} Épisode ${item.episode}` : 'Movy • Film HD';
         } else if (item.media === 'yt') {
           subtitle = `YouTube • ${item.uploader || 'Vidéo'}`;
-        } else {
-          subtitle = 'Z-Live • Événement en direct';
         }
 
         card.innerHTML = `
@@ -1829,7 +1826,7 @@
           <div class="continue-item-meta">
             <div class="continue-item-title">${escapeHtml(item.title)}</div>
             <div class="continue-item-subtitle">
-              <span class="continue-badge ${item.media === 'movy' ? 'badge-movy' : (item.media === 'yt' ? 'badge-yt' : 'badge-zlive')}">${item.badge}</span>
+              <span class="continue-badge ${item.media === 'movy' ? 'badge-movy' : 'badge-yt'}">${item.badge}</span>
               <span>${item.date || ''}</span>
             </div>
           </div>
@@ -1859,7 +1856,7 @@
       if (notifyChildren && !confirm('Voulez-vous réinitialiser votre progression et historique de visionnage ?')) return;
 
       if (activeUser) {
-        activeUser.history = { movy: [], yt: [], zlive: [] };
+        activeUser.history = { movy: [], yt: [] };
         const users = getUsers();
         const idx = users.findIndex(u => u.username === activeUser.username);
         if (idx !== -1) {
@@ -1871,6 +1868,7 @@
       localStorage.removeItem('hub_global_watch_v1');
       localStorage.removeItem('movy_history_v1');
       localStorage.removeItem('yt_history_v1');
+      localStorage.removeItem('tv_sport_history');
 
       renderContinueWatchingShelf();
       if (document.getElementById('profile-modal').style.display === 'flex' && activeUser) {
@@ -1879,13 +1877,6 @@
     }
 
     function launchZLive(external = false) {
-      recordWatchProgress('zlive', {
-        title: 'Direct TV & Sport',
-        category: 'Sport / TV',
-        url: './live/',
-        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
-        timestamp: Date.now()
-      });
       if (external) {
         window.open('./live/', '_blank', 'noopener,noreferrer');
       } else {
