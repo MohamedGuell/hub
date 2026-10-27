@@ -817,6 +817,30 @@
       .cards-grid { grid-template-columns: 1fr; }
       footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
     }
+  
+    @media (max-width: 768px) {
+      header { padding: 0 12px !important; }
+      .header-left { gap: 8px !important; }
+      .nav-bar { padding: 12px 12px 0 !important; }
+      main { padding: 12px !important; }
+      .search-box input { width: 120px !important; font-size: 0.78rem !important; }
+      .search-box input:focus { width: 160px !important; }
+      .nav-action-btn span:not(.profile-avatar-badge) { display: none !important; }
+      .nav-action-btn { padding: 6px 10px !important; }
+      .cards-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+      footer { padding: 14px 12px !important; flex-direction: column !important; gap: 8px !important; text-align: center !important; }
+    }
+
+    @media (max-width: 480px) {
+      .page-title { font-size: 1.25rem !important; }
+      .categories-tabs { gap: 5px !important; -webkit-overflow-scrolling: touch; }
+      .tab-btn { font-size: 0.74rem !important; padding: 5px 10px !important; }
+      .app-card { padding: 14px !important; }
+      .app-icon { width: 44px !important; height: 44px !important; font-size: 1.4rem !important; }
+      .app-title { font-size: 1rem !important; }
+      .continue-grid { grid-template-columns: 1fr !important; }
+    }
+
   </style>
 </head>
 <body>
