@@ -855,66 +855,7 @@
       background: rgba(239, 68, 68, 0.35);
       color: #fff;
     }
-
-    .unlock-btn {
-      background: rgba(239, 68, 68, 0.15) !important;
-      border-color: rgba(239, 68, 68, 0.4) !important;
-      color: #f87171 !important;
-      font-weight: 600;
-    }
-
-    .unlock-btn:hover {
-      background: rgba(239, 68, 68, 0.25) !important;
-      color: #fff !important;
-      border-color: #ef4444 !important;
-    }
-
-    .iframe-helper-bar {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 25;
-      background: rgba(18, 18, 21, 0.94);
-      border: 1px solid var(--border-hover);
-      border-radius: 8px;
-      padding: 7px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .helper-unlock-btn {
-      background: #ef4444;
-      border: 1px solid #f87171;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .helper-unlock-btn:hover {
-      background: #dc2626;
-      transform: scale(1.03);
-    }
-
-    .iptv-badge {
+.iptv-badge {
       font-size: 0.65rem;
       padding: 2px 6px;
       border-radius: 4px;
@@ -988,9 +929,8 @@
           <span>Serveur :</span>
           <select class="server-select" id="server-select" onchange="onServerChange(this.value)">
             <option value="hls_clean" selected>Serveur 1 : Flux HD Direct M3U8 (100% Sécurisé)</option>
-            <option value="external_popout">Serveur 2 : Ouvrir en Plein Écran Dédié ↗</option>
+            
           </select>
-          <button class="action-btn unlock-btn" onclick="openExternalPlayer()" title="Débloque tout flux restreint (Not allowed to stream) dans un lecteur externe indépendant">🚀 Débloquer / Plein Écran ↗</button>
           <button class="action-btn" onclick="toggleFullscreen()" title="Plein écran du lecteur">Agrandir ⛶</button>
         </div>
       </div>
@@ -1085,7 +1025,98 @@
   <script>
     // 24/7 TV Channels with secure direct streams (100% sans popup, sans trojan)
     const CHANNELS = [
-      // EN CLAIR & SPORT HD (100% SÉCURISÉ HLS DIRECT)
+      // TNT & GÉNÉRALISTES DIRECT HD (100% SÉCURISÉ HLS DIRECT DEPUIS IPTV-ORG)
+      {
+        id: 'tf1',
+        name: 'TF1 Direct HD',
+        desc: 'Équipe de France, Coupe du Monde, Euro, divertissement et info',
+        category: 'clair',
+        icon: '🇫🇷',
+        type: 'hls',
+        streamUrl: 'http://149.62.177.107:9999/TF1/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD 1080p (HLS iptv-org)', url: 'http://149.62.177.107:9999/TF1/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://thedaddy.pk/stream/stream-469.php', type: 'iframe' }
+        ]
+      },
+      {
+        id: 'france2',
+        name: 'France 2 Direct',
+        desc: 'Tournoi des 6 Nations, Roland-Garros, Tour de France, actualités',
+        category: 'clair',
+        icon: '🇫🇷',
+        type: 'hls',
+        streamUrl: 'http://149.62.177.107:9999/France_2/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD 1080p (HLS iptv-org)', url: 'http://149.62.177.107:9999/France_2/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir Direct HD (HLS)', url: 'http://89.187.185.76:8080/France2/index.m3u8', type: 'hls' },
+          { name: 'Serveur 3 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-950.php', type: 'iframe' }
+        ]
+      },
+      {
+        id: 'france3',
+        name: 'France 3 Direct',
+        desc: 'Sport régional, Coupe de France, grands directs sportifs',
+        category: 'clair',
+        icon: '🇫🇷',
+        type: 'hls',
+        streamUrl: 'http://89.187.185.76:8080/France3/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://89.187.185.76:8080/France3/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir HD 1080p (HLS)', url: 'http://149.62.177.107:9999/France_3/index.m3u8', type: 'hls' },
+          { name: 'Serveur 3 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-951.php', type: 'iframe' }
+        ]
+      },
+      {
+        id: 'france4',
+        name: 'France 4 Direct',
+        desc: 'Sport en direct, culture et jeunesse',
+        category: 'clair',
+        icon: '🇫🇷',
+        type: 'hls',
+        streamUrl: 'http://149.62.177.107:9999/France_4/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/France_4/index.m3u8', type: 'hls' }
+        ]
+      },
+      {
+        id: 'france5',
+        name: 'France 5 Direct',
+        desc: 'Documentaires, sciences et débats en direct HD',
+        category: 'clair',
+        icon: '🇫🇷',
+        type: 'hls',
+        streamUrl: 'http://149.62.177.107:9999/France_5/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/France_5/index.m3u8', type: 'hls' }
+        ]
+      },
+      {
+        id: 'm6',
+        name: 'M6 HD Direct',
+        desc: 'Grands matchs, divertissement, cinéma et séries',
+        category: 'clair',
+        icon: '📺',
+        type: 'hls',
+        streamUrl: 'http://99.27.51.147:8080/M6/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://99.27.51.147:8080/M6/index.m3u8', type: 'hls' }
+        ]
+      },
+      {
+        id: 'arte',
+        name: 'Arte TV HD',
+        desc: 'Culture, documentaires, concerts et cinéma en direct HD (Accessible monde entier)',
+        category: 'clair',
+        icon: '🎭',
+        type: 'hls',
+        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS Antik)', url: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Direct HD (HLS Redbee)', url: 'https://c9851ec-rbm-hilv-fsly.cdn.redbee.live/L5/3264727f/d0a3cb71.isml/.m3u8', type: 'hls' },
+          { name: 'Serveur 3 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-958.php', type: 'iframe' }
+        ]
+      },
       {
         id: 'lequipe',
         name: 'L\'Équipe 24/24',
@@ -1099,84 +1130,16 @@
         ]
       },
       {
-        id: 'tf1',
-        name: 'TF1 Direct HD',
-        desc: 'Équipe de France, Coupe du Monde, Euro, grands événements',
-        category: 'clair',
-        icon: '🇫🇷',
-        type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/02KpgVYBH9ZM7ooW.m3u8',
-        servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/02KpgVYBH9ZM7ooW.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=469', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'france2',
-        name: 'France 2 Direct',
-        desc: 'Tournoi des 6 Nations, Roland-Garros, Tour de France, actualités',
-        category: 'clair',
-        icon: '🇫🇷',
-        type: 'hls',
-        streamUrl: 'http://149.62.177.107:9999/France_2/index.m3u8',
-        servers: [
-          { name: 'Serveur 1 : Direct HD (HLS 100% Sans Pub)', url: 'http://149.62.177.107:9999/France_2/index.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Miroir Direct HD (HLS)', url: 'http://89.187.185.76:8080/France2/index.m3u8', type: 'hls' },
-          { name: 'Serveur 3 : Flux Web HD', url: 'https://dembed.st/premiumtv/daddy.php?id=950', type: 'iframe' },
-          { name: 'Serveur 4 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-950.php', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'france3',
-        name: 'France 3 Direct',
-        desc: 'Sport régional, Coupe de France, grands directs sportifs',
-        category: 'clair',
-        icon: '🇫🇷',
-        type: 'hls',
-        streamUrl: 'http://149.62.177.107:9999/France_3/index.m3u8',
-        servers: [
-          { name: 'Serveur 1 : Direct HD (HLS 100% Sans Pub)', url: 'http://149.62.177.107:9999/France_3/index.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Miroir Direct HD (HLS)', url: 'http://89.187.185.76:8080/France3/index.m3u8', type: 'hls' },
-          { name: 'Serveur 3 : Flux Web HD', url: 'https://dembed.st/premiumtv/daddy.php?id=951', type: 'iframe' },
-          { name: 'Serveur 4 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-951.php', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'arte',
-        name: 'Arte TV HD',
-        desc: 'Culture, documentaires, concerts et cinéma en direct HD (Accessible monde entier)',
-        category: 'clair',
-        icon: '🎭',
-        type: 'hls',
-        streamUrl: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8',
-        servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=958', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'canal_clair',
-        name: 'Canal+ (En Clair)',
-        desc: 'Émissions en clair, Canal Football Club, actualités sportives',
-        category: 'canal',
-        icon: '🎬',
-        type: 'iframe',
-        servers: [
-          { name: 'Serveur 1 : Canal+ Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=121', type: 'iframe' },
-          { name: 'Serveur 2 : Canal+ Direct Miroir HD', url: 'https://thedaddy.pk/stream/stream-121.php', type: 'iframe' }
-        ]
-      },
-      {
         id: 'tmc',
         name: 'TMC Direct',
         desc: 'Événements sportifs, handball, divertissement en direct',
         category: 'clair',
         icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/4vyadBgrsHGhV78W.m3u8',
+        streamUrl: 'http://149.62.177.107:9999/TMC/index.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/4vyadBgrsHGhV78W.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=955', type: 'iframe' }
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/TMC/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-955.php', type: 'iframe' }
         ]
       },
       {
@@ -1186,9 +1149,33 @@
         category: 'clair',
         icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/XsztQyflONavgOpO.m3u8',
+        streamUrl: 'http://149.62.177.107:9999/TFX/index.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/XsztQyflONavgOpO.m3u8', type: 'hls' }
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/TFX/index.m3u8', type: 'hls' }
+        ]
+      },
+      {
+        id: '6ter',
+        name: '6ter Direct HD',
+        desc: 'Famille, divertissement et documentaires 24/7',
+        category: 'clair',
+        icon: '📺',
+        type: 'hls',
+        streamUrl: 'http://149.62.177.107:9999/6ter/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/6ter/index.m3u8', type: 'hls' }
+        ]
+      },
+      {
+        id: 'tf1_series',
+        name: 'TF1 Séries Films',
+        desc: 'Cinéma, grandes sagas et séries en continu',
+        category: 'clair',
+        icon: '🎬',
+        type: 'hls',
+        streamUrl: 'http://149.62.177.107:9999/TF1_Series_Films/index.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/TF1_Series_Films/index.m3u8', type: 'hls' }
         ]
       },
       {
@@ -1216,67 +1203,29 @@
         ]
       },
       {
-        id: 'bfm2',
-        name: 'BFM 2 Direct',
-        desc: 'Sport et actualités en direct continu 1080p',
+        id: 'bfm_tv',
+        name: 'BFM TV Direct',
+        desc: 'Première chaîne info de France en continu HD',
         category: 'clair',
         icon: '📰',
         type: 'hls',
-        streamUrl: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8',
+        streamUrl: 'http://149.62.177.107:9999/BFM_TV/index.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : BFM TV Direct Miroir', url: 'https://dembed.st/premiumtv/daddy.php?id=957', type: 'iframe' }
+          { name: 'Serveur 1 : Direct HD 1080p (HLS iptv-org)', url: 'http://149.62.177.107:9999/BFM_TV/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : BFM 2 Direct HD (HLS)', url: 'https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8', type: 'hls' }
         ]
       },
       {
         id: 'lci',
-        name: 'LCI Direct',
+        name: 'LCI Direct HD',
         desc: 'La chaîne info en direct continu HD',
         category: 'clair',
         icon: '📰',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/5iMsPxOm5Fue9RwK.m3u8',
+        streamUrl: 'http://149.62.177.107:9999/LCI/index.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/ryuXbu3RAtis/5iMsPxOm5Fue9RwK.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : LCI Direct Miroir', url: 'https://dembed.st/premiumtv/daddy.php?id=962', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'bein_extra',
-        name: 'beIN Sports Extra HD',
-        desc: 'Direct sport international en continu 1080p sans pub',
-        category: 'bein',
-        icon: '⚽',
-        type: 'hls',
-        streamUrl: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8',
-        servers: [
-          { name: 'Serveur 1 : Direct HD 1080p (HLS)', url: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8', type: 'hls' }
-        ]
-      },
-      {
-        id: 'rmc_sport_talk',
-        name: 'RMC Talk Sport HD',
-        desc: 'Débats sportifs, football, rugby, actualités en direct',
-        category: 'rmc',
-        icon: '🥊',
-        type: 'hls',
-        streamUrl: 'https://stream.rcs.revma.com/an1ugyygzk8uv',
-        servers: [
-          { name: 'Serveur 1 : Direct Débats Studio RMC (Live continu)', url: 'https://stream.rcs.revma.com/an1ugyygzk8uv', type: 'hls' },
-          { name: 'Serveur 2 : RMC Sport 1 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=119', type: 'iframe' },
-          { name: 'Serveur 3 : BFM TV / RMC Talk 24/7', url: 'https://dembed.st/premiumtv/daddy.php?id=957', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'rmc_story',
-        name: 'RMC Story HD',
-        desc: 'Documentaires, enquêtes et sport en continu HD',
-        category: 'rmc',
-        icon: '📺',
-        type: 'iframe',
-        servers: [
-          { name: 'Serveur 1 : Direct RMC Story HD', url: 'https://dembed.st/premiumtv/daddy.php?id=954', type: 'iframe' },
-          { name: 'Serveur 2 : Miroir Direct HD', url: 'https://thedaddy.pk/stream/stream-954.php', type: 'iframe' }
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/LCI/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-962.php', type: 'iframe' }
         ]
       },
       {
@@ -1286,47 +1235,48 @@
         category: 'rmc',
         icon: '🌍',
         type: 'hls',
-        streamUrl: 'http://149.62.177.107:9999/RMC_Decouverte/index.m3u8',
+        streamUrl: 'https://d16zzycxcd0m0r.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-hixvx5kymecr9/RMC_Decouverte_FR.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HLS HD (100% Sans Pub)', url: 'http://149.62.177.107:9999/RMC_Decouverte/index.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Flux Web Miroir HD', url: 'https://dembed.st/premiumtv/daddy.php?id=954', type: 'iframe' }
+          { name: 'Serveur 1 : Direct HD 1080p (HLS CloudFront)', url: 'https://d16zzycxcd0m0r.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-hixvx5kymecr9/RMC_Decouverte_FR.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir HD (HLS iptv-org)', url: 'http://149.62.177.107:9999/RMC_Decouverte/index.m3u8', type: 'hls' }
         ]
       },
       {
-        id: 'sport_en_france',
-        name: 'Sport en France HD',
-        desc: 'La chaîne du mouvement olympique et des championnats de France',
-        category: 'clair',
-        icon: '🏅',
+        id: 'rmc_story',
+        name: 'RMC Story HD',
+        desc: 'Documentaires, enquêtes et sport en continu HD',
+        category: 'rmc',
+        icon: '📺',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8',
+        streamUrl: 'https://d15aro46bnpfm8.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-fqkqiax1078up/RMC_Story_FR.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/misc/sport-en-france-dm.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Miroir Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=965', type: 'iframe' }
+          { name: 'Serveur 1 : Direct HD 1080p (HLS iptv-org)', url: 'https://d15aro46bnpfm8.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-fqkqiax1078up/RMC_Story_FR.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-954.php', type: 'iframe' }
         ]
       },
       {
-        id: 'tennis_channel',
-        name: 'Tennis Channel France',
-        desc: 'Directs tournois, highlights et documentaires tennis',
+        id: 'nfl_network',
+        name: 'NFL Network 24/7 HD',
+        desc: 'Football américain NFL en direct continu 24/7 HD',
         category: 'clair',
-        icon: '🎾',
+        icon: '🏈',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8',
+        streamUrl: 'http://198.58.104.90:8989/nfl/index.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/tennis-channel-dm.m3u8', type: 'hls' }
+          { name: 'Serveur 1 : Direct HD (HLS 100% Sans Pub)', url: 'http://198.58.104.90:8989/nfl/index.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Flux Web Miroir', url: 'https://thedaddy.pk/stream/stream-405.php', type: 'iframe' }
         ]
       },
       {
-        id: 'journal_golf',
-        name: 'Journal du Golf HD',
-        desc: 'Toute l\'actualité et les tournois de golf 24/7',
+        id: 'tracesport',
+        name: 'Trace Sport Stars',
+        desc: 'Stars du sport, coulisses et documentaires 24/7 HD',
         category: 'clair',
-        icon: '⛳',
+        icon: '🌟',
         type: 'hls',
-        streamUrl: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8',
+        streamUrl: 'https://trace-sportstars-tcl.amagi.tv/playlist.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct HD (HLS)', url: 'https://raw.githubusercontent.com/Paradise-91/ParaTV/refs/heads/main/streams/lequipe/journal-du-golf-dm.m3u8', type: 'hls' }
+          { name: 'Serveur 1 : Direct 1080p HLS (100% Sans Pub, CORS OK)', url: 'https://trace-sportstars-tcl.amagi.tv/playlist.m3u8', type: 'hls' }
         ]
       },
       {
@@ -1342,45 +1292,45 @@
         ]
       },
       {
-        id: 'tracesport',
-        name: 'Trace Sport Stars',
-        desc: 'Stars du sport, coulisses et documentaires 24/7 HD',
-        category: 'clair',
-        icon: '🌟',
+        id: 'dazn',
+        name: 'DAZN TV HD',
+        desc: 'Directs compétitions sportives et événements DAZN',
+        category: 'dazn',
+        icon: '🥊',
+        sportCategory: 'combat',
         type: 'hls',
-        streamUrl: 'https://trace-sportstars-tcl.amagi.tv/playlist.m3u8',
+        streamUrl: 'https://jmp2.uk/plu-647f07e74cfc2c0008a2e557.m3u8',
         servers: [
-          { name: 'Serveur 1 : Direct 1080p HLS (100% Sans Pub, CORS OK)', url: 'https://trace-sportstars-tcl.amagi.tv/playlist.m3u8', type: 'hls' },
-          { name: 'Serveur 2 : Flux Direct 720p HLS', url: 'https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8', type: 'hls' }
+          { name: 'Serveur 1 : Direct HD (HLS iptv-org)', url: 'https://jmp2.uk/plu-647f07e74cfc2c0008a2e557.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Miroir HD (HLS Tubi)', url: 'https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8', type: 'hls' },
+          { name: 'Serveur 3 : Flux Web DAZN 1', url: 'https://thedaddy.pk/stream/stream-960.php', type: 'iframe' }
         ]
       },
       {
-        id: 'nfl_network',
-        name: 'NFL Network 24/7 HD',
-        desc: 'Football américain NFL en direct continu 24/7 HD',
-        category: 'clair',
-        icon: '🏈',
+        id: 'bein_extra',
+        name: 'beIN Sports Extra HD',
+        desc: 'Direct sport international en continu 1080p sans pub',
+        category: 'bein',
+        icon: '⚽',
+        sportCategory: 'football',
+        type: 'hls',
+        streamUrl: 'https://bein-xtra-bein.amagi.tv/playlist.m3u8',
+        servers: [
+          { name: 'Serveur 1 : Direct HD 1080p (HLS iptv-org)', url: 'https://bein-xtra-bein.amagi.tv/playlist.m3u8', type: 'hls' },
+          { name: 'Serveur 2 : Direct HD Miroir (HLS)', url: 'https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8', type: 'hls' }
+        ]
+      },
+      {
+        id: 'canal_clair',
+        name: 'Canal+ (En Clair)',
+        desc: 'Émissions en clair, Canal Football Club, actualités sportives',
+        category: 'canal',
+        icon: '🎬',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Direct 24/7 HD', url: 'https://dembed.st/premiumtv/daddy.php?id=405', type: 'iframe' },
-          { name: 'Serveur 2 : Direct Miroir HD', url: 'https://thedaddy.pk/stream/stream-405.php', type: 'iframe' }
+          { name: 'Serveur 1 : Canal+ Direct Miroir HD', url: 'https://thedaddy.pk/stream/stream-121.php', type: 'iframe' }
         ]
       },
-      {
-        id: 'euronews',
-        name: 'Euronews Français',
-        desc: 'L\'information européenne et internationale en continu 100% en français',
-        category: 'clair',
-        icon: '🇪🇺',
-        type: 'yt',
-        videoId: 'NiRIbKwAejk',
-        servers: [
-          { name: 'Serveur 1 : Direct Officiel YouTube Français HD', url: 'NiRIbKwAejk', type: 'yt' },
-          { name: 'Serveur 2 : Chaîne Direct Live FR', url: 'https://www.youtube-nocookie.com/embed/live_stream?channel=UCW2QcKZiU8aUGg4yxCSIditg&autoplay=1', type: 'iframe' }
-        ]
-      },
-
-      // CHAINES SPORT PREMIUM (EVENEMENTS DIRECTS + FLUX CONTINU SÉCURISÉ)
       {
         id: 'canal_foot',
         name: 'Canal+ Foot',
@@ -1390,8 +1340,7 @@
         sportCategory: 'football',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Canal+ Foot France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=463', type: 'iframe' },
-          { name: 'Serveur 2 : Canal+ Foot France Miroir HD', url: 'https://thedaddy.pk/stream/stream-463.php', type: 'iframe' }
+          { name: 'Serveur 1 : Canal+ Foot France Direct HD', url: 'https://thedaddy.pk/stream/stream-463.php', type: 'iframe' }
         ]
       },
       {
@@ -1403,9 +1352,7 @@
         sportCategory: 'motor-sports',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Canal+ Sport France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=122', type: 'iframe' },
-          { name: 'Serveur 2 : Canal+ Sport France Miroir HD', url: 'https://thedaddy.pk/stream/stream-122.php', type: 'iframe' },
-          { name: 'Serveur 3 : Canal+ Formula 1 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=273', type: 'iframe' }
+          { name: 'Serveur 1 : Canal+ Sport France Direct HD', url: 'https://thedaddy.pk/stream/stream-122.php', type: 'iframe' }
         ]
       },
       {
@@ -1417,9 +1364,7 @@
         sportCategory: 'football',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Canal+ France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=121', type: 'iframe' },
-          { name: 'Serveur 2 : Canal+ France Miroir HD', url: 'https://thedaddy.pk/stream/stream-121.php', type: 'iframe' },
-          { name: 'Serveur 3 : Canal+ MotoGP France HD', url: 'https://dembed.st/premiumtv/daddy.php?id=271', type: 'iframe' }
+          { name: 'Serveur 1 : Canal+ France Direct HD', url: 'https://thedaddy.pk/stream/stream-121.php', type: 'iframe' }
         ]
       },
       {
@@ -1431,12 +1376,9 @@
         sportCategory: 'motor-sports',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Canal+ Sport360 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=464', type: 'iframe' },
-          { name: 'Serveur 2 : Canal+ Sport360 Miroir HD', url: 'https://thedaddy.pk/stream/stream-464.php', type: 'iframe' }
+          { name: 'Serveur 1 : Canal+ Sport360 Direct HD', url: 'https://thedaddy.pk/stream/stream-464.php', type: 'iframe' }
         ]
       },
-
-      // BEIN SPORTS
       {
         id: 'bein_1',
         name: 'beIN SPORTS 1',
@@ -1446,137 +1388,88 @@
         sportCategory: 'football',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : beIN SPORTS 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=116', type: 'iframe' },
-          { name: 'Serveur 2 : beIN SPORTS 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-116.php', type: 'iframe' }
+          { name: 'Serveur 1 : beIN SPORTS 1 France Direct HD', url: 'https://thedaddy.pk/stream/stream-116.php', type: 'iframe' }
         ]
       },
       {
         id: 'bein_2',
         name: 'beIN SPORTS 2',
-        desc: 'Multiplex européen, Coupe de France, Serie A, sports US',
+        desc: 'Coupes européennes, football et multisport en direct HD',
         category: 'bein',
         icon: '⚽',
-        sportCategory: 'basketball',
+        sportCategory: 'football',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : beIN SPORTS 2 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=117', type: 'iframe' },
-          { name: 'Serveur 2 : beIN SPORTS 2 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-117.php', type: 'iframe' }
+          { name: 'Serveur 1 : beIN SPORTS 2 France Direct HD', url: 'https://thedaddy.pk/stream/stream-117.php', type: 'iframe' }
         ]
       },
       {
         id: 'bein_3',
         name: 'beIN SPORTS 3',
-        desc: 'Tennis ATP/WTA, Handball, championnats européens',
+        desc: 'Handball, tennis, natation, volley et omnisports HD',
         category: 'bein',
         icon: '🎾',
         sportCategory: 'tennis',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : beIN SPORTS 3 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=118', type: 'iframe' },
-          { name: 'Serveur 2 : beIN SPORTS 3 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-118.php', type: 'iframe' }
+          { name: 'Serveur 1 : beIN SPORTS 3 France Direct HD', url: 'https://thedaddy.pk/stream/stream-118.php', type: 'iframe' }
         ]
       },
-      {
-        id: 'bein_max',
-        name: 'beIN Sports MAX (4-10)',
-        desc: 'Canaux événementiels pour les soirs de multiplex',
-        category: 'bein',
-        icon: '📺',
-        sportCategory: 'football',
-        type: 'iframe',
-        servers: [
-          { name: 'Canal beIN MAX 4 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=494', type: 'iframe' },
-          { name: 'Canal beIN MAX 5 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=495', type: 'iframe' },
-          { name: 'Canal beIN MAX 6 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=496', type: 'iframe' },
-          { name: 'Canal beIN MAX 7 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=497', type: 'iframe' },
-          { name: 'Canal beIN MAX 8 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=498', type: 'iframe' },
-          { name: 'Canal beIN MAX 9 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=499', type: 'iframe' },
-          { name: 'Canal beIN MAX 10 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=500', type: 'iframe' }
-        ]
-      },
-
-      // RMC SPORT
       {
         id: 'rmc_1',
         name: 'RMC Sport 1',
-        desc: 'UFC, MMA, PFL, KSW, Boxe anglaise & sports de combat',
+        desc: 'UFC, MMA, combats d\'exception et football',
         category: 'rmc',
         icon: '🥊',
-        sportCategory: 'fight',
+        sportCategory: 'combat',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : RMC Sport 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=119', type: 'iframe' },
-          { name: 'Serveur 2 : RMC Sport 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-119.php', type: 'iframe' }
+          { name: 'Serveur 1 : RMC Sport 1 Direct HD', url: 'https://thedaddy.pk/stream/stream-119.php', type: 'iframe' }
         ]
       },
       {
         id: 'rmc_2',
         name: 'RMC Sport 2',
-        desc: 'Combats live, Bellator, kickboxing, rediffusions',
+        desc: 'Combats, boxe internationale et sports extrêmes',
         category: 'rmc',
-        icon: '🥊',
-        sportCategory: 'fight',
+        icon: '🥋',
+        sportCategory: 'combat',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : RMC Sport 2 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=120', type: 'iframe' },
-          { name: 'Serveur 2 : RMC Sport 2 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-120.php', type: 'iframe' }
+          { name: 'Serveur 1 : RMC Sport 2 Direct HD', url: 'https://thedaddy.pk/stream/stream-120.php', type: 'iframe' }
         ]
       },
-
-      // DAZN
-      {
-        id: 'dazn_1',
-        name: 'DAZN 1 (Ligue 1)',
-        desc: 'Diffuseur officiel de la Ligue 1 McDonald\'s (France)',
-        category: 'dazn',
-        icon: '⚡',
-        sportCategory: 'football',
-        type: 'iframe',
-        servers: [
-          { name: 'Serveur 1 : DAZN Ligue 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=960', type: 'iframe' },
-          { name: 'Serveur 2 : DAZN Ligue 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-960.php', type: 'iframe' }
-        ]
-      },
-      {
-        id: 'dazn_2',
-        name: 'DAZN 2',
-        desc: 'Multiplex Ligue 1, football féminin, sports de combat',
-        category: 'dazn',
-        icon: '⚡',
-        sportCategory: 'fight',
-        type: 'iframe',
-        servers: [
-          { name: 'Serveur 1 : DAZN 2 Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=446', type: 'iframe' },
-          { name: 'Serveur 2 : DAZN 2 Bar DE Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=427', type: 'iframe' },
-          { name: 'Serveur 3 : DAZN 2 Miroir HD', url: 'https://thedaddy.pk/stream/stream-446.php', type: 'iframe' }
-        ]
-      },
-
-      // EUROSPORT
       {
         id: 'eurosport_1',
         name: 'EuroSport 1',
-        desc: 'Cyclisme, Tour de France, Open d\'Australie, ski',
+        desc: 'Cyclisme, tennis Grand Chelem, sports d\'hiver et ski HD',
         category: 'eurosport',
         icon: '🚴',
-        sportCategory: 'tennis',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Eurosport 1 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=772', type: 'iframe' },
-          { name: 'Serveur 2 : Eurosport 1 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-772.php', type: 'iframe' }
+          { name: 'Serveur 1 : EuroSport 1 Direct HD', url: 'https://thedaddy.pk/stream/stream-772.php', type: 'iframe' }
         ]
       },
       {
         id: 'eurosport_2',
         name: 'EuroSport 2',
-        desc: 'Multisport, snooker, sports d\'hiver et compétitions',
+        desc: 'Motorsports, snooker, athlétisme et omnisports HD',
         category: 'eurosport',
-        icon: '⛷️',
-        sportCategory: 'other',
+        icon: '🎿',
         type: 'iframe',
         servers: [
-          { name: 'Serveur 1 : Eurosport 2 France Direct HD', url: 'https://dembed.st/premiumtv/daddy.php?id=773', type: 'iframe' },
-          { name: 'Serveur 2 : Eurosport 2 France Miroir HD', url: 'https://thedaddy.pk/stream/stream-773.php', type: 'iframe' }
+          { name: 'Serveur 1 : EuroSport 2 Direct HD', url: 'https://thedaddy.pk/stream/stream-773.php', type: 'iframe' }
+        ]
+      },
+      {
+        id: 'euronews',
+        name: 'Euronews Français',
+        desc: 'L\'information européenne et internationale en continu 100% en français',
+        category: 'clair',
+        icon: '🇪🇺',
+        type: 'iframe',
+        servers: [
+          { name: 'Serveur 1 : Direct Officiel Français HD', url: 'https://www.youtube-nocookie.com/embed/live_stream?channel=UCW2QcKZiU8aUGg4yxCSIditg&autoplay=1', type: 'iframe' }
         ]
       }
     ];
@@ -1875,45 +1768,6 @@
       ];
     }
 
-    // Dynamic TF1/TMC/TFX streams updater from ParaTV master playlist
-    async function loadDynamicTvStreams() {
-      try {
-        const res = await fetch('https://raw.githubusercontent.com/Paradise-91/ParaTV/main/playlists/paratv/group/tf1plus/tf1plus.m3u');
-        if (!res.ok) return;
-        const text = await res.text();
-        const lines = text.split('\n');
-        let currentTitle = '';
-        const dyn = {};
-        for (let i = 0; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (line.startsWith('#EXTINF')) {
-            const commaIdx = line.lastIndexOf(',');
-            if (commaIdx !== -1) currentTitle = line.slice(commaIdx + 1).trim();
-          } else if (line.startsWith('http')) {
-            if (/^\d+\.\s+TF1$/.test(currentTitle)) {
-              dyn['tf1'] = line;
-            } else if (currentTitle.includes('TMC')) {
-              dyn['tmc'] = line;
-            } else if (currentTitle.includes('TFX')) {
-              dyn['tfx'] = line;
-            } else if (currentTitle.includes('LCI')) {
-              dyn['lci'] = line;
-            }
-          }
-        }
-        CHANNELS.forEach(ch => {
-          if (dyn[ch.id]) {
-            ch.streamUrl = dyn[ch.id];
-            if (currentChannel && currentChannel.id === ch.id) {
-              playHlsStream(ch.streamUrl, ch);
-            }
-          }
-        });
-      } catch (e) {
-        console.warn('Could not refresh dynamic TV streams:', e);
-      }
-    }
-
     
     // --- iptv-org/iptv integration (France & Sports) ---
     const iptvOrgCache = {
@@ -2181,14 +2035,6 @@ async function refreshMatches(isUserClick = false) {
       iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute('referrerpolicy', 'no-referrer');
       viewport.appendChild(iframe);
-
-      const helper = document.createElement('div');
-      helper.className = 'iframe-helper-bar';
-      helper.innerHTML = '<span>⚠️ « Not allowed to stream » ou lecteur bloqué ?</span>' +
-        '<button class="helper-unlock-btn" onclick="launchExternalStream(\'' + url.replace(/'/g, "\\'") + '\')">' +
-        '🚀 Débloquer le flux ↗' +
-        '</button>';
-      viewport.appendChild(helper);
     }
 
     // Native HTML5 HLS video stream player (0 ads, 0 popups, 0 malware)
@@ -2565,7 +2411,6 @@ async function refreshMatches(isUserClick = false) {
       try { localStorage.removeItem('tv_sport_history'); } catch (e) {}
       renderChannels();
       refreshMatches();
-      loadDynamicTvStreams();
       startAutoUpdate();
 
       const params = new URLSearchParams(window.location.search);
