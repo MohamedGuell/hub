@@ -6,8 +6,7 @@
   <title>Direct TV & Sport • Matchs en Direct • beIN, Canal+, RMC, DAZN</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2'><circle cx='12' cy='12' r='2' fill='%23ef4444'/><path d='M4.93 4.93a10 10 0 0 1 14.14 0'/><path d='M7.76 7.76a6 6 0 0 1 8.48 0'/><path d='M12 14v8'/></svg>">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <style>
-    :root {
+  <style>:root {
       --bg: #09090b;
       --surface: #121215;
       --surface-elevated: #18181c;
@@ -885,16 +884,26 @@
       color: var(--text-secondary);
       font-size: 0.76rem;
     }
-  
-    /* Modern UI & Responsive Layout */
+
+    /* ========================================================
+       RESPONSIVE & MOBILE DESIGN (FLUID, TOUCH-FRIENDLY & ADAPTIVE)
+       ======================================================== */
+    
+    @media (hover: none) and (pointer: coarse) {
+      .action-btn, .mobile-tab-btn, .cat-pill, .sport-pill, .channel-item, .refresh-btn {
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+
     .mobile-section-nav {
       display: none;
-      gap: 6px;
+      gap: 8px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 5px;
-      margin-top: 2px;
+      border-radius: 12px;
+      padding: 6px;
+      margin-top: 4px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
 
     .mobile-tab-btn {
@@ -902,24 +911,29 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 9px 12px;
-      border-radius: 7px;
-      font-size: 0.84rem;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 0.86rem;
       font-weight: 600;
       color: var(--text-secondary);
-      background: transparent;
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 0.15s ease;
       font-family: inherit;
+      min-height: 44px;
     }
 
     .mobile-tab-btn.active {
       color: #fff;
       background: var(--surface-elevated);
-      border-color: rgba(239, 68, 68, 0.4);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 2px 10px rgba(239, 68, 68, 0.25);
+    }
+
+    .mobile-tab-btn .tab-icon {
+      font-size: 1.05rem;
     }
 
     .item-badge-tech {
@@ -935,134 +949,301 @@
       flex-shrink: 0;
     }
 
+    /* Tablet & Mobile Single Column (<= 1024px) */
     @media (max-width: 1024px) {
       .main-layout {
         grid-template-columns: 1fr !important;
-        padding: 12px 14px 40px !important;
+        padding: 12px 16px 40px !important;
         gap: 16px !important;
       }
+
       .mobile-section-nav {
         display: flex !important;
       }
+
       .sidebar-area.mobile-hidden,
       .match-center-card.mobile-hidden,
       .custom-stream-card.mobile-hidden {
         display: none !important;
       }
+
       .channels-list {
         max-height: none !important;
       }
     }
 
+    /* Smartphones (<= 768px) */
     @media (max-width: 768px) {
+      body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative !important;
+      }
+
       header {
         padding: 0 12px !important;
-        height: 52px !important;
+        height: 50px !important;
         gap: 8px !important;
       }
+
       .header-left {
         gap: 8px !important;
       }
+
       .nav-back span {
         display: none !important;
       }
+
       .nav-back {
-        padding: 6px 9px !important;
+        padding: 6px 8px !important;
       }
-      .brand span {
-        font-size: 0.9rem !important;
+
+      .brand span:not(.live-dot) {
+        font-size: 0.88rem !important;
       }
+
+      .search-box {
+        max-width: 140px !important;
+        width: 100% !important;
+      }
+
       .search-box input {
-        width: 125px !important;
+        width: 100% !important;
         font-size: 0.78rem !important;
-        padding: 5px 8px 5px 26px !important;
+        padding: 6px 8px 6px 26px !important;
       }
+
       .search-box input:focus {
-        width: 175px !important;
+        width: 100% !important;
       }
+
       .main-layout {
         padding: 8px 10px 30px !important;
         gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
       }
+
+      .player-area {
+        gap: 10px !important;
+        width: 100% !important;
+      }
+
       .video-viewport {
         border-radius: 8px !important;
+        width: 100% !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
       }
+
       .player-controls-bar {
-        padding: 10px !important;
+        padding: 10px 12px !important;
         flex-direction: column !important;
         align-items: stretch !important;
         gap: 10px !important;
+        border-radius: 10px !important;
       }
+
       .channel-header-info {
         width: 100% !important;
+        gap: 10px !important;
       }
+
+      .channel-logo-badge {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 1.05rem !important;
+        border-radius: 8px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .channel-texts {
+        flex: 1 !important;
+        min-width: 0 !important;
+      }
+
       .channel-texts h2 {
-        font-size: 0.95rem !important;
+        font-size: 0.94rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
       }
+
       .channel-texts p {
-        font-size: 0.75rem !important;
+        font-size: 0.74rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
       }
+
       .server-selector-group {
         width: 100% !important;
         display: flex !important;
+        align-items: center !important;
         justify-content: space-between !important;
-        gap: 6px !important;
+        gap: 8px !important;
       }
+
       .server-selector-group span {
         display: none !important;
       }
+
       .server-select {
         flex: 1 !important;
+        min-width: 0 !important;
         max-width: none !important;
-        font-size: 0.76rem !important;
+        height: 38px !important;
+        font-size: 0.78rem !important;
+        padding: 0 8px !important;
       }
+
       .action-btn {
-        padding: 6px 10px !important;
-        font-size: 0.75rem !important;
+        height: 38px !important;
+        padding: 0 12px !important;
+        font-size: 0.78rem !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
       }
+
+      .mobile-section-nav {
+        margin-top: 2px !important;
+        padding: 4px !important;
+      }
+
+      .mobile-tab-btn {
+        padding: 8px 6px !important;
+        font-size: 0.8rem !important;
+        min-height: 42px !important;
+      }
+
+      /* Match Center on Mobile */
+      .match-center-card {
+        padding: 12px 10px !important;
+        border-radius: 10px !important;
+        gap: 12px !important;
+      }
+
+      .match-center-top {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+      }
+
+      .match-center-title {
+        font-size: 0.88rem !important;
+      }
+
+      .match-center-stats {
+        width: 100% !important;
+        justify-content: space-between !important;
+        font-size: 0.74rem !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+      }
+
+      .sport-filters-row {
+        gap: 6px !important;
+        padding-bottom: 4px !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+
+      .sport-pill {
+        font-size: 0.74rem !important;
+        padding: 6px 10px !important;
+        min-height: 32px !important;
+      }
+
       .matchs-grid {
         grid-template-columns: 1fr !important;
+        gap: 10px !important;
       }
-      .sport-filters-row,
+
+      .match-card {
+        padding: 10px 12px !important;
+      }
+
+      .match-team-row {
+        gap: 6px !important;
+      }
+
+      .match-team-name {
+        font-size: 0.84rem !important;
+      }
+
+      /* Channels List on Mobile */
+      .sidebar-area {
+        gap: 10px !important;
+        width: 100% !important;
+      }
+
+      .sidebar-title {
+        padding: 0 2px !important;
+        font-size: 0.88rem !important;
+      }
+
       .category-pills {
-        gap: 5px !important;
-        -webkit-overflow-scrolling: touch;
+        gap: 6px !important;
+        padding-bottom: 4px !important;
+        -webkit-overflow-scrolling: touch !important;
       }
-      .sport-pill,
+
       .cat-pill {
         font-size: 0.74rem !important;
-        padding: 5px 9px !important;
+        padding: 6px 11px !important;
+        min-height: 32px !important;
+      }
+
+      .channel-item {
+        padding: 9px 12px !important;
+        gap: 10px !important;
+        min-height: 50px !important;
+        border-radius: 8px !important;
+      }
+
+      .item-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.95rem !important;
+      }
+
+      .item-title {
+        font-size: 0.84rem !important;
+      }
+
+      .item-sub {
+        font-size: 0.7rem !important;
       }
     }
 
+    /* Extra small mobile phones (<= 480px) */
     @media (max-width: 480px) {
       header {
         padding: 0 8px !important;
       }
+
+      .brand span:not(.live-dot) {
+        font-size: 0.82rem !important;
+      }
+
       .main-layout {
         padding: 6px 6px 24px !important;
       }
-      .video-viewport {
-        border-radius: 6px !important;
-      }
-      .channel-logo-badge {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 1rem !important;
-      }
-      .channel-item {
+
+      .player-controls-bar {
         padding: 8px 10px !important;
         gap: 8px !important;
       }
-      .item-title {
-        font-size: 0.82rem !important;
-      }
-      .item-sub {
-        font-size: 0.7rem !important;
-      }
+
       .mobile-tab-btn {
-        font-size: 0.78rem !important;
-        padding: 7px 6px !important;
+        font-size: 0.76rem !important;
+        padding: 7px 4px !important;
+        gap: 5px !important;
+      }
+
+      .mobile-tab-btn .tab-icon {
+        font-size: 0.9rem !important;
       }
     }
 
@@ -1115,6 +1296,18 @@
           <button class="action-btn" onclick="toggleFullscreen()" title="Plein écran du lecteur">Agrandir ⛶</button>
         </div>
       </div>
+      <!-- Mobile Section Switcher (Active on mobile/tablet <= 1024px) -->
+      <div class="mobile-section-nav" id="mobile-section-nav">
+        <button class="mobile-tab-btn active" id="btn-tab-channels" onclick="switchMobileSection('channels')">
+          <span class="tab-icon">📺</span>
+          <span>Chaînes TV (<b id="mobile-ch-count">49</b>)</span>
+        </button>
+        <button class="mobile-tab-btn" id="btn-tab-matches" onclick="switchMobileSection('matches')">
+          <span class="tab-icon">⚽</span>
+          <span>Matchs & Directs (<b id="mobile-match-count">0</b>)</span>
+        </button>
+      </div>
+
 
       <!-- Match Center / Programme des matchs du jour (Interrogé depuis Livsports) -->
       <div class="match-center-card">
@@ -2554,8 +2747,8 @@ async function refreshMatches(isUserClick = false) {
         return matchFilter && matchSearch;
       });
 
-      const mobChCount = document.getElementById('mobile-ch-count');
-      if (mobChCount) mobChCount.textContent = filtered.length;
+      const mobMatchCount = document.getElementById('mobile-match-count');
+      if (mobMatchCount) mobMatchCount.textContent = filtered.length;
 
       if (filtered.length === 0) {
         container.innerHTML = `
@@ -2784,6 +2977,10 @@ async function refreshMatches(isUserClick = false) {
 
       renderMatches();
       renderChannels();
+      if (window.innerWidth <= 1024) {
+        const vp = document.getElementById('viewport');
+        if (vp) vp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     }
 
     // Select and play a TV channel directly in the page player
@@ -2925,10 +3122,29 @@ async function refreshMatches(isUserClick = false) {
 
     function toggleFullscreen() {
       const vp = document.getElementById('viewport');
-      if (!document.fullscreenElement) {
-        vp.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
+      if (!vp) return;
+      const video = vp.querySelector('video');
+
+      // Support plein écran natif Safari iPhone / iPad
+      if (video && video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+        return;
+      }
+
+      // API Fullscreen standard HTML5 (Android Chrome, PC, etc.)
+      const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+      if (!isFs) {
+        if (vp.requestFullscreen) {
+          vp.requestFullscreen().catch(err => console.log('Fullscreen error:', err));
+        } else if (vp.webkitRequestFullscreen) {
+          vp.webkitRequestFullscreen();
+        }
       } else {
-        document.exitFullscreen();
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
       }
     }
 
