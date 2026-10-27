@@ -2,11 +2,13 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#09090b">
   <title>Direct TV & Sport • Matchs en Direct • beIN, Canal+, RMC, DAZN</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2'><circle cx='12' cy='12' r='2' fill='%23ef4444'/><path d='M4.93 4.93a10 10 0 0 1 14.14 0'/><path d='M7.76 7.76a6 6 0 0 1 8.48 0'/><path d='M12 14v8'/></svg>">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <style>:root {
+  <style>
+:root {
       --bg: #09090b;
       --surface: #121215;
       --surface-elevated: #18181c;
@@ -886,11 +888,22 @@
     }
 
     /* ========================================================
-       RESPONSIVE & MOBILE DESIGN (FLUID, TOUCH-FRIENDLY & ADAPTIVE)
+       PERFECT RESPONSIVE ENGINE (MOBILE & DESKTOP ADAPTIVE)
        ======================================================== */
     
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     @media (hover: none) and (pointer: coarse) {
-      .action-btn, .mobile-tab-btn, .cat-pill, .sport-pill, .channel-item, .refresh-btn {
+      .action-btn, .mobile-tab-btn, .cat-pill, .sport-pill, .channel-item, .refresh-btn, .nav-back {
         -webkit-tap-highlight-color: transparent;
       }
     }
@@ -902,7 +915,8 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 6px;
-      margin-top: 4px;
+      width: 100%;
+      box-sizing: border-box;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
 
@@ -912,7 +926,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 10px 14px;
+      padding: 10px 12px;
       border-radius: 9px;
       font-size: 0.86rem;
       font-weight: 600;
@@ -949,12 +963,17 @@
       flex-shrink: 0;
     }
 
-    /* Tablet & Mobile Single Column (<= 1024px) */
+    /* Tablet & Mobile Single-Column (<= 1024px) */
     @media (max-width: 1024px) {
       .main-layout {
+        display: flex !important;
+        flex-direction: column !important;
         grid-template-columns: 1fr !important;
-        padding: 12px 16px 40px !important;
-        gap: 16px !important;
+        padding: 10px 14px 40px !important;
+        gap: 14px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
 
       .mobile-section-nav {
@@ -967,27 +986,33 @@
         display: none !important;
       }
 
+      .sidebar-area {
+        width: 100% !important;
+        gap: 10px !important;
+      }
+
+      .sidebar-title {
+        display: none !important;
+      }
+
       .channels-list {
         max-height: none !important;
+        overflow-y: visible !important;
       }
     }
 
-    /* Smartphones (<= 768px) */
+    /* Mobile Phones (<= 768px) */
     @media (max-width: 768px) {
-      body {
-        overflow-x: hidden !important;
-        width: 100% !important;
-        position: relative !important;
-      }
-
       header {
         padding: 0 12px !important;
         height: 50px !important;
         gap: 8px !important;
+        width: 100% !important;
       }
 
       .header-left {
         gap: 8px !important;
+        min-width: 0 !important;
       }
 
       .nav-back span {
@@ -995,22 +1020,38 @@
       }
 
       .nav-back {
-        padding: 6px 8px !important;
+        padding: 6px 9px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .brand {
+        min-width: 0 !important;
       }
 
       .brand span:not(.live-dot) {
         font-size: 0.88rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .header-actions {
+        flex: 1 !important;
+        max-width: 140px !important;
+        display: flex !important;
+        justify-content: flex-end !important;
       }
 
       .search-box {
-        max-width: 140px !important;
         width: 100% !important;
+        max-width: 140px !important;
       }
 
       .search-box input {
         width: 100% !important;
         font-size: 0.78rem !important;
         padding: 6px 8px 6px 26px !important;
+        height: 34px !important;
       }
 
       .search-box input:focus {
@@ -1018,10 +1059,8 @@
       }
 
       .main-layout {
-        padding: 8px 10px 30px !important;
-        gap: 12px !important;
-        width: 100% !important;
-        max-width: 100% !important;
+        padding: 6px 8px 30px !important;
+        gap: 10px !important;
       }
 
       .player-area {
@@ -1032,7 +1071,7 @@
       .video-viewport {
         border-radius: 8px !important;
         width: 100% !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6) !important;
       }
 
       .player-controls-bar {
@@ -1045,6 +1084,8 @@
 
       .channel-header-info {
         width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
         gap: 10px !important;
       }
 
@@ -1108,7 +1149,7 @@
       }
 
       .mobile-section-nav {
-        margin-top: 2px !important;
+        margin-top: 0 !important;
         padding: 4px !important;
       }
 
@@ -1118,17 +1159,75 @@
         min-height: 42px !important;
       }
 
-      /* Match Center on Mobile */
+      /* Category pills & Sport filter chips */
+      .category-pills,
+      .sport-filters-row {
+        gap: 6px !important;
+        padding: 2px 2px 6px !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        width: 100% !important;
+      }
+
+      .category-pills::-webkit-scrollbar,
+      .sport-filters-row::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .cat-pill,
+      .sport-pill {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        font-size: 0.75rem !important;
+        padding: 6px 11px !important;
+        min-height: 34px !important;
+        border-radius: 20px !important;
+      }
+
+      /* Channel Items */
+      .channels-list {
+        gap: 6px !important;
+        width: 100% !important;
+      }
+
+      .channel-item {
+        padding: 9px 12px !important;
+        gap: 10px !important;
+        min-height: 52px !important;
+        border-radius: 9px !important;
+        width: 100% !important;
+      }
+
+      .item-icon {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 1rem !important;
+        border-radius: 7px !important;
+      }
+
+      .item-title {
+        font-size: 0.85rem !important;
+      }
+
+      .item-sub {
+        font-size: 0.7rem !important;
+      }
+
+      /* Match Center */
       .match-center-card {
         padding: 12px 10px !important;
         border-radius: 10px !important;
-        gap: 12px !important;
+        gap: 10px !important;
+        width: 100% !important;
       }
 
       .match-center-top {
         flex-direction: column !important;
         align-items: flex-start !important;
         gap: 8px !important;
+        width: 100% !important;
       }
 
       .match-center-title {
@@ -1143,25 +1242,15 @@
         gap: 6px !important;
       }
 
-      .sport-filters-row {
-        gap: 6px !important;
-        padding-bottom: 4px !important;
-        -webkit-overflow-scrolling: touch !important;
-      }
-
-      .sport-pill {
-        font-size: 0.74rem !important;
-        padding: 6px 10px !important;
-        min-height: 32px !important;
-      }
-
       .matchs-grid {
         grid-template-columns: 1fr !important;
         gap: 10px !important;
+        width: 100% !important;
       }
 
       .match-card {
         padding: 10px 12px !important;
+        width: 100% !important;
       }
 
       .match-team-row {
@@ -1170,50 +1259,6 @@
 
       .match-team-name {
         font-size: 0.84rem !important;
-      }
-
-      /* Channels List on Mobile */
-      .sidebar-area {
-        gap: 10px !important;
-        width: 100% !important;
-      }
-
-      .sidebar-title {
-        padding: 0 2px !important;
-        font-size: 0.88rem !important;
-      }
-
-      .category-pills {
-        gap: 6px !important;
-        padding-bottom: 4px !important;
-        -webkit-overflow-scrolling: touch !important;
-      }
-
-      .cat-pill {
-        font-size: 0.74rem !important;
-        padding: 6px 11px !important;
-        min-height: 32px !important;
-      }
-
-      .channel-item {
-        padding: 9px 12px !important;
-        gap: 10px !important;
-        min-height: 50px !important;
-        border-radius: 8px !important;
-      }
-
-      .item-icon {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 0.95rem !important;
-      }
-
-      .item-title {
-        font-size: 0.84rem !important;
-      }
-
-      .item-sub {
-        font-size: 0.7rem !important;
       }
     }
 
@@ -1228,7 +1273,7 @@
       }
 
       .main-layout {
-        padding: 6px 6px 24px !important;
+        padding: 4px 6px 24px !important;
       }
 
       .player-controls-bar {
@@ -1238,12 +1283,8 @@
 
       .mobile-tab-btn {
         font-size: 0.76rem !important;
-        padding: 7px 4px !important;
-        gap: 5px !important;
-      }
-
-      .mobile-tab-btn .tab-icon {
-        font-size: 0.9rem !important;
+        padding: 6px 4px !important;
+        gap: 4px !important;
       }
     }
 
@@ -3287,6 +3328,7 @@ async function refreshMatches(isUserClick = false) {
       renderChannels();
       refreshMatches();
       startAutoUpdate();
+      switchMobileSection(currentMobileSection);
 
       const params = new URLSearchParams(window.location.search);
       const chParam = params.get('ch');

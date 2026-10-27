@@ -2,12 +2,13 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#09090b">
   <title>Hub</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2'><circle cx='12' cy='12' r='3'/><path d='M3 12h3m12 0h3M12 3v3m0 12v3'/></svg>">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
-    :root {
+:root {
       --bg: #09090b;
       --surface: #121215;
       --surface-elevated: #18181c;
@@ -808,37 +809,148 @@
     .footer-left { display: flex; align-items: center; gap: 8px; }
     .indicator-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
-    @media (max-width: 768px) {
-      header { padding: 0 16px; }
-      .nav-bar { padding: 16px 16px 0; }
-      main { padding: 16px; }
-      .search-box input { width: 130px; }
-      .search-box input:focus { width: 160px; }
-      .cards-grid { grid-template-columns: 1fr; }
-      footer { padding: 16px; flex-direction: column; gap: 8px; text-align: center; }
+    /* ========================================================
+       HUB RESPONSIVE ENGINE (MOBILE & DESKTOP)
+       ======================================================== */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
     }
-  
+
+    * {
+      box-sizing: border-box;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .btn, .tab-btn, .nav-action-btn, .app-card, .viewer-btn {
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+
     @media (max-width: 768px) {
-      header { padding: 0 12px !important; }
-      .header-left { gap: 8px !important; }
-      .nav-bar { padding: 12px 12px 0 !important; }
-      main { padding: 12px !important; }
-      .search-box input { width: 120px !important; font-size: 0.78rem !important; }
-      .search-box input:focus { width: 160px !important; }
-      .nav-action-btn span:not(.profile-avatar-badge) { display: none !important; }
-      .nav-action-btn { padding: 6px 10px !important; }
-      .cards-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-      footer { padding: 14px 12px !important; flex-direction: column !important; gap: 8px !important; text-align: center !important; }
+      header {
+        padding: 0 12px !important;
+        height: 52px !important;
+      }
+
+      .header-left {
+        gap: 8px !important;
+      }
+
+      .nav-bar {
+        padding: 12px 12px 0 !important;
+      }
+
+      main {
+        padding: 12px !important;
+      }
+
+      .search-box {
+        max-width: 140px !important;
+      }
+
+      .search-box input {
+        width: 100% !important;
+        font-size: 0.78rem !important;
+        height: 34px !important;
+      }
+
+      .search-box input:focus {
+        width: 100% !important;
+      }
+
+      .nav-action-btn span:not(.profile-avatar-badge) {
+        display: none !important;
+      }
+
+      .nav-action-btn {
+        padding: 6px 9px !important;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+
+      .app-card {
+        padding: 14px !important;
+      }
+
+      /* In-Hub Viewer Modal on Mobile */
+      .viewer-bar {
+        height: 44px !important;
+        padding: 0 10px !important;
+      }
+
+      .window-dots {
+        display: none !important;
+      }
+
+      .viewer-title {
+        font-size: 0.82rem !important;
+        max-width: 150px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .viewer-controls button:not(.viewer-close-btn):not(:first-child) {
+        display: none !important;
+      }
+
+      .viewer-frame-wrapper {
+        height: calc(100dvh - 44px) !important;
+      }
+
+      footer {
+        padding: 14px 12px !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
     }
 
     @media (max-width: 480px) {
-      .page-title { font-size: 1.25rem !important; }
-      .categories-tabs { gap: 5px !important; -webkit-overflow-scrolling: touch; }
-      .tab-btn { font-size: 0.74rem !important; padding: 5px 10px !important; }
-      .app-card { padding: 14px !important; }
-      .app-icon { width: 44px !important; height: 44px !important; font-size: 1.4rem !important; }
-      .app-title { font-size: 1rem !important; }
-      .continue-grid { grid-template-columns: 1fr !important; }
+      .page-title {
+        font-size: 1.25rem !important;
+      }
+
+      .categories-tabs {
+        gap: 6px !important;
+        padding-bottom: 4px !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+      }
+
+      .categories-tabs::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .tab-btn {
+        flex-shrink: 0 !important;
+        font-size: 0.76rem !important;
+        padding: 6px 12px !important;
+        min-height: 34px !important;
+        border-radius: 20px !important;
+      }
+
+      .app-icon {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.3rem !important;
+      }
+
+      .app-title {
+        font-size: 0.98rem !important;
+      }
+
+      .continue-grid {
+        grid-template-columns: 1fr !important;
+      }
     }
 
   </style>
