@@ -961,9 +961,9 @@
       position: fixed;
       inset: 0;
       z-index: 999999;
-      background: rgba(5, 5, 8, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(5, 5, 8, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -979,14 +979,14 @@
 
     .fake-ad-card {
       background: #111115;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       border-radius: 18px;
       max-width: 540px;
       width: 100%;
       max-height: 94vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(239, 68, 68, 0.2);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(239, 68, 68, 0.25);
       position: relative;
       overflow: hidden;
     }
@@ -1011,8 +1011,8 @@
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      background: #eab308;
-      color: #000;
+      background: #ef4444;
+      color: #fff;
       padding: 3px 8px;
       border-radius: 5px;
     }
@@ -1026,31 +1026,35 @@
       gap: 5px;
     }
 
-    .ad-timer-pill {
+    .ad-status-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 5px 10px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      padding: 5px 11px;
       border-radius: 20px;
-      font-size: 0.76rem;
-      color: var(--text-secondary);
-      font-weight: 500;
+      font-size: 0.75rem;
+      color: #fca5a5;
+      font-weight: 600;
     }
 
-    .ad-timer-pill b {
-      color: #fff;
-      font-size: 0.88rem;
+    .ad-status-pill .status-blink-dot {
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+      box-shadow: 0 0 8px #ef4444;
     }
 
     .ad-quick-close-btn {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
-      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #a1a1aa;
+      padding: 5px 11px;
       border-radius: 8px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -1061,9 +1065,9 @@
     }
 
     .ad-quick-close-btn:hover {
-      background: #ef4444;
+      background: rgba(255, 255, 255, 0.15);
       color: #fff;
-      transform: scale(1.02);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     /* Scrollable Ad Content */
@@ -1106,14 +1110,14 @@
       bottom: 8px;
       left: 8px;
       right: 8px;
-      background: rgba(0, 0, 0, 0.78);
+      background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(8px);
       padding: 6px 10px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       font-size: 0.72rem;
       font-weight: 600;
-      color: #fef08a;
+      color: #fca5a5;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -1165,14 +1169,14 @@
     .don-live-pill {
       font-size: 0.68rem;
       font-weight: 700;
-      color: #10b981;
+      color: #ef4444;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(239, 68, 68, 0.15);
       padding: 2px 7px;
       border-radius: 20px;
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     .don-amount-row {
@@ -1185,14 +1189,19 @@
     .don-current-number {
       font-size: 1.85rem;
       font-weight: 800;
-      color: #10b981;
+      color: #f87171;
       letter-spacing: -0.02em;
       transition: all 0.3s ease;
     }
 
     .don-goal-number {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--text-muted);
+    }
+
+    .don-goal-number b {
+      color: #fff;
+      font-weight: 700;
     }
 
     /* Progress Bar */
@@ -1207,12 +1216,12 @@
 
     .don-fill {
       height: 100%;
-      width: 0.03%;
+      width: 34.5%;
       min-width: 8px;
-      background: linear-gradient(90deg, #10b981, #34d399);
+      background: linear-gradient(90deg, #ef4444, #f59e0b);
       border-radius: 20px;
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
-      transition: width 0.4s ease;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+      transition: width 0.4s ease, background 0.4s ease;
     }
 
     .don-meta {
@@ -1220,6 +1229,8 @@
       justify-content: space-between;
       font-size: 0.72rem;
       color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
     /* Live Ticker */
@@ -1239,7 +1250,7 @@
     .don-ticker-dot {
       width: 6px;
       height: 6px;
-      background: #10b981;
+      background: #ef4444;
       border-radius: 50%;
       flex-shrink: 0;
       animation: pulse 1.6s infinite;
@@ -1336,31 +1347,44 @@
     }
 
     .ad-big-close-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #71717a;
       font-size: 0.82rem;
       font-weight: 600;
       padding: 9px 18px;
       border-radius: 8px;
       cursor: not-allowed;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       font-family: inherit;
       white-space: nowrap;
+      user-select: none;
     }
 
     .ad-big-close-btn.ready {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #f4f4f5;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .ad-big-close-btn.ready:hover {
+      background: #10b981;
+      border-color: #10b981;
+      color: #000;
+      font-weight: 700;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .ad-big-close-btn.unlocked {
       background: #10b981;
       border-color: #10b981;
       color: #000;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
-    }
-
-    .ad-big-close-btn.ready:hover {
-      background: #34d399;
-      transform: translateY(-1px);
     }
 
     @media (max-width: 640px) {
@@ -2037,20 +2061,21 @@
     </div>
   </footer>
 
-  <!-- Fausse Publicité & Faux Compteur de Don (Ouverture du site - 10s obligatoire) -->
-  <div class="fake-ad-overlay" id="fake-ad-modal" role="dialog" aria-modal="true" aria-label="Annonce Humanitaire">
+  <!-- Fausse Publicité & Faux Compteur de Don (Ouverture du site - 100€ seuil de déblocage) -->
+  <div class="fake-ad-overlay" id="fake-ad-modal" role="dialog" aria-modal="true" aria-label="Alerte Suspension du Hub">
     <div class="fake-ad-card">
-      <!-- Top Ad Status -->
+      <!-- Top Ad Status (Zero visible timer!) -->
       <div class="fake-ad-top">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span class="ad-tag-badge">SPONSORISÉ</span>
-          <span class="ad-sub-badge">📢 Appel aux Dons</span>
+          <span class="ad-tag-badge">ALERTE SYSTÈME</span>
+          <span class="ad-sub-badge">⚠️ Serveurs Suspendus</span>
         </div>
-        <div class="ad-timer-pill" id="ad-top-timer">
-          <span>Option de fermeture : <b id="ad-sec-countdown">10s</b></span>
+        <div class="ad-status-pill" id="ad-status-badge">
+          <span class="status-blink-dot"></span>
+          <span id="ad-status-badge-text">Accès verrouillé (100 € requis)</span>
         </div>
-        <button class="ad-quick-close-btn" id="ad-top-close-btn" onclick="closeFakeAd()" style="display:none;" title="Passer l'annonce">
-          Passer l'annonce ✕
+        <button class="ad-quick-close-btn" id="ad-top-close-btn" onclick="closeFakeAd()" style="display:none;" title="Passer le blocage">
+          Passer ✕
         </button>
       </div>
 
@@ -2060,44 +2085,44 @@
         <div class="fake-ad-image-wrap">
           <img src="./assets/don.jpg" alt="Mohamed et l'étagère" onerror="this.src='./live/assets/don.jpg'">
           <div class="fake-ad-image-overlay-text">
-            <span>🚨 1m14 les bras levés • Chaque centimètre compte</span>
+            <span>🚨 Objectif critique : 100,00 € pour débloquer les serveurs du Hub</span>
           </div>
         </div>
 
         <div>
-          <h2 class="fake-ad-title">Cagnotte Urgente : Aidez Mohamed à atteindre l'étagère du haut</h2>
+          <h2 class="fake-ad-title">⚠️ Le site est actuellement indisponible : Seuil des 100 € non atteint</h2>
           <p class="fake-ad-text" style="margin-top: 6px;">
-            Depuis le montage de cette étagère blanche, notre développeur vit un calvaire au quotidien. 
-            Les étages supérieurs lui sont totalement inaccessibles sans matériel d'alpinisme. 
-            <strong>Votre don finance l'achat d'un escabeau triple marche et de semelles compensées.</strong>
+            En raison des coûts d'hébergement et de la petite taille de notre développeur (1m14), 
+            <strong>le Hub ne sera pas accessible tant que la cagnotte n'aura pas atteint le seuil minimum de 100,00 €.</strong>
+            Sans votre participation, tous les accès restent verrouillés. Chaque don contribue à débloquer le site pour tout le monde (et à lui offrir un escabeau pour atteindre ses câbles).
           </p>
         </div>
 
         <!-- Faux Compteur de Don -->
         <div class="fake-ad-don-box">
           <div class="don-box-top">
-            <span class="don-box-title">💰 Compteur de dons en temps réel</span>
+            <span class="don-box-title">💰 Cagnotte de déblocage du Hub</span>
             <span class="don-live-pill">● EN DIRECT</span>
           </div>
 
           <div class="don-amount-row">
-            <span class="don-current-number" id="don-current-display">14,20 €</span>
-            <span class="don-goal-number">récoltés sur 50 000,00 € espérés</span>
+            <span class="don-current-number" id="don-current-display">34,50 €</span>
+            <span class="don-goal-number" id="don-goal-text">récoltés sur <b>100,00 €</b> nécessaires</span>
           </div>
 
           <!-- Progress Bar -->
           <div class="don-track">
-            <div class="don-fill" id="don-progress-bar" style="width: 0.028%;"></div>
+            <div class="don-fill" id="don-progress-bar" style="width: 34.5%;"></div>
           </div>
           <div class="don-meta">
-            <span id="don-percent-text">0.028% de l'objectif</span>
-            <span id="don-count-text">24 donateurs courageux</span>
+            <span id="don-percent-text">34.5% du seuil atteint</span>
+            <span id="don-missing-text" style="color:#f87171;font-weight:600;">Il manque 65,50 € pour débloquer le site</span>
           </div>
 
           <!-- Live Ticker -->
           <div class="don-ticker">
             <span class="don-ticker-dot"></span>
-            <span id="don-ticker-message">Dernier don : <b>Mamie Ginette (0,50 €)</b> - « Courage mon grand »</span>
+            <span id="don-ticker-message">Dernier don : <b>Mamie Ginette (1,00 €)</b> - « Pour que mon petit-fils puisse avoir accès au Hub »</span>
           </div>
 
           <!-- Donation Feedback Toast -->
@@ -2105,30 +2130,29 @@
 
           <!-- Interactive Donation Pills -->
           <div class="don-pills-row">
-            <button class="don-preset-btn" onclick="addFakeDonation(1, 'Un ami anonyme')">+1 €</button>
-            <button class="don-preset-btn" onclick="addFakeDonation(5, 'Association Petit Format')">+5 €</button>
-            <button class="don-preset-btn" onclick="addFakeDonation(20, 'Fan Club Escabeau')">+20 €</button>
-            <button class="don-preset-btn highlight" onclick="addFakeDonation(100, 'IKEA France')">+100 € (Escabeau)</button>
+            <button class="don-preset-btn" onclick="addFakeDonation(1, 'Un utilisateur solidaire')">+1 €</button>
+            <button class="don-preset-btn" onclick="addFakeDonation(5, 'Fan du Hub')">+5 €</button>
+            <button class="don-preset-btn" onclick="addFakeDonation(20, 'Sauveur du serveur')">+20 €</button>
+            <button class="don-preset-btn highlight" onclick="addFakeDonation(100, 'Mécène Anonyme')">+100 € (Débloquer tout)</button>
           </div>
 
-          <button class="don-main-btn" onclick="addFakeDonation(10, 'Vous-même')">
-            <span>💖 FAIRE UN DON IMMÉDIAT (+10 €)</span>
+          <button class="don-main-btn" onclick="addFakeDonation(5, 'Vous-même')">
+            <span>💖 CONTRIBUER AU DÉBLOCAGE (+5 €)</span>
           </button>
         </div>
       </div>
 
-      <!-- Bottom Skip Bar (Enabled after 10s) -->
+      <!-- Bottom Status Bar (Zero timer displayed!) -->
       <div class="fake-ad-bottom">
         <div class="ad-countdown-info" id="ad-bottom-status">
-          <span>⏳ Annonce obligatoire • Patientez <b id="ad-sec-bottom" style="color:#fff;">10s</b></span>
+          <span>🔒 Accès suspendu • Seuil requis : <b style="color:#fff;">100,00 €</b></span>
         </div>
         <button class="ad-big-close-btn" id="ad-big-skip-btn" onclick="closeFakeAd()" disabled>
-          Fermeture dans 10s...
+          🔒 Accès bloqué (Cagnotte insuffisante)
         </button>
       </div>
     </div>
   </div>
-
 
   <script>
     let currentViewerUrl = '';
@@ -2832,63 +2856,80 @@
 
     // Start
     // --- Fausse Publicité & Faux Compteur de Don ---
-    let adRemainingSeconds = 10;
+    let adSilentRemainingSeconds = 10;
     let adCanClose = false;
-    let adInterval = null;
-    let currentDonationTotal = 14.20;
-    let currentDonationCount = 24;
+    let adSilentTimer = null;
+    let currentDonationTotal = 34.50;
+    const GOAL_DONATION = 100.00;
+    let currentDonationCount = 28;
 
     const fakeDonorsList = [
-      { name: 'Mamie Ginette', amount: 0.50, comment: 'Courage mon grand' },
-      { name: 'Association des personnes de petite taille', amount: 1.00, comment: 'On est ensemble' },
-      { name: 'IKEA Service Client', amount: 2.00, comment: 'Remise de 10% sur le marchepied Bekväm' },
-      { name: 'Un collègue compatissant', amount: 0.20, comment: 'Regarde en l\'air pour voir' },
-      { name: 'Le syndicat des tabourets', amount: 5.00, comment: 'Solidarité avec les plinthes' },
-      { name: 'Kylian M.', amount: 0.10, comment: 'Force frérot' },
-      { name: 'Le Père Noël', amount: 15.00, comment: 'Je te ramène une échelle le 25' }
+      { name: 'Mamie Ginette', amount: 1.00, comment: 'Pour que mon petit-fils puisse avoir accès au Hub' },
+      { name: 'Un utilisateur en panique', amount: 5.00, comment: 'Débloquez le site svp j\'ai un match ce soir !' },
+      { name: 'Association des personnes de petite taille', amount: 2.00, comment: 'Solidarité pour Mohamed et les serveurs' },
+      { name: 'IKEA Service Client', amount: 3.00, comment: 'Offre spéciale escabeau si vous atteignez 100€' },
+      { name: 'Un collègue compatissant', amount: 0.50, comment: 'Allez, plus que quelques euros pour ouvrir' },
+      { name: 'Kylian M.', amount: 0.20, comment: 'J\'ai mis ce que j\'avais sur Lydia' },
+      { name: 'Le syndicat des tabourets', amount: 4.00, comment: 'Libérez le Hub !' }
     ];
 
     function startFakeAdTimer() {
-      adRemainingSeconds = 10;
+      adSilentRemainingSeconds = 10;
       adCanClose = false;
       const modal = document.getElementById('fake-ad-modal');
       if (modal) modal.style.display = 'flex';
 
-      const secTop = document.getElementById('ad-sec-countdown');
-      const secBtm = document.getElementById('ad-sec-bottom');
-      const bigBtn = document.getElementById('ad-big-skip-btn');
-      const topBtn = document.getElementById('ad-top-close-btn');
-      const topTimer = document.getElementById('ad-top-timer');
+      if (adSilentTimer) clearInterval(adSilentTimer);
 
-      if (adInterval) clearInterval(adInterval);
+      // Silent timer: counts down 10 seconds without displaying any countdown numbers to the user!
+      adSilentTimer = setInterval(() => {
+        adSilentRemainingSeconds--;
 
-      adInterval = setInterval(() => {
-        adRemainingSeconds--;
-        if (secTop) secTop.textContent = adRemainingSeconds + 's';
-        if (secBtm) secBtm.textContent = adRemainingSeconds + 's';
-        if (bigBtn && !adCanClose) bigBtn.textContent = 'Fermeture dans ' + adRemainingSeconds + 's...';
-
-        if (adRemainingSeconds <= 0) {
-          clearInterval(adInterval);
-          adCanClose = true;
-          if (topTimer) topTimer.style.display = 'none';
-          if (topBtn) topBtn.style.display = 'inline-flex';
-
-          const btmStatus = document.getElementById('ad-bottom-status');
-          if (btmStatus) {
-            btmStatus.innerHTML = '<span style="color:#10b981;font-weight:600;">✓ Annonce terminée</span>';
-          }
-
-          if (bigBtn) {
-            bigBtn.disabled = false;
-            bigBtn.classList.add('ready');
-            bigBtn.innerHTML = 'Accéder au Hub (Passer la pub) ➔';
-          }
+        if (adSilentRemainingSeconds <= 0) {
+          clearInterval(adSilentTimer);
+          unlockFakeAdSkipOption(false);
         }
       }, 1000);
 
       // Start ticker rotation
       setInterval(rotateFakeTicker, 4000);
+    }
+
+    function unlockFakeAdSkipOption(wasFunded = false) {
+      adCanClose = true;
+      const topBtn = document.getElementById('ad-top-close-btn');
+      if (topBtn) topBtn.style.display = 'inline-flex';
+
+      const bigBtn = document.getElementById('ad-big-skip-btn');
+      const btmStatus = document.getElementById('ad-bottom-status');
+      const topBadge = document.getElementById('ad-status-badge');
+
+      if (wasFunded) {
+        if (bigBtn) {
+          bigBtn.disabled = false;
+          bigBtn.className = 'ad-big-close-btn unlocked';
+          bigBtn.innerHTML = '🎉 Débloquer et entrer dans le Hub ➔';
+        }
+        if (btmStatus) {
+          btmStatus.innerHTML = '<span style="color:#10b981;font-weight:700;">✓ Seuil des 100 € atteint ! Merci !</span>';
+        }
+        if (topBadge) {
+          topBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+          topBadge.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+          topBadge.style.color = '#6ee7b7';
+          topBadge.innerHTML = '<span>✓ Hub débloqué</span>';
+        }
+      } else {
+        // Unlocked after silent 10s delay (no countdown was revealed!)
+        if (bigBtn && !bigBtn.classList.contains('unlocked')) {
+          bigBtn.disabled = false;
+          bigBtn.classList.add('ready');
+          bigBtn.innerHTML = 'Accéder au Hub quand même ➔';
+        }
+        if (btmStatus && !bigBtn.classList.contains('unlocked')) {
+          btmStatus.innerHTML = '<span style="color:#a1a1aa;font-size:0.75rem;">Accès temporaire disponible</span>';
+        }
+      }
     }
 
     function rotateFakeTicker() {
@@ -2909,21 +2950,40 @@
         setTimeout(() => { display.style.transform = 'scale(1)'; }, 250);
       }
 
-      const percent = (currentDonationTotal / 50000) * 100;
+      const percent = Math.min(100, (currentDonationTotal / GOAL_DONATION) * 100);
       const bar = document.getElementById('don-progress-bar');
-      if (bar) bar.style.width = Math.max(0.03, percent) + '%';
+      if (bar) {
+        bar.style.width = percent + '%';
+        if (currentDonationTotal >= GOAL_DONATION) {
+          bar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+          bar.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.8)';
+        }
+      }
 
       const pctText = document.getElementById('don-percent-text');
-      if (pctText) pctText.textContent = percent.toFixed(3) + '% de l\'objectif';
+      if (pctText) pctText.textContent = percent.toFixed(1) + '% du seuil atteint';
 
-      const countText = document.getElementById('don-count-text');
-      if (countText) countText.textContent = currentDonationCount + ' donateurs courageux';
+      const missingText = document.getElementById('don-missing-text');
+      if (missingText) {
+        const remaining = Math.max(0, GOAL_DONATION - currentDonationTotal);
+        if (remaining <= 0) {
+          missingText.style.color = '#10b981';
+          missingText.textContent = '🎉 Seuil de 100 € atteint ! Site débloqué !';
+        } else {
+          missingText.textContent = 'Il manque ' + remaining.toFixed(2).replace('.', ',') + ' € pour débloquer le site';
+        }
+      }
 
       const toast = document.getElementById('don-toast-msg');
       if (toast) {
-        const cmGained = (amount * 0.04).toFixed(1);
         toast.style.display = 'flex';
-        toast.innerHTML = '🎉 <b>Merci ' + donorName + ' !</b> Don de ' + amount + ' € reçu ! Mohamed a grandi de +' + cmGained + ' cm (Taille : 1m14.' + Math.floor(Math.random()*9) + ') !';
+        if (currentDonationTotal >= GOAL_DONATION) {
+          toast.innerHTML = '🎉 <b>INCROYABLE !</b> Don de ' + amount + ' € reçu ! Le seuil des 100 € est franchi, le Hub est débloqué !';
+          unlockFakeAdSkipOption(true);
+        } else {
+          const remaining = (GOAL_DONATION - currentDonationTotal).toFixed(2).replace('.', ',');
+          toast.innerHTML = '🎉 <b>Merci ' + donorName + ' !</b> Don de ' + amount + ' € enregistré ! Plus que ' + remaining + ' € pour ouvrir le site !';
+        }
         setTimeout(() => {
           toast.style.display = 'none';
         }, 3500);
@@ -2943,7 +3003,7 @@
       }
     }
 
-    // Allow re-opening from footer or console
+    // Allow re-opening from footer
     window.openFakeAd = function() {
       const modal = document.getElementById('fake-ad-modal');
       if (modal) {
@@ -2952,9 +3012,5 @@
       }
     };
 
-    initUser();
-    startFakeAdTimer();
-  </script>
 
-  </body>
-</html>
+    
