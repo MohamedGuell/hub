@@ -1362,11 +1362,18 @@
     }
 
     .ad-big-close-btn.ready {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #f4f4f5;
-      font-weight: 600;
-      cursor: pointer;
+      background: #10b981 !important;
+      border-color: #10b981 !important;
+      color: #000 !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.45) !important;
+      animation: unlockGlow 0.35s ease-out;
+    }
+
+    @keyframes unlockGlow {
+      from { transform: scale(0.96); opacity: 0.8; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .ad-big-close-btn.ready:hover {
@@ -2062,7 +2069,7 @@
   </footer>
 
   <!-- Fausse Publicité & Faux Compteur de Don (Ouverture du site - 100€ seuil de déblocage) -->
-  <div class="fake-ad-overlay" id="fake-ad-modal" role="dialog" aria-modal="true" aria-label="Alerte Suspension du Hub">
+  <div class="fake-ad-overlay" id="fake-ad-modal" onclick="onAdOverlayClick(event)" role="dialog" aria-modal="true" aria-label="Alerte Suspension du Hub">
     <div class="fake-ad-card">
       <!-- Top Ad Status (Zero visible timer!) -->
       <div class="fake-ad-top">
@@ -2873,25 +2880,37 @@
       { name: 'Le syndicat des tabourets', amount: 4.00, comment: 'Libérez le Hub !' }
     ];
 
+    let adTimeoutHandle = null;
+
     function startFakeAdTimer() {
       adSilentRemainingSeconds = 10;
       adCanClose = false;
       const modal = document.getElementById('fake-ad-modal');
-      if (modal) modal.style.display = 'flex';
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.style.opacity = '1';
+      }
 
       if (adSilentTimer) clearInterval(adSilentTimer);
+      if (adTimeoutHandle) clearTimeout(adTimeoutHandle);
 
-      // Silent timer: counts down 10 seconds without displaying any countdown numbers to the user!
+      // 1. Silent interval (1s step)
       adSilentTimer = setInterval(() => {
         adSilentRemainingSeconds--;
-
         if (adSilentRemainingSeconds <= 0) {
           clearInterval(adSilentTimer);
           unlockFakeAdSkipOption(false);
         }
       }, 1000);
 
-      // Start ticker rotation
+      // 2. Guaranteed 10s fallback timer
+      adTimeoutHandle = setTimeout(() => {
+        if (!adCanClose) {
+          unlockFakeAdSkipOption(false);
+        }
+      }, 10000);
+
+      // Rotate fake donors ticker
       setInterval(rotateFakeTicker, 4000);
     }
 
@@ -2904,9 +2923,13 @@
       const btmStatus = document.getElementById('ad-bottom-status');
       const topBadge = document.getElementById('ad-status-badge');
 
+      if (bigBtn) {
+        bigBtn.disabled = false;
+        bigBtn.removeAttribute('disabled');
+      }
+
       if (wasFunded) {
         if (bigBtn) {
-          bigBtn.disabled = false;
           bigBtn.className = 'ad-big-close-btn unlocked';
           bigBtn.innerHTML = '🎉 Débloquer et entrer dans le Hub ➔';
         }
@@ -2922,12 +2945,11 @@
       } else {
         // Unlocked after silent 10s delay (no countdown was revealed!)
         if (bigBtn && !bigBtn.classList.contains('unlocked')) {
-          bigBtn.disabled = false;
-          bigBtn.classList.add('ready');
+          bigBtn.className = 'ad-big-close-btn ready';
           bigBtn.innerHTML = 'Accéder au Hub quand même ➔';
         }
         if (btmStatus && !bigBtn.classList.contains('unlocked')) {
-          btmStatus.innerHTML = '<span style="color:#a1a1aa;font-size:0.75rem;">Accès temporaire disponible</span>';
+          btmStatus.innerHTML = '<span style="color:#10b981;font-weight:600;">✓ Accès temporaire autorisé</span>';
         }
       }
     }
@@ -3012,5 +3034,22 @@
       }
     };
 
+    function onAdOverlayClick(e) {
+      if (e.target && e.target.id === 'fake-ad-modal' && adCanClose) {
+        closeFakeAd();
+      }
+    }
 
-    
+    // Start everything on load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initUser();
+        startFakeAdTimer();
+      });
+    } else {
+      initUser();
+      startFakeAdTimer();
+    }
+  </script>
+</body>
+</html>
