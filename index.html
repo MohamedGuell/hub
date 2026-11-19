@@ -951,6 +951,71 @@
         grid-template-columns: 1fr !important;
       }
     }
+
+    /* ---------- Message d'accueil ---------- */
+    .welcome {
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 20px 32px 0;
+    }
+    .welcome-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 48px 14px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .welcome-photo {
+      flex: none;
+      width: 120px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: var(--surface-elevated);
+      display: block;
+    }
+    .welcome-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .welcome-text {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      max-width: 620px;
+    }
+    .welcome-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .welcome-close:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+    @media (max-width: 768px) {
+      .welcome { padding: 12px 12px 0; }
+      .welcome-card { gap: 14px; padding: 12px 40px 12px 12px; }
+      .welcome-photo { width: 84px; height: 112px; }
+      .welcome-title { font-size: 1.05rem; }
+      .welcome-text { font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
@@ -984,6 +1049,22 @@
       </button>
     </div>
   </header>
+
+  <!-- Message d'accueil (fermable, ne bloque rien) -->
+  <section class="welcome" id="welcome" aria-label="Message d'accueil">
+    <div class="welcome-card">
+      <img class="welcome-photo" src="./assets/bienvenue.jpg" width="120" height="160" alt="Photo d'accueil du Hub" decoding="async">
+      <div>
+        <div class="welcome-title">Bienvenue sur le Hub 👋</div>
+        <p class="welcome-text">Content de vous voir ici ! Vidéos, jeux et directs sont à portée de clic : choisissez une application et installez-vous. Bonne visite.</p>
+      </div>
+      <button class="welcome-close" onclick="closeWelcome()" title="Fermer" aria-label="Fermer le message d'accueil">✕</button>
+    </div>
+  </section>
+  <script>
+    // Déjà fermé pendant cette visite : on ne le réaffiche pas (évite tout clignotement).
+    try { if (sessionStorage.getItem('hub_welcome_closed')) document.getElementById('welcome').hidden = true; } catch (e) {}
+  </script>
 
   <!-- Subheader & Category Tabs -->
   <div class="nav-bar">
@@ -2264,6 +2345,11 @@
       if (currentViewerUrl) {
         window.open(currentViewerUrl, '_blank', 'noopener,noreferrer');
       }
+    }
+
+    function closeWelcome() {
+      document.getElementById('welcome').hidden = true;
+      try { sessionStorage.setItem('hub_welcome_closed', '1'); } catch (e) {}
     }
 
     function escapeHtml(str) {
