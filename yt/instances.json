@@ -1,0 +1,7 @@
+{
+  "_note": "Serveurs utilisés uniquement pour la recherche et les tendances (jamais pour la lecture). Remplacez ou ajoutez des adresses d'API Piped ici si l'une d'elles ferme.",
+  "piped": [
+    "https://api.piped.private.coffee",
+    "https://pipedapi.ducks.party"
+  ]
+}
